@@ -84,7 +84,7 @@ class HalamanSiswaController extends Controller
                     ->where('kelas.id_semester', $semesterId)
                     ->where('mapels.nama', 'like', '%' . $siswa->agama . '%');
             })
-            ->select('mapels.id', DB::raw("CONCAT(kelas.rombongan_belajar, ' - ', mapels.nama) as nama"))
+            ->select('mapels.id', 'mapels.nama', DB::raw("CONCAT(kelas.rombongan_belajar, ' - ', mapels.nama) as nama"))
             ->orderBy('mapels.nama')
             ->distinct()
             ->get();
