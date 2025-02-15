@@ -365,7 +365,7 @@ class PesertaDidikController extends Controller
 
                 // Menyimpan subjek baru ke array baru
                 $newSubjects[$subject] = $grades;
-                $komentar = Penilaian::query()
+                $komentars = Penilaian::query()
                     ->select('tps.nama')
                     ->join('penilaian_t_p_s as a', 'a.penilaian_id', '=', 'penilaians.id')
                     ->join('t_p_s as tps', 'tps.id', '=', 'a.tp_id')
@@ -389,7 +389,7 @@ class PesertaDidikController extends Controller
                     ->get();
             
                 // Store the retrieved 'nama' values in komentarRapot
-                foreach ($komentar as $komentarItem) {
+                foreach ($komentars as $komentarItem) {
                     $komentarRapot[$subject][] = $komentarItem->nama;
                 }
             }        
@@ -475,7 +475,7 @@ class PesertaDidikController extends Controller
 
                 // Menyimpan subjek baru ke array baru
                 $newSubjects[$subject] = $grades;
-                $komentar = Penilaian::query()
+                $komentars = Penilaian::query()
                     ->select('tps.nama')
                     ->join('penilaian_t_p_s as a', 'a.penilaian_id', '=', 'penilaians.id')
                     ->join('t_p_s as tps', 'tps.id', '=', 'a.tp_id')
@@ -499,7 +499,7 @@ class PesertaDidikController extends Controller
                     ->get();
             
                 // Store the retrieved 'nama' values in komentarRapot
-                foreach ($komentar as $komentarItem) {
+                foreach ($komentars as $komentarItem) {
                     $komentarRapot[$subject][] = $komentarItem->nama;
                 }
             }        
