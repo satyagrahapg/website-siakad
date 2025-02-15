@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HalamanSiswaController extends Controller
-{
+{   
     public function absensi(Request $request)
     {
         $semesterId = $request->session()->get('semester_id');
@@ -41,6 +41,7 @@ class HalamanSiswaController extends Controller
             ->where('k.id_semester', $semesterId)
             ->where('s.id_user', $user->id)
             ->where('k.kelas', '!=', 'Ekskul')
+            ->select('absensi_siswas.*')
             ->orderBy('absensi_siswas.date', 'desc')
             ->get();
 

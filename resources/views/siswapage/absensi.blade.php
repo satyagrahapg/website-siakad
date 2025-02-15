@@ -80,9 +80,10 @@
             <table id="example" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th class="text-start" width="10%">No</th>
-                        <th class="text-start" width="70%">Tanggal</th>
-                        <th class="text-start" width="20%">Status</th>
+                        <th class="text-start">No</th>
+                        <th class="text-start">Tanggal</th>
+                        <th class="text-start">Terakhir Diperbarui</th>
+                        <th class="text-start">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -90,6 +91,7 @@
                     <tr>
                         <td class="text-start">{{ $loop->iteration }}</td>
                         <td class="text-start">{{ $absensi->date }}</td>
+                        <td class="text-start">{{ Carbon\Carbon::parse($absensi->updated_at)->addHours(7)->format('Y-m-d H:i:s') }}</td>
                         <td class="text-start">
                             <span class="badge 
                                     @if($absensi->status == 'sakit') bg-primary 
