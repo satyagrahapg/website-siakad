@@ -7,7 +7,6 @@ use App\Models\Guru;
 use App\Models\Semester;
 use App\Models\Mapel;
 use App\Models\Kelas;
-use App\Models\KomentarCK;
 use Illuminate\Support\Facades\DB;
 
 class MapelController extends Controller
@@ -101,12 +100,6 @@ class MapelController extends Controller
             $mapelParent = Mapel::findOrFail($request->parent_id);
             $mapel->kelas()->sync($mapelParent->kelas()->get());
         }
-
-        $komentarCK = KomentarCK::create([
-            'komentar_tengah_semester' => null,
-            'komentar_akhir_semester' => null,
-            'mapel_id' => $mapel->id
-        ]);
 
         return redirect()->route('mapel.index')->with('success', 'Mata Pelajaran berhasil ditambahkan!'); // Redirect with success message
     }
