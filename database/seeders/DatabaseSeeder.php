@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             DefaultUserSeeder::class,
             KalenderAkademikSeeder::class,
             SemesterSeeder::class,
-            WeekSeeder::class,
             SiswaSeeder::class,
         ]);
     }
