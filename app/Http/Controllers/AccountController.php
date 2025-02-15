@@ -16,15 +16,7 @@ class AccountController extends Controller
         $accounts = User::all();
 
         return view('account.index', compact('accounts'));
-    }
-
-    public function edit($id) {
-        $account = User::findOrFail($id);
-        $roles = Role::all(); // Get all available roles
-    
-        return view('account.edit', compact('account', 'roles'));
-    }
-    
+    }    
 
     public function destroy($id){
         $account = User::findOrFail($id);

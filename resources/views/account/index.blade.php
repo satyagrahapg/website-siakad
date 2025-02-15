@@ -42,7 +42,6 @@
                 <td>{{ $account->email }}</td>
                 <td>{{ count($account->getRoleNames()) > 0 ? $account->getRoleNames()->implode(', ') : "Tidak Ada" }}</td>
                 <td>
-                    {{-- <a href="{{ route('account.edit', $account->id) }}" class="btn btn-warning" style="width: 5rem">Ubah</a> --}}
                     <button class="btn btn-warning controlled" data-bs-toggle="modal" data-bs-target="#editAccountModal-{{ $account->id }}" ><i class="fa-solid fa-edit "></i></button>
 
                     <form action="{{ route('account.destroy', $account->id) }}" method="POST" style="display:inline;">
