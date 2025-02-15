@@ -1,0 +1,4 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+@import 'jquery-schedule/dist/jquery.schedule.min.css'; /* Impor CSS */
