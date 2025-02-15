@@ -71,6 +71,10 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::get('/', 'index')->name('mapel.index');
         });
 
+        Route::prefix('kalender')->controller(KalenderMapelController::class)->group(function() {
+            Route::get('jam-pelajaran', 'showJampel')->name('kalendermapel.index-jampel');
+        });
+
         Route::prefix('semesters')->controller(SemesterController::class)->group(function () {
             Route::get('/', 'index')->name('semesters.index');
         });

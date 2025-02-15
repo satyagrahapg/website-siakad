@@ -105,7 +105,6 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::post('store', 'storeMapelJampel')->name('kalendermapel.store');
             Route::post('delete', 'deleteMapelJampel')->name('kalendermapel.delete');
             Route::get('data-calendar', 'getDataCalendar')->name('kalendermapel.get-calendar');
-            Route::get('jam-pelajaran', 'showJampel')->name('kalendermapel.index-jampel');
             Route::post('jam-pelajaran/store', 'storeJampel')->name('kalendermapel.store-jampel');
             Route::delete('jam-pelajaran/{jampelId}/delete', 'hapusJampel')->name('kalendermapel.delete-jampel');
             Route::put('jam-pelajaran/{jampelId}/update', 'updateJampel')->name('kalendermapel.update-jampel');
