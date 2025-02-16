@@ -87,7 +87,7 @@
                 <td>{{ $k->semester->semester . " | " . $k->semester->tahun_ajaran }}</td>
                 <td>
                     <!-- View Students Button -->
-                    <a href="{{ route('kelas.buka', $k->id) }}" class="btn btn-info"><i class="fa-solid fa-eye"></i></a>
+                    <a href="{{ route('kelas.buka', $k->id) }}" class="btn btn-info"><i class="fa-solid fa-door-open"></i></a>
 
                     <!-- Edit Class Modal Trigger -->
                     <button class="btn btn-warning controlled" data-bs-toggle="modal" data-bs-target="#editKelasModal-{{ $k->id }}"><i class="fa-solid fa-pen-to-square"></i></button>

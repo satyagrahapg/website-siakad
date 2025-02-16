@@ -26,7 +26,7 @@
     <!-- buku absensi -->
     <button class="btn btn-warning mb-3">
         <a href="{{ route('pesertadidik.bukuAbsen', $semesterId) }}" class="text-decoration-none text-black">
-            Buku Absen
+            Buku Presensi
         </a>
     </button>
 
@@ -43,7 +43,7 @@
                     {{-- <th>Rombongan Belajar</th> --}}
                     <th class="text-start">Status</th>
                     <th class="text-start">Terakhir Diperbarui</th>
-                    <th class="text-start">Absensi</th>
+                    <th class="text-start">Presensi</th>
                 </tr>
             </thead>
             <tbody>

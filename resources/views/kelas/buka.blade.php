@@ -47,7 +47,7 @@
 
         <!-- Auto Assign Student Modal Trigger -->
         <button class="btn btn-primary mb-3" data-bs-toggle="modal"
-            data-bs-target="#autoAddStudentModal-{{ $kelas->id }}">Penempatan Peserta Didik Otomatis</button>
+            data-bs-target="#autoAddStudentModal-{{ $kelas->id }}">Penempatan Otomatis</button>
 
         <table id="example" class="table table-striped" style="width:100%">
             <thead>

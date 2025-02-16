@@ -89,7 +89,7 @@
                     <!-- Button to open Assign Kelas Modal -->
                     @if ($mapel->kelas != 'Ekskul' && !$mapel->parent)
                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#assignKelasModal-{{ $mapel->id }}">
-                        Pilih Kelas
+                        Pilih Rombel
                     </button>
                     @endif
 
@@ -105,14 +105,14 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="assignKelasModalLabel">Tambah Kelas ke {{ $mapel->nama }}</h5>
+                                    <h5 class="modal-title" id="assignKelasModalLabel">Tambah Rombel ke {{ $mapel->nama }}</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <form action="{{ route('mapel.assign-kelas', $mapel->id) }}" method="POST">
                                     @csrf
                                     <div class="modal-body">
                                         <div class="mb-3">
-                                            <label for="kelas_id" class="form-label">Pilih Kelas</label>
+                                            <label for="kelas_id" class="form-label">Pilih Rombel</label>
                                             <select name="kelas_id[]" id="kelas_id" class="form-select select-kelas" required multiple>
                                                 @foreach ($kelasOptions->where('id_semester', $mapel->semester_id)->whereIn('kelas',explode(',',$mapel->kelas)) as $k)
                                                 <option value="{{ $k->id }}" @selected(in_array($k->id,$mapel->kelas()->pluck('kelas_id')->toArray())) >{{ $k->rombongan_belajar }}</option>
@@ -122,7 +122,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                        <button type="submit" class="btn btn-primary">Pilih Kelas</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
                                     </div>
                                 </form>
                             </div>

@@ -116,7 +116,8 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="3" class="text-center">No attendance data found.</td>
+                        <td colspan="4" class="text-center">No attendance data found.</td>
+                        <td style="display: none;"></td>
                         <td style="display: none;"></td>
                         <td style="display: none;"></td>
                     </tr>
