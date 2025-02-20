@@ -15,7 +15,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SemesterSelectionController;
 use App\Http\Controllers\SillabusController;
 use App\Http\Controllers\PenilaianController;
-use App\Http\Controllers\PesertaDidikController;
+use App\Http\Controllers\WaliKelasController;
 use App\Http\Controllers\HalamanSiswaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -148,7 +148,7 @@ Route::middleware(['auth', 'check_role'])->group(function () {
     });
 
     Route::middleware('role:Wali Kelas')->group(function () {
-        Route::prefix('peserta-didik')->controller(PesertaDidikController::class)->group(function () {
+        Route::prefix('peserta-didik')->controller(WaliKelasController::class)->group(function () {
             Route::post('attendance/fetch', 'fetchAttendance')->name('pesertadidik.fetchAttendance');
             Route::post('attendance/save', 'saveAttendanceAjax')->name('pesertadidik.saveAttendanceAjax');
             Route::post('attendance/remove', 'removeAttendanceAjax')->name('pesertadidik.removeAttendanceAjax');

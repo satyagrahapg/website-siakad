@@ -9,7 +9,7 @@ use App\Models\Mapel;
 
 class SillabusController extends Controller
 {
-    //Ini fungsi" untuk CRUD CP //
+    // Ini fungsi" untuk CRUD CP
 
     public function index($mapelId)
     {
