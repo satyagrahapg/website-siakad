@@ -144,6 +144,15 @@ class PesertaDidikController extends Controller
             'date' => 'required|date',
             'semester_id' => 'required|integer',
         ]);
+
+        // check if the date is valid for the given semester, if not return an error
+        $semester = Semester::find($request->semester_id);
+        if($request->date < $semester->start || $request->date > $semester->end){
+            return response()->json([
+                'success' => false,
+                'message' => 'Tanggal tidak valid untuk semester yang dipilih! pilih tanggal antara ' . $semester->start . ' dan ' . $semester->end . ' untuk ' . $semester->semester . ' ' . $semester->tahun_ajaran,
+            ]);
+        }
     
         foreach ($request->attendance as $siswaId => $status) {
             AbsensiSiswa::updateOrCreate(

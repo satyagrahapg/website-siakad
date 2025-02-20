@@ -3,6 +3,7 @@
 @push('style')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
 @endpush
 
 @section('content')
@@ -146,6 +147,7 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> --}}
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
             // Cek apakah DataTable sudah diinisialisasi
@@ -158,6 +160,29 @@
                 language: {
                     url: "{{ asset('style/js/bahasa.json') }}" // Ganti dengan path ke file bahasa Anda
                 }
+            });
+
+            
+            // Iterasi melalui setiap modal
+            $('.modal').each(function () {
+                const modal = $(this);
+                const selectElements = modal.find('.role-multiple');
+
+                selectElements.each(function () {
+                    const selectElement = $(this); // Referensi elemen <select> saat ini
+
+                    // Ambil opsi yang sudah terpilih saat inisialisasi
+                    const nonRemovableValues = selectElement.find('option:selected').map(function () {
+                        return this.value;
+                    }).get();
+
+                    // Inisialisasi Select2 dengan dropdownParent sesuai modal
+                    selectElement.select2({
+                        dropdownParent: modal,
+                        width: '100%',
+                        placeholder: "Pilih peran"
+                    });
+                });
             });
         });
     </script>

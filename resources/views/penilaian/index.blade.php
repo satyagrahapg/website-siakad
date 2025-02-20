@@ -156,27 +156,30 @@
                             <label for="tipe" class="form-label">Tipe</label>
                             <select class="form-select" id="tipe" name="tipe" required>
                                 <option value="" disabled selected hidden>Pilih Tipe</option>
-                                <option value="Tugas">Tugas</option>
-                                <option value="UH">UH</option>
-                                <option value="STS" {{ in_array("STS", $typesExist) ? 'disabled' : '' }}>STS</option>
-                                <option value="SAS" {{ in_array("SAS", $typesExist) ? 'disabled' : '' }}>SAS</option>
+                                <option value="Tugas" @selected(old('tipe') == "Tugas")>Tugas</option>
+                                <option value="UH" @selected(old('tipe') == "UH")>UH</option>
+                                <option value="STS" {{ in_array("STS", $typesExist) ? 'disabled' : '' }} @selected(old('tipe') == "STS")>STS</option>
+                                <option value="SAS" {{ in_array("SAS", $typesExist) ? 'disabled' : '' }} @selected(old('tipe') == "SAS")>SAS</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="judul" class="form-label">Judul</label>
-                            <input type="text" class="form-control" id="judul" name="judul" required>
+                            <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul') }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="tanggal">Tanggal</label>
-                            <input type="date" name="tanggal" class="form-control" value="" required>
+                            <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ old('tanggal') }}" required>
+                            @error('tanggal')
+                                <label for="tanggal" class="invalid-feedback">{{ $message }}</label>                                
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="kktp" class="form-label">KKTP</label>
-                            <input type="text" class="form-control" id="kktp" name="kktp" required>
+                            <input type="text" class="form-control" id="kktp" name="kktp" value="{{ old('kktp') }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="keterangan" class="form-label">Keterangan</label>
-                            <textarea class="form-control" id="keterangan" name="keterangan" ></textarea>
+                            <textarea class="form-control" id="keterangan" name="keterangan" >{{ old('keterangan') }}</textarea>
                         </div>
                         <div class="mb-3">
                             <label for="tp_ids" class="form-label">TP</label>
@@ -234,6 +237,14 @@
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
+@if($errors->has('tanggal'))
+    <script>
+        $(document).ready(function() {
+            createPenilaianModal = new bootstrap.Modal('#createPenilaianModal');
+            createPenilaianModal.show()
+        })
+    </script>
+@endif
 <script>
     $(document).ready(function() {
         // Cek apakah DataTable sudah diinisialisasi

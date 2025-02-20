@@ -12,6 +12,7 @@ use App\Models\PenilaianSiswa;
 use App\Models\PenilaianEkskul;
 use App\Models\MapelKelas;
 use App\Models\PenilaianTP;
+use App\Models\Semester;
 use Illuminate\Support\Facades\DB;
 
 class PenilaianController extends Controller
@@ -93,14 +94,29 @@ class PenilaianController extends Controller
 
     public function storePenilaian(Request $request, $mapelKelasId)
     {
+        // dd($request->all(), $request->session()->get('semester_id'));
         $request->validate([
             'tipe' => 'required|string|max:255',
             'judul' => 'required|string|max:255',
-            'tanggal' => 'required',
+            'tanggal' => ['required', function ($attribute, $value, $fail) use ($request) {
+                $semester = Semester::find($request->session()->get('semester_id'));
+    
+                if (!$semester) {
+                    $fail('Semester tidak ditemukan.');
+                    return;
+                }
+    
+                if ($value < $semester->start || $value > $semester->end) {
+                    $fail('Tanggal tidak valid untuk semester yang dipilih! Pilih tanggal antara ' 
+                        . $semester->start . ' dan ' . $semester->end 
+                        . ' untuk ' . $semester->semester . ' ' . $semester->tahun_ajaran . '.');
+                }
+            }
+        ],
             'kktp' => 'required|integer',
             'keterangan' => 'nullable|string|max:255',
             'tp_ids' => 'required',
-        ]);
+        ]);       
 
         $mapelkelas = MapelKelas::find($mapelKelasId);
 

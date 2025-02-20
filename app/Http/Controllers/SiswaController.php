@@ -16,12 +16,14 @@ use Mail;
 
 class SiswaController extends Controller 
 {
+    //MENAMPILKAN HALAMAN MASTER DATABASE PESERTA DIDIK
     public function index(){
         $siswas = Siswa::orderBy('nama', 'asc')
             ->get();
         return view('siswa.index', compact('siswas'));
     }
 
+    //MENGIMPOR DATA PESERTA DIDIK DARI EXCEL
     public function import(Request $request) {
         $request->validate([
             'file' => 'required|max:2048'
@@ -31,15 +33,18 @@ class SiswaController extends Controller
         return redirect()->route('siswa.index')->with('success', 'File berhasil diimport!');
     }
 
+    //MENGEKSPOR DATA PESERTA DIDIK KE BENTUK EXCEL
     public function export() {
         return Excel::download(new SiswaExport, 'siswa.xlsx', );
     }
 
+    //INI APA YA LUPAA, KAYAKNYA GA DIPAKE 
     public function showImportForm()
     {
         return view('siswa.import');
     }
 
+    //MEN GENERATE AKUN UNTUK PESERTA DIDIK
     public function generateUser(Request $request, $siswaId)
     {
         // // Find the `Siswa` record
@@ -70,15 +75,8 @@ class SiswaController extends Controller
 
         return redirect()->route('siswa.index')->with('success', 'User berhasil dibuat dengan username ' . $user->username . ' dan password ' . $user->password);
     }
-
-    public function delete($siswaId)
-    {
-        $siswa = Siswa::findOrFail($siswaId);
-        $siswa->delete();
-
-        return redirect()->route('siswa.index')->with('success', 'Data berhasil dihapus!');
-    }
     
+    //MENYIMPAN DATA PESERTA DIDIK BARU 
     public function store(Request $request)
     {
         // Validate that only `no_pendaftaran` is required and all other fields are nullable
@@ -109,7 +107,9 @@ class SiswaController extends Controller
         Siswa::create($validated);
 
         return redirect()->route('siswa.index')->with('success', 'Data Siswa berhasil ditambahkan');
-    }   
+    } 
+    
+    //MEMPERBARUI DATA PESERTA DIDIK
     public function update(Request $request, $siswaId)
     {
         // Validate that only `no_pendaftaran` is required and all other fields are nullable
@@ -142,5 +142,13 @@ class SiswaController extends Controller
 
         return redirect()->route('siswa.index')->with('success', 'Data Siswa berhasil diubah');
     }   
+
+    public function delete($siswaId)
+    {
+        $siswa = Siswa::findOrFail($siswaId);
+        $siswa->delete();
+
+        return redirect()->route('siswa.index')->with('success', 'Data berhasil dihapus!');
+    }
 
 }

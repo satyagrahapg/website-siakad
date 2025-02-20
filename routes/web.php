@@ -24,9 +24,14 @@ app()->router->group(['prefix' => 'api'], function () {
     require base_path('routes/api.php');
 });
 
-Route::middleware('guest')->controller(LoginController::class)->group(function () {
-    Route::get('/', 'showLoginForm')->name('root');
-    Route::get('login', 'showLoginForm')->name('login');
+//Routes Login
+Route::middleware('guest')->group(function () {
+    Route::controller(LoginController::class)->group(function() {
+        Route::get('/', 'showLoginForm')->name('root');
+        Route::get('login', 'showLoginForm')->name('login');
+    });
+
+    //Routes Forget PW
     Route::controller(ForgotPasswordController::class)->group(function() {
         Route::get('forget-password', 'showForgetPasswordForm')->name('forget.password.get');       
         Route::get('reset-password/{token}', 'showResetPasswordForm')->name('reset.password.get');    

@@ -64,16 +64,6 @@ class MapelController extends Controller
         return view('mapel.index', compact('kelasOptions', 'kelas', 'semesters', 'gurus', 'mapels', 'rombel', 'listMapel'));
     }
 
-    
-
-    public function hapusMapel($mapelId)
-    {
-        $mapel = Mapel::findOrFail($mapelId);
-        $mapel->delete();
-
-        return redirect()->route('mapel.index')->with('success', 'Mata Pelajaran berhasil dihapus.');
-    }
-
     public function store(Request $request)
     {
         // Validate the incoming request data
@@ -133,5 +123,13 @@ class MapelController extends Controller
         return response()->json([
             'data' => $mapel
         ], 200);
+    }
+
+    public function hapusMapel($mapelId)
+    {
+        $mapel = Mapel::findOrFail($mapelId);
+        $mapel->delete();
+
+        return redirect()->route('mapel.index')->with('success', 'Mata Pelajaran berhasil dihapus.');
     }
 }

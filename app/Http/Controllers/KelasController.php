@@ -247,7 +247,7 @@ class KelasController extends Controller
 
         // Check if the class already has 30 students
         if ($kelas->siswas()->count() >= 30) {
-            return redirect()->back()->with('error', 'Kelas sudah penuh. Maksimal 30 siswa.');
+            return redirect()->back()->with('error', 'Kelas sudah penuh');
         }
 
         // Attach the student to the class using the pivot table

@@ -27,6 +27,13 @@
                             <label for="password-{{ $a->id }}" class="form-label">Kata Sandi</label>
                             <input type="text" class="form-control" id="password-{{ $a->id }}" name="password" value="{{ Str::random(6) }}" required minlength="6">
                         </div>
+                        <div class="mb-3">
+                            <label for="roles" class="form-label">Hak Akses</label>
+                            <select class="role-multiple form-select" name="roles[]" multiple="multiple" required>
+                                <option value="Super Admin">Super Admin</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-primary">Buat</button>
                     </form>
                 </div>

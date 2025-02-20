@@ -12,19 +12,14 @@ use Spatie\Permission\Models\Role;
 
 class AccountController extends Controller
 {
+    //MENAMPILKAN HALAMAN AKUN ~ SUPERADMIN
     public function index(Request $request){
         $accounts = User::all();
 
         return view('account.index', compact('accounts'));
     }    
 
-    public function destroy($id){
-        $account = User::findOrFail($id);
-        $account->delete();
-
-        return redirect()->route('account.index')->with('success', 'Akun berhasil dihapus!');
-    }
-
+    //MEMPERBARUI DATA AKUN
     public function update(Request $request, $id) {
         $account = User::findOrFail($id);
         // Update the user's basic info
@@ -37,6 +32,14 @@ class AccountController extends Controller
         // Update the user's role
         $account->syncRoles($request->input('roles')); // Use syncRoles to replace the current role with the new one
     
-        return redirect()->route('account.index')->with('success', 'Akun dan Hak Akses berhasil diperbarui!');
+        return redirect()->route('account.index')->with('success', 'Akun berhasil diperbarui!');
+    }
+
+    //HAPUS DATA AKUN
+    public function destroy($id){
+        $account = User::findOrFail($id);
+        $account->delete();
+
+        return redirect()->route('account.index')->with('success', 'Akun berhasil dihapus!');
     }
 }

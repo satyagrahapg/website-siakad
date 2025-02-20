@@ -20,8 +20,8 @@ use App\Http\Controllers\HalamanSiswaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 
-Route::middleware('guest')->controller(LoginController::class)->group(function () {
-    Route::post('login', 'login')->name('post_login');
+Route::middleware('guest')->group(function () {
+    Route::post('login', [LoginController::class, 'login'])->name('post_login');
     Route::controller(ForgotPasswordController::class)->group(function() {
         Route::post('forget-password', 'submitForgetPasswordForm')->name('forget.password.post'); 
         Route::post('reset-password', 'submitResetPasswordForm')->name('reset.password.post');

@@ -44,6 +44,7 @@ class LoginController extends Controller
         return back()->withErrors(['invalid_credentials' => 'Login gagal, mohon periksa kembali!']);
     }
 
+    //Menampilkan Halaman Pilih Role
     public function select_role()
     {        
         $user_roles = Auth::user()->getRoleNames()->toArray();
@@ -52,12 +53,12 @@ class LoginController extends Controller
         usort($user_roles, function ($a, $b) use ($role_order_map) {
             return $role_order_map[$a] - $role_order_map[$b];
         });
-        if (count($user_roles) != 1) {
+        if (count($user_roles) != 1) { //Kalo dia punya lebih dari 1 role maka muncul halaman pilih role
             return view('auth.role', [
                 'roles' => $user_roles,
             ]);
         } else {
-            session(['active_role' => $user_roles[0]]);
+            session(['active_role' => $user_roles[0]]); //Kalo dia role cuman 1 langsung masuk sesuai rolenya
             return redirect()->route('home');
         }
     }
@@ -71,6 +72,7 @@ class LoginController extends Controller
         } else return redirect()->route('role');
     }
 
+    //Keluar dari akun
     public function logout()
     {
         Auth::logout(); // Logout pengguna dari session auth

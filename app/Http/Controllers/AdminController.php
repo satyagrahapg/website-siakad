@@ -92,6 +92,7 @@ class AdminController extends Controller
             'email' => 'required|email',
             'username' => 'required|string|unique:users,username',
             'password' => 'required|string',
+            'roles' => 'required'
         ]);
 
         $user = User::create([
@@ -106,7 +107,7 @@ class AdminController extends Controller
             $message->subject('Akun SMP anda telah dibuat!');
         });  
 
-        $user->assignRole('Admin');
+        $user->syncRoles($request->roles);
         $admin->id_user = $user->id;
         $admin->save();
         return redirect()->route('admin.index')->with('success', 'Berhasil membuat akun baru.');
