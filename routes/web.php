@@ -47,7 +47,7 @@ Route::middleware(['auth', 'check_role'])->group(function () {
     Route::get('profile', [UserController::class, 'profile'])->name('profile');
     Route::get('jadwal', [JadwalMapelController::class, 'index'])->name('jadwalmapel.index');
     Route::get('kalender-akademik', [KalenderAkademikController::class, 'index'])->name('kalenderakademik.index');                      
-               
+    
     Route::middleware('role:Admin|Super Admin')->group(function () {
         Route::prefix('accounts')->controller(AccountController::class)->group(function () {
             Route::get('/', 'index')->name('account.index');
