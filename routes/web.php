@@ -6,7 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KalenderAkademikController;
-use App\Http\Controllers\KalenderMapelController;
+use App\Http\Controllers\JadwalMapelController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\KelasController;
@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'check_role'])->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
     Route::get('profile', [UserController::class, 'profile'])->name('profile');
-    Route::get('kalender', [KalenderMapelController::class, 'index'])->name('kalendermapel.index');
+    Route::get('jadwal', [JadwalMapelController::class, 'index'])->name('jadwalmapel.index');
     Route::get('kalender-akademik', [KalenderAkademikController::class, 'index'])->name('kalenderakademik.index');                      
                
     Route::middleware('role:Admin|Super Admin')->group(function () {
@@ -76,8 +76,8 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::get('/', 'index')->name('mapel.index');
         });
 
-        Route::prefix('kalender')->controller(KalenderMapelController::class)->group(function() {
-            Route::get('jam-pelajaran', 'showJampel')->name('kalendermapel.index-jampel');
+        Route::prefix('jadwal')->controller(JadwalMapelController::class)->group(function() {
+            Route::get('jam-pelajaran', 'showJampel')->name('jadwalmapel.index-jampel');
         });
 
         Route::prefix('semesters')->controller(SemesterController::class)->group(function () {

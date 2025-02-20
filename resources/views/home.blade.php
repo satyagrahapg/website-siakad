@@ -265,7 +265,7 @@
                                         <div class="card p-3 h-100">
                                             <div class="d-flex justify-content-between">
                                                 <div class="d-flex flex-column justify-content-between">
-                                                    <p class="card-title mb-3" style="font-size:0.85rem"><a href="{{ route('kalendermapel.index') }}" class="stretched-link text-decoration-none text-dark">Cek Jadwal Pembelajaran</a></p>
+                                                    <p class="card-title mb-3" style="font-size:0.85rem"><a href="{{ route('jadwalmapel.index') }}" class="stretched-link text-decoration-none text-dark">Cek Jadwal Pembelajaran</a></p>
                                                     <h5 class="card-text">Jangan Lupa Jadwalnya</h5>
                                                 </div>
                                                 <i class="fa-solid fa-caret-right fa-2xl" style="margin-top: 32px;"></i>

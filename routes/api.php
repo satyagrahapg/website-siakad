@@ -6,7 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KalenderAkademikController;
-use App\Http\Controllers\KalenderMapelController;
+use App\Http\Controllers\JadwalMapelController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\KelasController;
@@ -100,15 +100,15 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::post('fetchKalender', 'ajax')->name('kalenderakademik.ajax');
         });
 
-        Route::prefix('kalender')->controller(KalenderMapelController::class)->group(function() {
-            Route::get('ajaxhandler', 'indexAjaxHandler')->name('kalendermapel.ajaxHandler');
-            Route::post('store', 'storeMapelJampel')->name('kalendermapel.store');
-            Route::post('delete', 'deleteMapelJampel')->name('kalendermapel.delete');
-            Route::get('data-calendar', 'getDataCalendar')->name('kalendermapel.get-calendar');
-            Route::post('jam-pelajaran/store', 'storeJampel')->name('kalendermapel.store-jampel');
-            Route::delete('jam-pelajaran/{jampelId}/delete', 'hapusJampel')->name('kalendermapel.delete-jampel');
-            Route::put('jam-pelajaran/{jampelId}/update', 'updateJampel')->name('kalendermapel.update-jampel');
-            Route::post('get-kelas-by-mapel', 'getKelasByMapel')->name('kalendermapel.ajax');
+        Route::prefix('jadwal')->controller(JadwalMapelController::class)->group(function() {
+            Route::get('ajaxhandler', 'indexAjaxHandler')->name('jadwalmapel.ajaxHandler');
+            Route::post('store', 'storeMapelJampel')->name('jadwalmapel.store');
+            Route::post('delete', 'deleteMapelJampel')->name('jadwalmapel.delete');
+            Route::get('data-calendar', 'getDataCalendar')->name('jadwalmapel.get-calendar');
+            Route::post('jam-pelajaran/store', 'storeJampel')->name('jadwalmapel.store-jampel');
+            Route::delete('jam-pelajaran/{jampelId}/delete', 'hapusJampel')->name('jadwalmapel.delete-jampel');
+            Route::put('jam-pelajaran/{jampelId}/update', 'updateJampel')->name('jadwalmapel.update-jampel');
+            Route::post('get-kelas-by-mapel', 'getKelasByMapel')->name('jadwalmapel.ajax');
         });
 
         Route::prefix('semesters')->controller(SemesterController::class)->group(function () {
@@ -119,8 +119,8 @@ Route::middleware(['auth', 'check_role'])->group(function () {
     });
 
     Route::middleware('role:Guru|Wali Kelas')->group(function () {
-        Route::prefix('kalender')->controller(KalenderMapelController::class)->group(function() {
-            Route::get('data-calendar-guru', 'getDataCalendarGuru')->name('kalendermapel.get-calendar-guru');
+        Route::prefix('jadwal')->controller(JadwalMapelController::class)->group(function() {
+            Route::get('data-calendar-guru', 'getDataCalendarGuru')->name('jadwalmapel.get-calendar-guru');
         });
 
         Route::prefix('cp')->controller(SillabusController::class)->group(function () {
@@ -159,8 +159,8 @@ Route::middleware(['auth', 'check_role'])->group(function () {
     });
 
     Route::middleware('role:Siswa')->group(function () {
-        Route::prefix('siswa')->controller(KalenderMapelController::class)->group(function () {
-            Route::get('data-calendar-siswa', 'getDataCalendarSiswa')->name('kalendermapel.get-calendar-siswa');
+        Route::prefix('siswa')->controller(JadwalMapelController::class)->group(function () {
+            Route::get('data-calendar-siswa', 'getDataCalendarSiswa')->name('jadwalmapel.get-calendar-siswa');
         });
         
         Route::prefix('siswa')->controller(HomeController::class)->group(function () {

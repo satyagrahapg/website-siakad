@@ -128,7 +128,7 @@
                                     <a href="{{route('mapel.index')}}" class="sidebar-link">Mengelola Mata Pelajaran</a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="{{route('kalendermapel.index')}}" class="sidebar-link">Jadwal Mata Pelajaran</a>
+                                    <a href="{{route('jadwalmapel.index')}}" class="sidebar-link">Jadwal Mata Pelajaran</a>
                                 </li>
                             </ul>
                         </li>
@@ -171,7 +171,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{route('kalendermapel.index')}}" class="sidebar-link">
+                            <a href="{{route('jadwalmapel.index')}}" class="sidebar-link">
                                 <i class="fa-regular fa-calendar"></i>
                                 Jadwal Pelajaran
                             </a>
@@ -255,7 +255,7 @@
                             </ul>
                         </li> --}}
                         <li class="sidebar-item">
-                            <a href="{{ route('kalendermapel.index') }}" class="sidebar-link">
+                            <a href="{{ route('jadwalmapel.index') }}" class="sidebar-link">
                                 <i class="fa-regular fa-calendar"></i>
                                 Jadwal Pelajaran
                             </a>

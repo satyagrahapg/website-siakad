@@ -84,7 +84,7 @@
         </div>
         <div class="col">
             <button class="btn btn-primary" id="btnShowCalendar" style="margin-top: 24px;">Lihat Kalender</button>
-            <a href="{{ route('kalendermapel.index-jampel') }}" class="btn btn-warning text-white" style="margin-top: 24px; margin-left:16px;">Buka Jam Pelajaran</a>
+            <a href="{{ route('jadwalmapel.index-jampel') }}" class="btn btn-warning text-white" style="margin-top: 24px; margin-left:16px;">Buka Jam Pelajaran</a>
         </div>
     </div>
     <div class="row mb-4">
@@ -215,7 +215,7 @@
 
             if (semesterId) {
                 $.ajax({
-                    url: '{{ route("kalendermapel.ajaxHandler") }}',
+                    url: '{{ route("jadwalmapel.ajaxHandler") }}',
                     type: 'GET',
                     data: {
                         action: 'getKelas',
@@ -246,7 +246,7 @@
 
             if (kelasKelas) {
                 $.ajax({
-                    url: '{{ route("kalendermapel.ajaxHandler") }}',
+                    url: '{{ route("jadwalmapel.ajaxHandler") }}',
                     type: 'GET',
                     data: {
                         action: 'getRombel',
@@ -277,7 +277,7 @@
             if (kelasId) {
                 refreshCalendar();
                 $.ajax({
-                    url: '{{ route("kalendermapel.ajaxHandler") }}',
+                    url: '{{ route("jadwalmapel.ajaxHandler") }}',
                     type: 'GET',
                     data: {
                         action: 'getMapel',
@@ -305,7 +305,7 @@
             
             if (mapelkelasId) {
                 $.ajax({
-                    url: '{{ route("kalendermapel.ajaxHandler") }}',
+                    url: '{{ route("jadwalmapel.ajaxHandler") }}',
                     type: 'GET',
                     data: {
                         action: 'getJampel',
@@ -338,7 +338,7 @@
 
             // Kirim request AJAX
             $.ajax({
-                url: '{{ route("kalendermapel.get-calendar") }}',
+                url: '{{ route("jadwalmapel.get-calendar") }}',
                 type: 'GET',
                 data: {
                     rombelId: rombelId
@@ -359,7 +359,7 @@
 
             // Kirim request AJAX
             $.ajax({
-                url: '{{ route("kalendermapel.store") }}', // Ganti dengan URL endpoint Anda
+                url: '{{ route("jadwalmapel.store") }}', // Ganti dengan URL endpoint Anda
                 type: 'POST',
                 data: {
                     mapelkelasId: maPelValue,
@@ -390,7 +390,7 @@
             const jpmkValue = $('#jpmk-id').val();
 
             $.ajax({
-                url: '{{ route("kalendermapel.delete") }}',
+                url: '{{ route("jadwalmapel.delete") }}',
                 type: 'POST',
                 data: {
                     jpmkId: jpmkValue
@@ -468,7 +468,7 @@
         });
 
         $.ajax({
-            url: '{{ route("kalendermapel.get-calendar-guru") }}',
+            url: '{{ route("jadwalmapel.get-calendar-guru") }}',
             type: 'GET',
             success: function (data) {
                 $('#schedule').jqs('reset');
@@ -501,7 +501,7 @@
         });
 
         $.ajax({
-            url: '{{ route("kalendermapel.get-calendar-siswa") }}',
+            url: '{{ route("jadwalmapel.get-calendar-siswa") }}',
             type: 'GET',
             success: function (data) {
                 $('#schedule').jqs('reset');
