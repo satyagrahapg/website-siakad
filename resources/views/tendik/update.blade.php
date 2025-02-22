@@ -1,12 +1,12 @@
 <!-- Ubah Admin Modal -->
-<div class="modal fade" id="editAdminModal-{{ $a->id }}" tabindex="-1" aria-labelledby="editAdminModalLabel" aria-hidden="true">
+<div class="modal fade" id="editTendikModal-{{ $a->id }}" tabindex="-1" aria-labelledby="editTendikModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editAdminModalLabel">Ubah data {{ $a->nama }}</h5>
+                <h5 class="modal-title" id="editTendikModalLabel">Ubah Data Tendik {{ $a->nama }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('admin.update', $a->id) }}" method="POST">
+            <form action="{{ route('tendik.update', $a->id) }}" method="POST">
                 @csrf
                 @method('PUT') <!-- Use PUT here to match REST conventions for updates -->
                 

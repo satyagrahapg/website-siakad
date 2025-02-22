@@ -1,10 +1,10 @@
-<div class="modal fade" id="createAdminModal" tabindex="-1" aria-labelledby="createAdminModalLabel" aria-hidden="true">
+<div class="modal fade" id="createTendikModal" tabindex="-1" aria-labelledby="createTendikModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="{{ route('admin.create') }}" method="POST">
+            <form action="{{ route('tendik.create') }}" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createAdminModalLabel">Tambah Tenaga Kependidikan</h5>
+                    <h5 class="modal-title" id="createTendikModalLabel">Tambah Tenaga Kependidikan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body row g-2">

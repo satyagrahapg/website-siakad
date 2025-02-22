@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\JamPelajaran;
 use App\Models\JamPelajaranMapelKelas;
 use Illuminate\Http\Request;
-use App\Models\KalenderMapel;
+use App\Models\JadwalMapel;
 use App\Models\Kelas;
 use App\Models\MapelKelas;
 use App\Models\Semester;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
 
-class KalenderMapelController extends Controller
+class JadwalMapelController extends Controller
 {
     public function index(Request $request)
     {
         $semesters = Semester::all();
 
-        return view('kalendermapel.index', compact('semesters'));
+        return view('jadwalmapel.index', compact('semesters'));
     }
 
     public function indexAjaxHandler(Request $request)
@@ -367,7 +367,7 @@ class KalenderMapelController extends Controller
     public function showJampel(Request $request) {
         $jampels = JamPelajaran::orderByRaw("FIELD(hari, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'), jam_mulai ASC")->get();
 
-        return view('kalendermapel.index-jampel', compact('jampels'));
+        return view('jadwalmapel.index-jampel', compact('jampels'));
     }
 
     public function storeJampel(Request $request) {
@@ -379,7 +379,7 @@ class KalenderMapelController extends Controller
 
         JamPelajaran::create($request->all());
 
-        return redirect()->route('kalendermapel.index-jampel')->with('success', 'Jam pelajaran berhasil ditambahkan.');
+        return redirect()->route('jadwalmapel.index-jampel')->with('success', 'Jam pelajaran berhasil ditambahkan.');
     }
 
     public function hapusJampel($jampelId)
@@ -387,7 +387,7 @@ class KalenderMapelController extends Controller
         $jampel = JamPelajaran::findOrFail($jampelId);
         $jampel->delete();
 
-        return redirect()->route('kalendermapel.index-jampel')->with('success', 'Jam pelajaran berhasil dihapus.');
+        return redirect()->route('jadwalmapel.index-jampel')->with('success', 'Jam pelajaran berhasil dihapus.');
     }
 
     public function updateJampel(Request $request, $jampelId) {
@@ -400,7 +400,7 @@ class KalenderMapelController extends Controller
         $jampel = JamPelajaran::findOrFail($jampelId);
         $jampel->update($request->all());
 
-        return redirect()->route('kalendermapel.index-jampel')->with('success', 'Jam pelajaran berhasil diubah.');
+        return redirect()->route('jadwalmapel.index-jampel')->with('success', 'Jam pelajaran berhasil diubah.');
     }
 
     public function getKelasByMapel(Request $request)

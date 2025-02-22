@@ -2,14 +2,14 @@
 
 namespace App\Imports;
 
-use App\Models\Admin;
+use App\Models\Tendik;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithSkipDuplicates;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class AdminImport implements ToModel, WithValidation, WithHeadingRow, WithUpserts, WithSkipDuplicates 
+class TendikImport implements ToModel, WithValidation, WithHeadingRow, WithUpserts, WithSkipDuplicates 
 {
     /**
      * @param array $row
@@ -45,7 +45,7 @@ class AdminImport implements ToModel, WithValidation, WithHeadingRow, WithUpsert
             return null;
         }
 
-        return new Admin([
+        return new Tendik([
             'nip' => $row['nip'] ?? null,
             'nama' => $row['nama'] ?? null,
             'tempat_lahir' => $row['tempat_lahir'] ?? null,

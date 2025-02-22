@@ -6,16 +6,16 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KalenderAkademikController;
-use App\Http\Controllers\KalenderMapelController;
+use App\Http\Controllers\JadwalMapelController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TendikController;
 use App\Http\Controllers\SemesterSelectionController;
 use App\Http\Controllers\SillabusController;
 use App\Http\Controllers\PenilaianController;
-use App\Http\Controllers\PesertaDidikController;
+use App\Http\Controllers\WaliKelasController;
 use App\Http\Controllers\HalamanSiswaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -45,9 +45,9 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'check_role'])->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
     Route::get('profile', [UserController::class, 'profile'])->name('profile');
-    Route::get('kalender', [KalenderMapelController::class, 'index'])->name('kalendermapel.index');
+    Route::get('jadwal', [JadwalMapelController::class, 'index'])->name('jadwalmapel.index');
     Route::get('kalender-akademik', [KalenderAkademikController::class, 'index'])->name('kalenderakademik.index');                      
-               
+    
     Route::middleware('role:Admin|Super Admin')->group(function () {
         Route::prefix('accounts')->controller(AccountController::class)->group(function () {
             Route::get('/', 'index')->name('account.index');
@@ -61,8 +61,8 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::get('/', 'index')->name('guru.index');
         });
 
-        Route::prefix('staffs')->controller(AdminController::class)->group(function() {
-            Route::get('/', 'index')->name('admin.index');
+        Route::prefix('staffs')->controller(TendikController::class)->group(function() {
+            Route::get('/', 'index')->name('tendik.index');
         });
     });
 
@@ -76,8 +76,8 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::get('/', 'index')->name('mapel.index');
         });
 
-        Route::prefix('kalender')->controller(KalenderMapelController::class)->group(function() {
-            Route::get('jam-pelajaran', 'showJampel')->name('kalendermapel.index-jampel');
+        Route::prefix('jadwal')->controller(JadwalMapelController::class)->group(function() {
+            Route::get('jam-pelajaran', 'showJampel')->name('jadwalmapel.index-jampel');
         });
 
         Route::prefix('semesters')->controller(SemesterController::class)->group(function () {
@@ -106,7 +106,7 @@ Route::middleware(['auth', 'check_role'])->group(function () {
     });
 
     Route::middleware('role:Wali Kelas')->group(function () {
-        Route::prefix('peserta-didik')->controller(PesertaDidikController::class)->group(function () {
+        Route::prefix('peserta-didik')->controller(WaliKelasController::class)->group(function () {
             Route::get('buku-absen/{semesterId}', 'bukuAbsen')->name('pesertadidik.bukuAbsen');
             Route::get('{semesterId}', 'index')->name('pesertadidik.index');
             Route::get('leger-nilai/{kelasId}/{semesterId}', 'bukaLegerNilai')->name('pesertadidik.legerNilai');

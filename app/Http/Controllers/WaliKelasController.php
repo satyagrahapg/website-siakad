@@ -18,7 +18,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use PDF;
 
-class PesertaDidikController extends Controller
+class WaliKelasController extends Controller
 {
     public function index($semesterId)
     {

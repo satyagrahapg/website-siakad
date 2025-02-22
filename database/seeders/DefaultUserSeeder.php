@@ -22,40 +22,5 @@ class DefaultUserSeeder extends Seeder
             'password' => 'satyagraha'
         ]);
         $superadmin->assignRole(['Super Admin', 'Admin', 'Guru', 'Wali Kelas']);
-
-        // $superadmin = User::create([
-        //     'name' => 'Admin',
-        //     'email' => 'admin@gmail.com',
-        //     'username' => 'admin',
-        //     'password' => 'admin'
-        // ]);
-        // $superadmin->assignRole('Admin');
-
-        // // Creating Admin User
-        // $wali_kelas = User::create([
-        //     'name' => 'wali',
-        //     'email' => 'wali@gmail.com',
-        //     'username' => 'walikelas',
-        //     'password' => 'walikelas'
-        // ]);
-        // $wali_kelas->assignRole('Wali Kelas');
-
-        // // Creating Product Manager User
-        // $guru= User::create([
-        //     'name' => 'guru',
-        //     'email' => 'guru@gmail.com', 
-        //     'username' => 'guru',
-        //     'password' => 'guru'
-        // ]);
-        // $guru->assignRole('Guru');
-
-        // // Creating Application User
-        // $user = User::create([
-        //     'name' => 'Safaat',
-        //     'email' => 'safaat@gmail.com', 
-        //     'username' => 'siswa',
-        //     'password' => 'siswa'
-        // ]);
-        // $user->assignRole('Siswa');
     }
 }

@@ -47,7 +47,7 @@
                 <td>
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#ubahJampelModal-{{ $jampel->id }}"><i class="fa-solid fa-pen-to-square"></i></button>
                     
-                    <form action="{{ route('kalendermapel.delete-jampel', $jampel->id) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('jadwalmapel.delete-jampel', $jampel->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger deleteAlert"><i class="fa-solid fa-trash"></i></button>
@@ -60,7 +60,7 @@
                                     <h5 class="modal-title" id="ubahJampelModalLabel">Ubah Jam Pelajaran</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form action="{{ route('kalendermapel.update-jampel', $jampel->id) }}" method="POST">
+                                <form action="{{ route('jadwalmapel.update-jampel', $jampel->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="modal-body">
@@ -110,7 +110,7 @@
                     <h5 class="modal-title" id="createJampelModalLabel">Tambah Jam Pelajaran Baru</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('kalendermapel.store-jampel') }}" method="POST">
+                <form action="{{ route('jadwalmapel.store-jampel') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">

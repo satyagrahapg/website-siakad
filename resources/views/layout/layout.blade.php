@@ -58,7 +58,7 @@
                             </a>
                             <ul id="biografi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                 <li class="sidebar-item">
-                                    <a href="{{route('admin.index')}}" class="sidebar-link">Tenaga Kependidikan</a>
+                                    <a href="{{route('tendik.index')}}" class="sidebar-link">Tenaga Kependidikan</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="{{route('guru.index')}}" class="sidebar-link">Pendidik</a>
@@ -102,7 +102,7 @@
                             </a>
                             <ul id="biografi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                 <li class="sidebar-item">
-                                    <a href="{{route('admin.index')}}" class="sidebar-link">Tenaga Kependidikan</a>
+                                    <a href="{{route('tendik.index')}}" class="sidebar-link">Tenaga Kependidikan</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="{{route('guru.index')}}" class="sidebar-link">Pendidik</a>
@@ -128,7 +128,7 @@
                                     <a href="{{route('mapel.index')}}" class="sidebar-link">Mengelola Mata Pelajaran</a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="{{route('kalendermapel.index')}}" class="sidebar-link">Jadwal Mata Pelajaran</a>
+                                    <a href="{{route('jadwalmapel.index')}}" class="sidebar-link">Jadwal Mata Pelajaran</a>
                                 </li>
                             </ul>
                         </li>
@@ -171,7 +171,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{route('kalendermapel.index')}}" class="sidebar-link">
+                            <a href="{{route('jadwalmapel.index')}}" class="sidebar-link">
                                 <i class="fa-regular fa-calendar"></i>
                                 Jadwal Pelajaran
                             </a>
@@ -255,7 +255,7 @@
                             </ul>
                         </li> --}}
                         <li class="sidebar-item">
-                            <a href="{{ route('kalendermapel.index') }}" class="sidebar-link">
+                            <a href="{{ route('jadwalmapel.index') }}" class="sidebar-link">
                                 <i class="fa-regular fa-calendar"></i>
                                 Jadwal Pelajaran
                             </a>

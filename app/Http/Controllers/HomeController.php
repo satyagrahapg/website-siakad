@@ -11,7 +11,7 @@ use App\Models\Guru;
 use App\Models\Siswa;
 use App\Models\Kelas;
 use App\Models\Mapel;
-use App\Models\Admin;
+use App\Models\Tendik;
 use App\Models\TP;
 use App\Models\CP;
 use App\Models\Penilaian;
@@ -43,11 +43,11 @@ class HomeController extends Controller
             $totalEkskul = Kelas::where('kelas', 'Ekskul')->count();
             $totalKelas = Kelas::where('kelas', '!=', 'Ekskul')->count();
             $totalMapel = Mapel::count();
-            $totalAdmin = Admin::count();
+            $totalAdmin = Tendik::count();
 
             $totalOperator = User::role('Admin')->count();
 
-            $tenagaKependidikanChartData = Admin::selectRaw("
+            $tenagaKependidikanChartData = Tendik::selectRaw("
                 COUNT(CASE WHEN jabatan = 'Tenaga Kebersihan' THEN 1 END) AS tenaga_kebersihan,
                 COUNT(CASE WHEN jabatan = 'Tenaga Keamanan' THEN 1 END) AS tenaga_keamanan,
                 COUNT(CASE WHEN jabatan = 'Tata Usaha' THEN 1 END) AS tata_usaha
@@ -89,7 +89,7 @@ class HomeController extends Controller
                 ->get();
 
             $operator = $operator->concat(
-                Admin::select('nama')
+                Tendik::select('nama')
                     ->where('jabatan', "Operator")
                     ->get());
 
@@ -229,7 +229,7 @@ class HomeController extends Controller
                 ->get();
 
             $operator = $operator->concat(
-                Admin::select('nama')
+                Tendik::select('nama')
                     ->where('jabatan', "Operator")
                     ->get());
 
