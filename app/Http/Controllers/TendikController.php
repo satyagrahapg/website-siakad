@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use App\Models\User;
 use Mail;
 
-class AdminController extends Controller 
+class TendikController extends Controller 
 {
     public function index(Request $request)
     {

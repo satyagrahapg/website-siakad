@@ -11,7 +11,7 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TendikController;
 use App\Http\Controllers\SemesterSelectionController;
 use App\Http\Controllers\SillabusController;
 use App\Http\Controllers\PenilaianController;
@@ -65,7 +65,7 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::post('{guruId}/edit-role', 'editRole')->name('guru.editRole'); 
         });
 
-        Route::prefix('staffs')->controller(AdminController::class)->group(function() {
+        Route::prefix('staffs')->controller(TendikController::class)->group(function() {
             Route::post('import', 'import')->name('admin.import');                
             Route::get('export', 'export')->name('admin.export');                
             Route::post('create', 'create')->name('admin.create');                              

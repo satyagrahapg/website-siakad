@@ -11,7 +11,7 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TendikController;
 use App\Http\Controllers\SemesterSelectionController;
 use App\Http\Controllers\SillabusController;
 use App\Http\Controllers\PenilaianController;
@@ -61,7 +61,7 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::get('/', 'index')->name('guru.index');
         });
 
-        Route::prefix('staffs')->controller(AdminController::class)->group(function() {
+        Route::prefix('staffs')->controller(TendikController::class)->group(function() {
             Route::get('/', 'index')->name('admin.index');
         });
     });
