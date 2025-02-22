@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editAccountModalLabel">Ubah data {{ $account->nama }}</h5>
+                <h5 class="modal-title" id="editAccountModalLabel">Ubah Data {{ $account->nama }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="{{ route('account.update', $account->id) }}" method="POST">
