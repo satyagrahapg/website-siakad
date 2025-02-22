@@ -62,7 +62,7 @@ Route::middleware(['auth', 'check_role'])->group(function () {
         });
 
         Route::prefix('staffs')->controller(TendikController::class)->group(function() {
-            Route::get('/', 'index')->name('admin.index');
+            Route::get('/', 'index')->name('tendik.index');
         });
     });
 

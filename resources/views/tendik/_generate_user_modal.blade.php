@@ -1,4 +1,4 @@
-@foreach ($admin as $a)
+@foreach ($tendik as $a)
     <!-- Buat Modal for each Admin -->
     <div class="modal fade" id="generateUserModal-{{ $a->id }}" tabindex="-1"
         aria-labelledby="generateUserModalLabel-{{ $a->id }}" aria-hidden="true">
@@ -10,7 +10,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.generateUser', $a->id) }}" method="POST">
+                    <form action="{{ route('tendik.generateUser', $a->id) }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="email-{{ $a->id }}" class="form-label">Email</label>

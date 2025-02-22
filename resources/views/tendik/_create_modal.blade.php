@@ -1,7 +1,7 @@
 <div class="modal fade" id="createAdminModal" tabindex="-1" aria-labelledby="createAdminModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="{{ route('admin.create') }}" method="POST">
+            <form action="{{ route('tendik.create') }}" method="POST">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="createAdminModalLabel">Tambah Tenaga Kependidikan</h5>

@@ -66,12 +66,12 @@ Route::middleware(['auth', 'check_role'])->group(function () {
         });
 
         Route::prefix('staffs')->controller(TendikController::class)->group(function() {
-            Route::post('import', 'import')->name('admin.import');                
-            Route::get('export', 'export')->name('admin.export');                
-            Route::post('create', 'create')->name('admin.create');                              
-            Route::put('{id}/update', 'update')->name('admin.update');           
-            Route::delete('{id}', 'destroy')->name('admin.destroy');              
-            Route::post('{guruId}/generate-user', 'generateUser')->name('admin.generateUser'); 
+            Route::post('import', 'import')->name('tendik.import');                
+            Route::get('export', 'export')->name('tendik.export');                
+            Route::post('create', 'create')->name('tendik.create');                              
+            Route::put('{id}/update', 'update')->name('tendik.update');           
+            Route::delete('{id}', 'destroy')->name('tendik.destroy');              
+            Route::post('{guruId}/generate-user', 'generateUser')->name('tendik.generateUser'); 
         });
     });
 

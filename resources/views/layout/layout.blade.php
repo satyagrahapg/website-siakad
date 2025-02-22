@@ -58,7 +58,7 @@
                             </a>
                             <ul id="biografi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                 <li class="sidebar-item">
-                                    <a href="{{route('admin.index')}}" class="sidebar-link">Tenaga Kependidikan</a>
+                                    <a href="{{route('tendik.index')}}" class="sidebar-link">Tenaga Kependidikan</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="{{route('guru.index')}}" class="sidebar-link">Pendidik</a>
@@ -102,7 +102,7 @@
                             </a>
                             <ul id="biografi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                 <li class="sidebar-item">
-                                    <a href="{{route('admin.index')}}" class="sidebar-link">Tenaga Kependidikan</a>
+                                    <a href="{{route('tendik.index')}}" class="sidebar-link">Tenaga Kependidikan</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="{{route('guru.index')}}" class="sidebar-link">Pendidik</a>

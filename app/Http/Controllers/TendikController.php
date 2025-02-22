@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\AdminExport;
-use App\Models\Admin;
+use App\Models\Tendik;
 use Illuminate\Http\Request;
 use App\Imports\AdminImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -19,8 +19,8 @@ class TendikController extends Controller
         // Ini untuk filter semester berapa yg mau dilist
         $jabatan = $request->input('jabatan');
 
-        $admin = Admin::orderBy('created_at', 'desc')->get();
-        return view('admin.index', compact('admin', 'jabatan'));
+        $tendik = Tendik::orderBy('created_at', 'desc')->get();
+        return view('tendik.index', compact('tendik', 'jabatan'));
     }
 
     public function import(Request $request) {
@@ -29,7 +29,7 @@ class TendikController extends Controller
         ]);
         Excel::import(new AdminImport, $request->file('file'));
 
-        return redirect()->route('admin.index')->with('success', 'File berhasil diimport!');
+        return redirect()->route('tendik.index')->with('success', 'File berhasil diimport!');
     }
 
     public function export() {
@@ -52,13 +52,13 @@ class TendikController extends Controller
             'pendidikan' => 'nullable|string|max:50',
         ]);
 
-        Admin::create($request->all());
-        return redirect()->route('admin.index')->with('success', 'Data berhasil ditambahkan!');
+        Tendik::create($request->all());
+        return redirect()->route('tendik.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
     {
-        $guru = Admin::findOrFail($id);
+        $guru = Tendik::findOrFail($id);
 
         $request->validate([
             'nama' => 'required|string|max:255',
@@ -75,18 +75,18 @@ class TendikController extends Controller
         ]);
 
         $guru->update($request->all());
-        return redirect()->route('admin.index')->with('success', 'Data berhasil diperbarui!');
+        return redirect()->route('tendik.index')->with('success', 'Data berhasil diperbarui!');
     }
 
     public function destroy($id) {
-        $guru = Admin::findOrFail($id);
+        $guru = Tendik::findOrFail($id);
         $guru->delete();
-        return redirect()->route('admin.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('tendik.index')->with('success', 'Data berhasil dihapus!');
     }
 
     public function generateUser(Request $request, $adminId)
     {
-        $admin = Admin::findOrFail($adminId);
+        $tendik = Tendik::findOrFail($adminId);
 
         $request->validate([
             'email' => 'required|email',
@@ -96,7 +96,7 @@ class TendikController extends Controller
         ]);
 
         $user = User::create([
-            'name' => $admin->nama,
+            'name' => $tendik->nama,
             'email' => $request->email,
             'username' => $request->username,
             'password' => $request->password
@@ -108,8 +108,8 @@ class TendikController extends Controller
         });  
 
         $user->syncRoles($request->roles);
-        $admin->id_user = $user->id;
-        $admin->save();
-        return redirect()->route('admin.index')->with('success', 'Berhasil membuat akun baru.');
+        $tendik->id_user = $user->id;
+        $tendik->save();
+        return redirect()->route('tendik.index')->with('success', 'Berhasil membuat akun baru.');
     }
 }

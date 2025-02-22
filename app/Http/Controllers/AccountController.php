@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
+use App\Models\Tendik;
 use App\Models\Guru;
 use App\Models\Siswa;
 use Illuminate\Http\Request;

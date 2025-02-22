@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\Admin;
+use App\Models\Tendik;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithSkipDuplicates;

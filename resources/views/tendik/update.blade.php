@@ -6,7 +6,7 @@
                 <h5 class="modal-title" id="editAdminModalLabel">Ubah data {{ $a->nama }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('admin.update', $a->id) }}" method="POST">
+            <form action="{{ route('tendik.update', $a->id) }}" method="POST">
                 @csrf
                 @method('PUT') <!-- Use PUT here to match REST conventions for updates -->
                 

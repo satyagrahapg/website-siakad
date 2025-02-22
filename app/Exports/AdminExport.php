@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Admin;
+use App\Models\Tendik;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -17,11 +17,11 @@ class AdminExport implements  FromQuery, WithHeadings, WithColumnFormatting, Sho
     */
     public function collection()
     {
-        return Admin::select()->except(['created_at', 'updated_at']);
+        return Tendik::select()->except(['created_at', 'updated_at']);
     }
 
     public function query() {
-        return Admin::query()->select('nama', 'nip', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'alamat', 'jabatan', 'status', 'pangkat_golongan', 'pendidikan');
+        return Tendik::query()->select('nama', 'nip', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'alamat', 'jabatan', 'status', 'pangkat_golongan', 'pendidikan');
     }
 
     public function headings() : array
