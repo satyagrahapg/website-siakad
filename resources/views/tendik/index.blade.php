@@ -43,7 +43,7 @@
     <!-- import button -->
     <button class="btn btn-primary mb-3 px-3" data-bs-toggle="modal" data-bs-target="#excelModal" style="width: 6rem">Impor</button>
     <a target="_blank" href="{{ route('tendik.export') }}" class="btn btn-secondary mb-3 px-3" style="width: 6rem">Ekspor</a>
-    <button class="btn btn-success mb-3 px-2" data-bs-toggle="modal" data-bs-target="#createAdminModal" style="width: 6rem">Tambah</button>
+    <button class="btn btn-success mb-3 px-2" data-bs-toggle="modal" data-bs-target="#createTendikModal" style="width: 6rem">Tambah</button>
 
     <!-- toggle to enable "Edit" and "Delete" buttons  -->
     <div class="form-check form-switch">
@@ -52,7 +52,7 @@
     </div>
 
     <!-- Add Admin Button -->
-    <!-- <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#createAdminModal">Tambah Data</button> -->
+    <!-- <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#createTendikModal">Tambah Data</button> -->
 
     <!-- Admin List -->
     <table id="example" class="table table-striped" style="width:100%">
@@ -82,9 +82,9 @@
                 <td>
                     <div class="d-flex gap-2">
                     <!-- View Class Modal Trigger -->
-                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewAdminModal-{{ $a->id }}"><i class="fa-solid fa-eye"></i></button>
+                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewTendikModal-{{ $a->id }}"><i class="fa-solid fa-eye"></i></button>
                     <!-- Edit Class Modal Trigger -->
-                    <button class="btn btn-warning controlled" data-bs-toggle="modal" data-bs-target="#editAdminModal-{{ $a->id }}"><i class="fa-solid fa-edit"></i></button>
+                    <button class="btn btn-warning controlled" data-bs-toggle="modal" data-bs-target="#editTendikModal-{{ $a->id }}"><i class="fa-solid fa-edit"></i></button>
                     @role('Super Admin')
                         <form action="{{ route('tendik.destroy', $a->id) }}" method="POST" style="display:inline;">
                             @csrf

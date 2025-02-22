@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\AdminExport;
+use App\Exports\TendikExport;
 use App\Models\Tendik;
 use Illuminate\Http\Request;
-use App\Imports\AdminImport;
+use App\Imports\TendikImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
@@ -27,20 +27,20 @@ class TendikController extends Controller
         $request->validate([
             'file' => 'required|file|max:2048'
         ]);
-        Excel::import(new AdminImport, $request->file('file'));
+        Excel::import(new TendikImport, $request->file('file'));
 
         return redirect()->route('tendik.index')->with('success', 'File berhasil diimport!');
     }
 
     public function export() {
-        return Excel::download(new AdminExport, 'Tenaga Kependidikan.xlsx', );
+        return Excel::download(new TendikExport, 'Tenaga Kependidikan.xlsx', );
     }
 
     public function create(Request $request)
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'nip' => 'nullable|string|max:50|unique:admins,nip',
+            'nip' => 'nullable|string|max:50|unique:tendiks,nip',
             'tempat_lahir' => 'nullable|string|max:255',
             'tanggal_lahir' => 'nullable|date',
             'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',

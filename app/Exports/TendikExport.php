@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class AdminExport implements  FromQuery, WithHeadings, WithColumnFormatting, ShouldAutoSize
+class TendikExport implements  FromQuery, WithHeadings, WithColumnFormatting, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection

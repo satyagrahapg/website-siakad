@@ -1,10 +1,10 @@
 <!-- Ubah Admin Modal -->
-<div class="modal fade" id="viewAdminModal-{{ $a->id }}" tabindex="-1" aria-labelledby="editAdminModalLabel"
+<div class="modal fade" id="viewTendikModal-{{ $a->id }}" tabindex="-1" aria-labelledby="editTendikModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editAdminModalLabel">Lihat data {{ $a->nama }}</h5>
+                <h5 class="modal-title" id="editTendikModalLabel">Lihat data {{ $a->nama }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
