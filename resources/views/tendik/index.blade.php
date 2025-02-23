@@ -143,6 +143,25 @@
         });
     </script>
     @endif
+    @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                let errorMessages = '<ul>';
+                @foreach ($errors->all() as $error)
+                    errorMessages += '<li>{{ $error }}</li>';
+                @endforeach
+                errorMessages += '</ul>';
+                
+                Swal.fire({
+                    title: "Error!",
+                    html: errorMessages, // Menggunakan properti html untuk menampilkan list
+                    icon: "error",
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            });
+        </script>
+    @endif
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> --}}
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>

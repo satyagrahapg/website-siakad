@@ -214,7 +214,6 @@ class WaliKelasController extends Controller
                 ->join('gurus as h', 'h.id', '=', 'g.id_guru')
                 ->join('users as i', 'i.id', '=', 'h.id_user')
                 ->where('i.id', $user->id)
-                
                 ->where('g.id', $kelasId)
                 ->where('z.id', $mapelId) // Filter hanya untuk mapel saat ini
                 ->where('z.semester_id', request()->session()->get('semester_id'))
@@ -315,9 +314,7 @@ class WaliKelasController extends Controller
             unset($res); // Hapus reference untuk keamanan
         }
 
-        // dd($result);
-
-        $subjects = collect($result['sts'])->flatMap(function ($row) {
+        $subjects = collect($result['all'])->flatMap(function ($row) {
             return array_keys((array)$row);
         })->unique()->filter(fn($key) => !in_array($key, ['nama', 'kelas', 'nisn', 'tanggal', 'agama']));
 

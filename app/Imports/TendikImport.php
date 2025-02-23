@@ -24,7 +24,10 @@ class TendikImport implements ToModel, WithValidation, WithHeadingRow, WithUpser
     public function rules(): array
     {
         return [
-            'nip' => 'unique:gurus,nip',
+            'nip' => [
+                'unique:tendiks,nip',
+                'regex:/^(?:\d{11}|\d{18})$/'
+            ],
             'nama' => 'nullable',
             'tempat_lahir' => 'nullable',
             'tanggal_lahir' => 'nullable|date',
@@ -63,7 +66,8 @@ class TendikImport implements ToModel, WithValidation, WithHeadingRow, WithUpser
     public function customValidationMessages()
     {
         return [
-            'nip.unique' => 'Nomor Induk Pegawai (NIP) :input telah terdaftar.',
+            'nip.unique' => 'NIP atau Kode Pegawai telah terdaftar.',
+            'nip.regex' => 'NIP atau Kode Pegawai harus terdiri dari tepat 11 atau 18 digit.'
         ];
     }
 }

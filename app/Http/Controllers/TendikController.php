@@ -19,13 +19,18 @@ class TendikController extends Controller
         // Ini untuk filter semester berapa yg mau dilist
         $jabatan = $request->input('jabatan');
 
-        $tendik = Tendik::orderBy('created_at', 'desc')->get();
+        $tendik = Tendik::orderBy('nama', 'asc')->get();
         return view('tendik.index', compact('tendik', 'jabatan'));
     }
 
     public function import(Request $request) {
         $request->validate([
-            'file' => 'required|file|max:2048'
+            'file' => 'required|file|max:10240|mimes:xlsx'
+        ], [
+            'file.required' => 'File wajib diunggah.',
+            'file.file'     => 'Pastikan yang diunggah adalah file.',
+            'file.max'      => 'Ukuran file tidak boleh lebih dari 10 MB.',
+            'file.mimes'    => 'Format file harus XLSX.'
         ]);
         Excel::import(new TendikImport, $request->file('file'));
 

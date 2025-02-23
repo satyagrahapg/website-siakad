@@ -15,11 +15,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="nip">NIP / Kode Pegawai</label>
-                        <input type="text" name="nip" class="form-control" maxlength="50" required>
+                        <input type="text" name="nip" id="nip" class="form-control" pattern="^(?:\d{11}|\d{18})$" title="NIP atau Kode Pegawai harus terdiri dari tepat 11 atau 18 digit." required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="nip">Jabatan</label>
                         <select name="jabatan" class="form-select" required> 
+                            <option value="" selected disabled hidden>Pilih Jabatan</option>
                             <option value="Tata Usaha">Tata Usaha</option>
                             <option value="Tenaga Kebersihan">Tenaga Kebersihan</option>
                             <option value="Tenaga Keamanan">Tenaga Keamanan</option>
@@ -36,6 +37,7 @@
                     <div class="mb-3">
                         <label for="jenis_kelamin">Jenis Kelamin</label>
                         <select name="jenis_kelamin" class="form-select" required>
+                            <option value="" selected disabled hidden>Pilih Jenis Kelamin</option>
                             <option value="Laki-laki">Laki-laki</option>
                             <option value="Perempuan">Perempuan</option>
                         </select>
@@ -43,6 +45,7 @@
                     <div class="mb-3">
                         <label for="agama">Agama</label>
                         <select name="agama" class="form-select" required>
+                            <option value="" selected disabled hidden>Pilih Agama</option>
                             <option value="Islam">Islam</option>
                             <option value="Kristen">Kristen</option>
                             <option value="Katolik">Katolik</option>
@@ -58,6 +61,7 @@
                     <div class="mb-3">
                         <label for="status">Status</label>
                         <select name="status" id="status-option" class="form-select" required>
+                            <option value="" selected disabled hidden>Pilih Status</option>
                             <option value="PNS">PNS</option>
                             <option value="PPPK">PPPK</option>
                             <option value="GTT">GTT</option>
@@ -68,6 +72,7 @@
                         <label for="pangkat_golongan" id="golongan-title">Pangkat Golongan</label>
                         <input type="hidden" name="pangkat_golongan" id="golongan-hidden" class="form-control" disabled>
                         <select name="pangkat_golongan" id="golongan-option" class="form-select" required>
+                            <option value="" selected disabled hidden>Pilih Pangkat Golongan</option>
                             <option value="III/a">III/a</option>
                             <option value="III/b">III/b</option>
                             <option value="III/c">III/c</option>
