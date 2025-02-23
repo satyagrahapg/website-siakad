@@ -75,10 +75,10 @@
                 <td class="text-start">{{ $loop->iteration }}</td>
                 <td>{{ $a->nama }}</td>
                 <td class="text-start">{{ $a->nip }}</td>
-                <td>{{ $a->jenis_kelamin }}</td>
-                <td>{{ $a->jabatan}}</td>
+                <td>{{ $a->jenis_kelamin ?? ' - ' }}</td>
+                <td>{{ $a->jabatan ?? ' - '}}</td>
                 <td>{{ (strpos(old('status', $a->status), "TT")) ? $a->status : $a->status.' - '.$a->pangkat_golongan }}</td>
-                <td>{{ $a->pendidikan }}</td>
+                <td>{{ $a->pendidikan ?? ' - ' }}</td>
                 <td>
                     <div class="d-flex gap-2">
                     <!-- View Class Modal Trigger -->

@@ -24,6 +24,7 @@
                     <div class="form-group mb-3">
                         <label for="nip">Jabatan</label>
                         <select name="jabatan" class="form-select" required> 
+                            <option value="" selected disabled hidden>Pilih Jabatan</option>
                             <option value="Tata Usaha" {{ old('jabatan', $a->jabatan) == 'Tata Usaha' ? 'selected' : '' }}>Tata Usaha</option>
                             <option value="Tenaga Kebersihan" {{ old('jabatan', $a->jabatan) == 'Tenaga Kebersihan' ? 'selected' : '' }}>Tenaga Kebersihan</option>
                             <option value="Tenaga Keamanan" {{ old('jabatan', $a->jabatan) == 'Tenaga Keamanan' ? 'selected' : '' }}>Tenaga Keamanan</option>
@@ -32,7 +33,7 @@
 
                     <div class="form-group mb-3">
                         <label for="tempat_lahir">Tempat Lahir</label>
-                        <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control" value="{{ old('tempat_lahir', $a->tempat_lahir) }}" required>
+                        <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control" value="{{ old('tempat_lahir', $a->tempat_lahir) }}" placeholder="Tempat Lahir" required>
                     </div>
 
                     <div class="form-group mb-3">
@@ -43,6 +44,7 @@
                     <div class="form-group mb-3">
                         <label for="jenis_kelamin">Jenis Kelamin</label>
                         <select name="jenis_kelamin" id="jenis_kelamin" class="form-select" required>
+                            <option value="" selected disabled hidden>Pilih Jenis Kelamin</option>
                             <option value="Laki-laki" {{ $a->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                             <option value="Perempuan" {{ $a->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                         </select>
@@ -51,6 +53,7 @@
                     <div class="form-group mb-3">
                         <label for="agama">Agama</label>
                         <select name="agama" class="form-select" required>
+                            <option value="" selected disabled hidden>Pilih Agama</option>
                             <option value="Islam" {{ old('agama', $a->agama) == 'Islam' ? 'selected' : '' }}>Islam</option>
                             <option value="Kristen" {{ old('agama', $a->agama) == 'Kristen' ? 'selected' : '' }}>Kristen</option>
                             <option value="Katolik" {{ old('agama', $a->agama) == 'Katolik' ? 'selected' : '' }}>Katolik</option>
@@ -62,12 +65,13 @@
 
                     <div class="form-group mb-3">
                         <label for="alamat">Alamat</label>
-                        <input type="text" name="alamat" id="alamat" class="form-control" value="{{ old('alamat', $a->alamat) }}" required>
+                        <input type="text" name="alamat" id="alamat" class="form-control" value="{{ old('alamat', $a->alamat) }}" placeholder="Alamat" required>
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="status">Status</label>
                         <select name="status" id="status-option" class="form-select" required>
+                            <option value="" selected disabled hidden>Pilih Status</option>
                             <option value="PNS" {{ old('status', $a->status) == 'PNS' ? 'selected' : '' }}>PNS</option>
                             <option value="PPPK" {{ old('status', $a->status) == 'PPPK' ? 'selected' : '' }}>PPPK</option>
                             <option value="GTT" {{ old('status', $a->status) == 'GTT' ? 'selected' : '' }}>GTT</option>
@@ -79,6 +83,7 @@
                         <label for="pangkat_golongan" id="golongan-title" @if (strpos(old('status', $a->status), "TT")) {{ 'hidden' }} @endif>Pangkat Golongan</label>
                         <input type="hidden" name="pangkat_golongan" id="golongan-hidden" class="form-control"  @if (!strpos(old('status', $a->status), "TT")) {{ 'disabled' }} @endif>
                         <select name="pangkat_golongan" id="golongan-option" class="form-select" @if (strpos(old('status', $a->status), "TT")) {{ 'disabled hidden' }} @endif required>
+                            <option value="" selected disabled hidden>Pilih Pangkat Golongan</option>
                             @if (old('status', $a->status) == 'PNS')
                                 <option value="III/a" {{ old('pangkat_golongan', $a->pangkat_golongan) == 'III/a' ? 'selected' : '' }}>III/a</option>
                                 <option value="III/b" {{ old('pangkat_golongan', $a->pangkat_golongan) == 'III/b' ? 'selected' : '' }}>III/b</option>
@@ -105,7 +110,7 @@
 
                     <div class="form-group mb-3">
                         <label for="pendidikan">Pendidikan</label>
-                        <input type="text" name="pendidikan" id="pendidikan" class="form-control" value="{{ old('pendidikan', $a->pendidikan) }}" required>
+                        <input type="text" name="pendidikan" id="pendidikan" class="form-control" value="{{ old('pendidikan', $a->pendidikan) }}" placeholder="Pendidikan" required>
                     </div>
                 </div>
                 
