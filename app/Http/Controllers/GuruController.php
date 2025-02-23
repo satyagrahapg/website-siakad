@@ -18,20 +18,18 @@ class GuruController extends Controller
         $gurus = Guru::with('user')
             ->orderBy('nama', 'asc')
             ->get();
-        // foreach ($gurus as $guru) {
-        //     if ($guru->user) {
-        //         $roles = $guru->user->getRoleNames();
-        //     } else {
-        //         // Handle cases where user is null
-        //         $roles = [];
-        //     }
-        // }
+
         return view('guru.index', compact('gurus'));
     }
 
     public function import(Request $request) {
         $request->validate([
-            'file' => 'required|file|max:2048'
+            'file' => 'required|file|max:10240|mimes:xlsx'
+        ], [
+            'file.required' => 'File wajib diunggah.',
+            'file.file'     => 'Pastikan yang diunggah adalah file.',
+            'file.max'      => 'Ukuran file tidak boleh lebih dari 10 MB.',
+            'file.mimes'    => 'Format file harus XLSX.'
         ]);
         Excel::import(new GuruImport, $request->file('file'));
 

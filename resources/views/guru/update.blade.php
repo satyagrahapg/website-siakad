@@ -1,6 +1,6 @@
 <!-- Ubah Guru Modal -->
-<div class="modal fade" id="editGuruModal-{{ $guru->id }}" tabindex="-1" aria-labelledby="editGuruModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+<div class="modal fade" data-bs-backdrop="static" id="editGuruModal-{{ $guru->id }}" tabindex="-1" aria-labelledby="editGuruModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centeredsssss">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editGuruModalLabel">Ubah Guru {{ $guru->nama }}</h5>
@@ -14,27 +14,27 @@
                     @method('PUT') <!-- Use PUT here to match REST conventions for updates -->
                     <div class="form-group mb-3">
                         <label for="nama">Nama</label>
-                        <input type="text" name="nama" id="nama" class="form-control" value="{{ old('nama', $guru->nama) }}" required>
+                        <input type="text" name="nama" id="nama" class="form-control" value="{{ old('nama', $guru->nama) }}" required placeholder="Nama">
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="nip">NIP / Kode Pegawai</label>
-                        <input type="text" name="nip" id="nip" class="form-control" value="{{ old('nip', $guru->nip) }}" required>
+                        <input type="text" name="nip" id="nip" class="form-control" value="{{ old('nip', $guru->nip) }}" required placeholder="NIP / Kode Pegawai" pattern="^(?:\d{11}|\d{18})$" title="NIP atau Kode Pegawai harus terdiri dari tepat 11 atau 18 digit.">
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="gelar_depan">Gelar Depan</label>
-                        <input type="text" name="gelar_depan" id="gelar_depan" class="form-control" value="{{ old('gelar_depan', $guru->gelar_depan) }}">
+                        <input type="text" name="gelar_depan" id="gelar_depan" class="form-control" value="{{ old('gelar_depan', $guru->gelar_depan) }}" placeholder="Gelar Depan">
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="gelar_belakang">Gelar Belakang</label>
-                        <input type="text" name="gelar_belakang" id="gelar_belakang" class="form-control" value="{{ old('gelar_belakang', substr($guru->gelar_belakang, 2)) }}">
+                        <input type="text" name="gelar_belakang" id="gelar_belakang" class="form-control" value="{{ old('gelar_belakang', substr($guru->gelar_belakang, 2)) }}" placeholder="Gelar Belakang">
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="tempat_lahir">Tempat Lahir</label>
-                        <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control" value="{{ old('tempat_lahir', $guru->tempat_lahir) }}" required>
+                        <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control" value="{{ old('tempat_lahir', $guru->tempat_lahir) }}" required placeholder="Tempat Lahir">
                     </div>
 
                     <div class="form-group mb-3">
@@ -45,6 +45,7 @@
                     <div class="form-group mb-3">
                         <label for="jenis_kelamin">Jenis Kelamin</label>
                         <select name="jenis_kelamin" id="jenis_kelamin" class="form-select" required>
+                            <option value="" selected disabled hidden>Pilih Jenis Kelamin</option>
                             <option value="Laki-laki" {{ $guru->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                             <option value="Perempuan" {{ $guru->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                         </select>
@@ -53,6 +54,7 @@
                     <div class="form-group mb-3">
                         <label for="agama">Agama</label>
                         <select name="agama" class="form-select" required>
+                            <option value="" selected disabled hidden>Pilih Agama</option>
                             <option value="Islam" {{ old('agama', $guru->agama) == 'Islam' ? 'selected' : '' }}>Islam</option>
                             <option value="Kristen" {{ old('agama', $guru->agama) == 'Kristen' ? 'selected' : '' }}>Kristen</option>
                             <option value="Katolik" {{ old('agama', $guru->agama) == 'Katolik' ? 'selected' : '' }}>Katolik</option>
@@ -64,17 +66,18 @@
 
                     <div class="form-group mb-3">
                         <label for="alamat">Alamat</label>
-                        <input type="text" name="alamat" id="alamat" class="form-control" value="{{ old('alamat', $guru->alamat) }}" required>
+                        <input type="text" name="alamat" id="alamat" class="form-control" value="{{ old('alamat', $guru->alamat) }}" required placeholder="Alamat">
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="jabatan">Jabatan</label>
-                        <input type="text" name="jabatan" id="jabatan" class="form-control" value="{{ old('jabatan', $guru->jabatan) }}" required>
+                        <input type="text" name="jabatan" id="jabatan" class="form-control" value="{{ old('jabatan', $guru->jabatan) }}" required placeholder="Jabatan">
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="status">Status</label>
                         <select name="status" id="status-option" class="form-select" required>
+                            <option value="" selected disabled hidden>Pilih Status</option>
                             <option value="PNS" {{ old('status', $guru->status) == 'PNS' ? 'selected' : '' }}>PNS</option>
                             <option value="PPPK" {{ old('status', $guru->status) == 'PPPK' ? 'selected' : '' }}>PPPK</option>
                         </select>
@@ -83,6 +86,7 @@
                     <div class="form-group mb-3">
                         <label for="pangkat_golongan">Pangkat Golongan</label>
                         <select name="pangkat_golongan" id="golongan-option" class="form-select" required>
+                            <option value="" selected disabled hidden>Pilih Pangkat Golongan</option>
                             @if (old('status', $guru->status) == 'PNS')
                                 <option value="III/a" {{ old('pangkat_golongan', $guru->pangkat_golongan) == 'III/a' ? 'selected' : '' }}>III/a</option>
                                 <option value="III/b" {{ old('pangkat_golongan', $guru->pangkat_golongan) == 'III/b' ? 'selected' : '' }}>III/b</option>
@@ -109,7 +113,7 @@
 
                     <div class="form-group mb-3">
                         <label for="pendidikan">Pendidikan</label>
-                        <input type="text" name="pendidikan" id="pendidikan" class="form-control" value="{{ old('pendidikan', $guru->pendidikan) }}" required>
+                        <input type="text" name="pendidikan" id="pendidikan" class="form-control" value="{{ old('pendidikan', $guru->pendidikan) }}" required placeholder="Pendidikan">
                     </div>
             </div>
 

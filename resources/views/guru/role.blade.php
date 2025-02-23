@@ -1,6 +1,6 @@
 <!-- Generate User Modal for each Guru -->
-<div class="modal fade" id="editRoleModal-{{ $guru->id }}" tabindex="-1" aria-labelledby="editRoleModalLabel-{{ $guru->id }}" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" data-bs-backdrop="static" id="editRoleModal-{{ $guru->id }}" tabindex="-1" aria-labelledby="editRoleModalLabel-{{ $guru->id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editRoleModalLabel-{{ $guru->id }}">Ubah Hak Akses {{ $guru->nama }}</h5>

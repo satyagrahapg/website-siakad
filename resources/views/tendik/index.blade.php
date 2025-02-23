@@ -71,60 +71,57 @@
         </thead>
         <tbody>
             @foreach($tendik as $a)
-            <tr>
-                <td class="text-start">{{ $loop->iteration }}</td>
-                <td>{{ $a->nama }}</td>
-                <td class="text-start">{{ $a->nip }}</td>
-                <td>{{ $a->jenis_kelamin ?? ' - ' }}</td>
-                <td>{{ $a->jabatan ?? ' - '}}</td>
-                <td>{{ (strpos(old('status', $a->status), "TT")) ? $a->status : $a->status.' - '.$a->pangkat_golongan }}</td>
-                <td>{{ $a->pendidikan ?? ' - ' }}</td>
-                <td>
-                    <div class="d-flex gap-2">
-                    <!-- View Class Modal Trigger -->
-                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewTendikModal-{{ $a->id }}"><i class="fa-solid fa-eye"></i></button>
-                    <!-- Edit Class Modal Trigger -->
-                    <button class="btn btn-warning controlled" data-bs-toggle="modal" data-bs-target="#editTendikModal-{{ $a->id }}"><i class="fa-solid fa-edit"></i></button>
-                    @role('Super Admin')
-                        <form action="{{ route('tendik.destroy', $a->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger deleteAlert controlled"><i class="fa-solid fa-trash"></i></button>
-                        </form>
-                    @endrole
-                    </div>
-                </td>
-                <td>
-                    @role('Super Admin')
-                        @if(empty($a->id_user))
-                            <!-- Button to open the generate user modal -->
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generateUserModal-{{ $a->id }}">
-                                <i class="fa-solid fa-plus"></i>
-                            </button>
-                        @else
-                            {{-- <span> User ID: {{ $a->id_user }}</span> --}}
-                            <a href="{{ route('account.index') }}">Lihat</a>
-                        @endif
-                    @endrole
-                    @role('Admin')
-                        @if(empty($a->id_user))
-                            Belum Ada
-                        @else
-                            Sudah Ada
-                        @endif
-                    @endrole
-                </td>
-            </tr>
-            @include('tendik.update')
-            @include('tendik.view')
+                <tr>
+                    <td class="text-start">{{ $loop->iteration }}</td>
+                    <td>{{ $a->nama }}</td>
+                    <td class="text-start">{{ $a->nip }}</td>
+                    <td>{{ $a->jenis_kelamin ?? ' - ' }}</td>
+                    <td>{{ $a->jabatan ?? ' - '}}</td>
+                    <td>{{ (strpos(old('status', $a->status), "TT")) ? $a->status : $a->status.' - '.$a->pangkat_golongan }}</td>
+                    <td>{{ $a->pendidikan ?? ' - ' }}</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                        <!-- View Class Modal Trigger -->
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewTendikModal-{{ $a->id }}"><i class="fa-solid fa-eye"></i></button>
+                        <!-- Edit Class Modal Trigger -->
+                        <button class="btn btn-warning controlled" data-bs-toggle="modal" data-bs-target="#editTendikModal-{{ $a->id }}"><i class="fa-solid fa-edit"></i></button>
+                        @role('Super Admin')
+                            <form action="{{ route('tendik.destroy', $a->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger deleteAlert controlled"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        @endrole
+                        </div>
+                    </td>
+                    <td>
+                        @role('Super Admin')
+                            @if(empty($a->id_user))
+                                <!-- Button to open the generate user modal -->
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generateUserModal-{{ $a->id }}">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            @else
+                                {{-- <span> User ID: {{ $a->id_user }}</span> --}}
+                                <a href="{{ route('account.index') }}">Lihat</a>
+                            @endif
+                            @include('tendik.generate')
+                        @endrole
+                        @role('Admin')
+                            @if(empty($a->id_user))
+                                Belum Ada
+                            @else
+                                Sudah Ada
+                            @endif
+                        @endrole
+                    </td>
+                </tr>
+                @include('tendik.update')
+                @include('tendik.view')
             @endforeach
+            @include('tendik.create')
         </tbody>
-    </table>
-
-
-    <!-- Include Modals -->
-    @include('tendik._create_modal')
-    @include('tendik._generate_user_modal')
+    </table>    
 </div>
 @endsection
 
@@ -146,11 +143,10 @@
     @if ($errors->any())
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                let errorMessages = '<ul>';
+                let errorMessages = '';
                 @foreach ($errors->all() as $error)
-                    errorMessages += '<li>{{ $error }}</li>';
+                    errorMessages += '{{ $error }} ';
                 @endforeach
-                errorMessages += '</ul>';
                 
                 Swal.fire({
                     title: "Error!",
@@ -275,6 +271,13 @@
 
                         // Clear existing options
                         pangkatGolonganSelect.innerHTML = "";
+                        const defaultOption = document.createElement('option');
+                        defaultOption.value = "";
+                        defaultOption.textContent = "Pilih Pangkat Golongan";
+                        defaultOption.selected = true;
+                        defaultOption.disabled = true;
+                        defaultOption.hidden = true;
+                        pangkatGolonganSelect.appendChild(defaultOption);
 
                         // Populate options based on selected status
                         const options = selectedStatus === "PNS" ? optionsPNS : optionsPPPK;

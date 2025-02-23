@@ -1,13 +1,13 @@
 <!-- Generate User Modal for each Guru -->
-<div class="modal fade" id="generateUserModal-{{ $siswa->id }}" tabindex="-1" aria-labelledby="generateUserModalLabel-{{ $siswa->id }}" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" data-bs-backdrop="static" id="generateUserModal-{{ $siswa->id }}" tabindex="-1" aria-labelledby="generateUserModalLabel-{{ $siswa->id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="generateUserModalLabel-{{ $siswa->id }}">Buat Akun untuk {{ $siswa->nama }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('siswa.generateUser', $siswa->id) }}" method="POST">
+            <form action="{{ route('siswa.generateUser', $siswa->id) }}" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="generateUserModalLabel-{{ $siswa->id }}">Buat Akun untuk {{ $siswa->nama }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     @csrf
                     <div class="mb-3">
                         <label for="email-{{ $siswa->id }}" class="form-label">Email</label>
@@ -34,9 +34,11 @@
                             <label for="" class="invalid-feedback">{{ $message }}</label>
                         @enderror
                     </div>
+                </div>
+                <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Buat</button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

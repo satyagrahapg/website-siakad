@@ -24,8 +24,12 @@ class GuruImport implements ToModel, WithValidation, WithHeadingRow, WithUpserts
     public function rules(): array
     {
         return [
-            'nip' => 'unique:gurus,nip',
-            'nama' => 'nullable',
+            'nama' => 'required',
+            'nip' => [
+                'required',
+                'unique:gurus,nip',
+                'regex:/^(?:\d{11}|\d{18})$/'
+            ],
             'gelar' => 'nullable',
             'tempat_lahir' => 'nullable',
             'tanggal_lahir' => 'nullable|date',
@@ -65,7 +69,8 @@ class GuruImport implements ToModel, WithValidation, WithHeadingRow, WithUpserts
     public function customValidationMessages()
     {
         return [
-            'nip.unique' => 'Nomor Induk Pegawai (NIP) :input telah terdaftar.',
+            'nip.unique' => 'NIP atau Kode Pegawai telah terdaftar.',
+            'nip.regex' => 'NIP atau Kode Pegawai harus terdiri dari tepat 11 atau 18 digit.'
         ];
     }
 }

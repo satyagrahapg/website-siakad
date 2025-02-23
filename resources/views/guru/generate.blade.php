@@ -1,13 +1,13 @@
 <!-- Generate User Modal for each Guru -->
-<div class="modal fade" id="generateUserModal-{{ $guru->id }}" tabindex="-1" aria-labelledby="generateUserModalLabel-{{ $guru->id }}" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" data-bs-backdrop="static" id="generateUserModal-{{ $guru->id }}" tabindex="-1" aria-labelledby="generateUserModalLabel-{{ $guru->id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="generateUserModalLabel-{{ $guru->id }}">Buat Akun untuk {{ $guru->nama }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('guru.generateUser', $guru->id) }}" method="POST">
+            <form action="{{ route('guru.generateUser', $guru->id) }}" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="generateUserModalLabel-{{ $guru->id }}">Buat Akun untuk {{ $guru->nama }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     @csrf
                     <div class="mb-3">
                         <label for="email-{{ $guru->id }}" class="form-label">Email</label>
@@ -33,9 +33,11 @@
                             <option value="Wali Kelas">Wali Kelas</option>
                         </select>
                     </div>
+                </div>
+                <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Buat</button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

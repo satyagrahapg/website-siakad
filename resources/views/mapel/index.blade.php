@@ -114,7 +114,6 @@
                                         <div class="mb-3">
                                             <label for="kelas_id" class="form-label">Pilih Rombel</label>
                                             <select name="kelas_id[]" id="kelas_id" class="form-select select-kelas" required multiple>
-                                                <option value="" selected disabled hidden>Pilih Rombel</option>
                                                 @foreach ($kelasOptions->where('id_semester', $mapel->semester_id)->whereIn('kelas',explode(',',$mapel->kelas)) as $k)
                                                 <option value="{{ $k->id }}" @selected(in_array($k->id,$mapel->kelas()->pluck('kelas_id')->toArray())) >{{ $k->rombongan_belajar }}</option>
                                                 @endforeach

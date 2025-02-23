@@ -24,9 +24,12 @@ class SiswaImport implements ToModel, WithValidation, WithHeadingRow, WithUpsert
     public function rules(): array
     {
         return [
-            'nama' => 'nullable',
-            // 'nis' => 'nullable',
-            'nisn' => 'nullable',
+            'nama' => 'required',
+            'nisn' => [
+                'required',
+                'unique:gurus,nip',
+                'regex:/^(?:\d{10})$/'
+            ],
             'tanggal_lahir' => 'nullable',
             'tempat_lahir' => 'nullable',
             'jenis_kelamin' => 'nullable',
@@ -39,13 +42,12 @@ class SiswaImport implements ToModel, WithValidation, WithHeadingRow, WithUpsert
             'tanggal_diterima' => 'nullable',
             'jalur_penerimaan' => 'nullable',
             'nama_ayah' => 'nullable',
-            'nama_ibu' => 'nullable',
             'pekerjaan_ayah' => 'nullable',
+            'nama_ibu' => 'nullable',
             'pekerjaan_ibu' => 'nullable',
             'nama_wali' => 'nullable',
-            // 'alamat_wali' => 'nullable',
             'pekerjaan_wali' => 'nullable',
-            'angkatan' => 'nullable',
+            'angkatan' => 'required',
         ];
     }
     
@@ -56,41 +58,36 @@ class SiswaImport implements ToModel, WithValidation, WithHeadingRow, WithUpsert
             return null;
         }
 
-        return new Siswa($row);
-
-        // Commented code below is the same as above
-        // return new Siswa([
-        //     'nama' => $row['nama'] ?? null,
-        //     'nis' => $row['nis'] ?? null,
-        //     'nisn' => $row['nisn'] ?? null,
-        //     'tanggal_lahir' => $row['tanggal_lahir'] ?? null,
-        //     'tempat_lahir' => $row['tempat_lahir'] ?? null,
-        //     'jenis_kelamin' => $row['jenis_kelamin'] ?? null,
-        //     'agama' => $row['agama'] ?? null,
-        //     'status_keluarga' => $row['status_keluarga'] ?? null,
-        //     'anak_ke' => $row['anak_ke'] ?? null,
-        //     'alamat' => $row['alamat'] ?? null,
-        //     'telepon' => $row['telepon'] ?? null,
-        //     'asal_sekolah' => $row['asal_sekolah'] ?? null,
-        //     'tanggal_diterima' => $row['tanggal_diterima'] ?? null,
-        //     'jalur_penerimaan' => $row['jalur_penerimaan'] ?? null,
-        //     'nama_ayah' => $row['nama_ayah'] ?? null,
-        //     'nama_ibu' => $row['nama_ibu'] ?? null,
-        //     'alamat_ortu' => $row['alamat_ortu'] ?? null,
-        //     'pekerjaan_ayah' => $row['pekerjaan_ayah'] ?? null,
-        //     'pekerjaan_ibu' => $row['pekerjaan_ibu'] ?? null,
-        //     'nama_wali' => $row['nama_wali'] ?? null,
-        //     'alamat_wali' => $row['alamat_wali'] ?? null,
-        //     'pekerjaan_wali' => $row['pekerjaan_wali'] ?? null,
-        //     'angkatan' => $row['angkatan'] ?? null,
-        // ]);
+        return new Siswa([
+            'nama' => $row['nama'] ?? null,
+            'nisn' => $row['nisn'] ?? null,
+            'tanggal_lahir' => $row['tanggal_lahir'] ?? null,
+            'tempat_lahir' => $row['tempat_lahir'] ?? null,
+            'jenis_kelamin' => $row['jenis_kelamin'] ?? null,
+            'agama' => $row['agama'] ?? null,
+            'status_keluarga' => $row['status_keluarga'] ?? null,
+            'anak_ke' => $row['anak_ke'] ?? null,
+            'alamat' => $row['alamat'] ?? null,
+            'telepon' => $row['telepon'] ?? null,
+            'asal_sekolah' => $row['asal_sekolah'] ?? null,
+            'tanggal_diterima' => $row['tanggal_diterima'] ?? null,
+            'jalur_penerimaan' => $row['jalur_penerimaan'] ?? null,
+            'nama_ayah' => $row['nama_ayah'] ?? null,
+            'pekerjaan_ayah' => $row['pekerjaan_ayah'] ?? null,
+            'nama_ibu' => $row['nama_ibu'] ?? null,
+            'pekerjaan_ibu' => $row['pekerjaan_ibu'] ?? null,
+            'nama_wali' => $row['nama_wali'] ?? null,
+            'alamat_wali' => $row['alamat_wali'] ?? null,
+            'pekerjaan_wali' => $row['pekerjaan_wali'] ?? null,
+            'angkatan' => $row['angkatan'] ?? null,
+        ]);
     }
 
     public function customValidationMessages()
     {
         return [
-            'no_pendaftaran.unique' => 'Nomor Pendaftaran :input Telah terdaftar.',
-            // Completely change to your desired message format
+            'nisn.unique' => 'NISN telah terdaftar.',
+            'nisn.regex' => 'NISN harus terdiri dari tepat 10 digit.'
         ];
     }
 }

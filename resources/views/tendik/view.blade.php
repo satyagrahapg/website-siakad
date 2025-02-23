@@ -1,5 +1,5 @@
 <!-- Ubah Admin Modal -->
-<div class="modal fade" id="viewTendikModal-{{ $a->id }}" tabindex="-1" aria-labelledby="editTendikModalLabel"
+<div class="modal fade" data-bs-backdrop="static" id="viewTendikModal-{{ $a->id }}" tabindex="-1" aria-labelledby="editTendikModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">

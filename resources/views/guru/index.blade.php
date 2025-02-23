@@ -16,7 +16,7 @@
 
     <!-- import modal -->
     <div class="modal fade" data-bs-backdrop="static" tabindex="-1" aria-hidden="true" id="excelModal">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
@@ -68,53 +68,52 @@
         </thead>
         <tbody>
             @foreach($gurus as $guru)
-            <tr>
-                <td class="text-start">{{ $loop->iteration }}</td>
-                <td>{{ $guru->nama }}</td>
-                <td class="text-start">{{ $guru->nip }}</td>
-                <td>{{ $guru->jenis_kelamin }}</td>
-                <td>{{ $guru->jabatan }}</td>
-                <td>{{ $guru->pangkat_golongan ? $guru->status.' - '.$guru->pangkat_golongan : $guru->status }}</td>
-                <td>{{ $guru->pendidikan }}</td>
-                <td >
-                    <div class="d-flex gap-2">
-                    <!-- View Class Modal Trigger -->   
-                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewGuruModal-{{ $guru->id }}"><i class="fa-solid fa-eye"></i></button>
-                    <!-- Edit Class Modal Trigger -->   
-                    <button class="btn btn-warning controlled" data-bs-toggle="modal" data-bs-target="#editGuruModal-{{ $guru->id }}"><i class="fa-solid fa-edit"></i></button>
-                    @role('Super Admin')
-                        <form action="{{ route('guru.destroy', $guru->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger deleteAlert controlled"><i class="fa-solid fa-trash"></i></button>
-                        </form>
-                    @endrole
-                    </div>
-                </td>
-                <td>
-                    @if(empty($guru->id_user))
-                    <!-- Button to open the generate user modal -->
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generateUserModal-{{ $guru->id }}" style="min-width: 42px;"><i class="fa-solid fa-plus"></i></button>
-                    @include('guru._generate_user_modal')
-                    @else
-                        @role("Super Admin")
-                            {{-- <span>User ID: {{ $guru->id_user }}</span> --}}
-                            <a href="{{ route('account.index') }}">Lihat</a>
-                        @else
-                            {{-- <span>Sudah Ada</span> --}}
-                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editRoleModal-{{ $guru->id }}" style="min-width: 42px;"><i class="fa-solid fa-edit"></i></button>
-                            @include('guru._edit_role_modal')
+                <tr>
+                    <td class="text-start">{{ $loop->iteration }}</td>
+                    <td>{{ $guru->nama }}</td>
+                    <td class="text-start">{{ $guru->nip }}</td>
+                    <td>{{ $guru->jenis_kelamin ?? ' - ' }}</td>
+                    <td>{{ $guru->jabatan ?? ' - ' }}</td>
+                    <td>{{ $guru->pangkat_golongan ? $guru->status.' - '.$guru->pangkat_golongan : ($guru->status ?? ' - ') }}</td>
+                    <td>{{ $guru->pendidikan ?? ' - ' }}</td>
+                    <td >
+                        <div class="d-flex gap-2">
+                        <!-- View Class Modal Trigger -->   
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewGuruModal-{{ $guru->id }}"><i class="fa-solid fa-eye"></i></button>
+                        <!-- Edit Class Modal Trigger -->   
+                        <button class="btn btn-warning controlled" data-bs-toggle="modal" data-bs-target="#editGuruModal-{{ $guru->id }}"><i class="fa-solid fa-edit"></i></button>
+                        @role('Super Admin')
+                            <form action="{{ route('guru.destroy', $guru->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger deleteAlert controlled"><i class="fa-solid fa-trash"></i></button>
+                            </form>
                         @endrole
-                    @endif
-                </td>
-            </tr>
-            @include('guru.update')
-            @include('guru.view')
+                        </div>
+                    </td>
+                    <td>
+                        @if(empty($guru->id_user))
+                        <!-- Button to open the generate user modal -->
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generateUserModal-{{ $guru->id }}" style="min-width: 42px;"><i class="fa-solid fa-plus"></i></button>
+                        @include('guru.generate')
+                        @else
+                            @role("Super Admin")
+                                {{-- <span>User ID: {{ $guru->id_user }}</span> --}}
+                                <a href="{{ route('account.index') }}">Lihat</a>
+                            @else
+                                {{-- <span>Sudah Ada</span> --}}
+                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editRoleModal-{{ $guru->id }}" style="min-width: 42px;"><i class="fa-solid fa-edit"></i></button>
+                                @include('guru.role')
+                            @endrole
+                        @endif
+                    </td>
+                </tr>
+                @include('guru.update')
+                @include('guru.view')
             @endforeach
+            @include('guru.create')
         </tbody>
-    </table>
-    <!-- Include Modals -->
-    @include('guru._create_modal')
+    </table>    
 </div>
 @endsection
 
@@ -132,6 +131,24 @@
             });
         });
     </script>
+    @endif
+    @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                let errorMessages = '';
+                @foreach ($errors->all() as $error)
+                    errorMessages += '{{ $error }} ';
+                @endforeach
+                
+                Swal.fire({
+                    title: "Error!",
+                    html: errorMessages, // Menggunakan properti html untuk menampilkan list
+                    icon: "error",
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            });
+        </script>
     @endif
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> --}}
@@ -213,6 +230,13 @@
 
                     // Clear existing options
                     pangkatGolonganSelect.innerHTML = "";
+                    const defaultOption = document.createElement('option');
+                    defaultOption.value = "";
+                    defaultOption.textContent = "Pilih Pangkat Golongan";
+                    defaultOption.selected = true;
+                    defaultOption.disabled = true;
+                    defaultOption.hidden = true;
+                    pangkatGolonganSelect.appendChild(defaultOption);
 
                     // Populate options based on selected status
                     const options = selectedStatus === "PNS" ? optionsPNS : optionsPPPK;

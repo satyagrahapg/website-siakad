@@ -1,5 +1,5 @@
-<div class="modal fade" id="createTendikModal" tabindex="-1" aria-labelledby="createTendikModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" data-bs-backdrop="static" id="createTendikModal" tabindex="-1" aria-labelledby="createTendikModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
             <form action="{{ route('tendik.create') }}" method="POST">
                 @csrf
@@ -7,15 +7,15 @@
                     <h5 class="modal-title" id="createTendikModalLabel">Tambah Tenaga Kependidikan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body row g-2">
+                <div class="modal-body">
                     <!-- Form fields for Admin data -->
                     <div class="mb-3">
                         <label for="nama">Nama</label>
-                        <input type="text" name="nama" class="form-control" required>
+                        <input type="text" name="nama" class="form-control" required placeholder="Nama">
                     </div>
                     <div class="mb-3">
                         <label for="nip">NIP / Kode Pegawai</label>
-                        <input type="text" name="nip" id="nip" class="form-control" pattern="^(?:\d{11}|\d{18})$" title="NIP atau Kode Pegawai harus terdiri dari tepat 11 atau 18 digit." required>
+                        <input type="text" name="nip" id="nip" class="form-control" pattern="^(?:\d{11}|\d{18})$" title="NIP atau Kode Pegawai harus terdiri dari tepat 11 atau 18 digit." required placeholder="NIP / Kode Pegawai">
                     </div>
                     <div class="form-group mb-3">
                         <label for="nip">Jabatan</label>
@@ -28,7 +28,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="tempat_lahir">Tempat Lahir</label>
-                        <input type="text" name="tempat_lahir" class="form-control" maxlength="255" required>
+                        <input type="text" name="tempat_lahir" class="form-control" required placeholder="Tempat Lahir">
                     </div>
                     <div class="mb-3">
                         <label for="tanggal_lahir">Tanggal Lahir</label>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="alamat">Alamat</label>
-                        <input type="text" name="alamat" class="form-control" maxlength="255" required>
+                        <input type="text" name="alamat" class="form-control" maxlength="255" required placeholder="Alamat">
                     </div>
                     <div class="mb-3">
                         <label for="status">Status</label>
@@ -86,7 +86,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="pendidikan">Pendidikan</label>
-                        <input type="text" name="pendidikan" class="form-control" maxlength="50" required>
+                        <input type="text" name="pendidikan" class="form-control" maxlength="50" required placeholder="Pendidikan">
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -24,11 +24,12 @@ class TendikImport implements ToModel, WithValidation, WithHeadingRow, WithUpser
     public function rules(): array
     {
         return [
+            'nama' => 'required',
             'nip' => [
+                'required',
                 'unique:tendiks,nip',
                 'regex:/^(?:\d{11}|\d{18})$/'
             ],
-            'nama' => 'nullable',
             'tempat_lahir' => 'nullable',
             'tanggal_lahir' => 'nullable|date',
             'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',
