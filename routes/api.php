@@ -87,6 +87,7 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::post('{kelasId}/auto-assign', 'autoAddStudents')->name('kelas.autoAdd');
             Route::post('{kelasId}/import-from-kelas', 'importSiswaFromKelas')->name('kelas.importFromKelas');
             Route::get('getKelasBySemester', 'getKelas')->name('kelas.getKelas');
+            Route::get('getWaliKelas', 'ajaxGetWaliKelas')->name('kelas.getWaliKelas');
         });
 
         Route::prefix('mapel')->controller(MapelController::class)->group(function () {

@@ -655,25 +655,27 @@ class WaliKelasController extends Controller
     public function bukuAbsen($semesterId)
     {
         $user = Auth::user();
-        $students = DB::table('absensi_siswas as a')
-            ->join('siswas as b', 'b.id', '=', 'a.id_siswa')
+
+        $semester = Semester::find($semesterId, ['start', 'end']);
+
+        $students = AbsensiSiswa::join('siswas as b', 'b.id', '=', 'absensi_siswas.id_siswa')
             ->join('kelas_siswa as c', 'c.siswa_id', '=', 'b.id')
             ->join('kelas as d', 'd.id', '=', 'c.kelas_id')
             ->join('gurus as f', 'f.id', '=', 'd.id_guru')
             ->join('users as g', 'g.id', '=', 'f.id_user')
-            ->join('semesters as h', 'h.id', '=', 'd.id_semester')
             ->where('g.id', $user->id)
-            ->where('h.id', $semesterId)
+            ->where('d.id_semester', $semesterId)
             ->where('d.kelas', '!=', 'Ekskul')
+            ->whereBetween('absensi_siswas.date', [$semester->start, $semester->end])
             ->select(
                 'b.nama',
                 'b.nisn',
-                DB::raw("COUNT(CASE WHEN a.status = 'hadir' THEN a.id END) AS count_hadir"),
-                DB::raw("COUNT(CASE WHEN a.status = 'terlambat' THEN a.id END) AS count_terlambat"),
-                DB::raw("COUNT(CASE WHEN a.status = 'ijin' THEN a.id END) AS count_ijin"),
-                DB::raw("COUNT(CASE WHEN a.status = 'alpha' THEN a.id END) AS count_alpha"),
-                DB::raw("COUNT(CASE WHEN a.status = 'sakit' THEN a.id END) AS count_sakit"),
-                DB::raw("COUNT(a.id) AS count_all")
+                DB::raw("COUNT(CASE WHEN absensi_siswas.status = 'hadir' THEN absensi_siswas.id END) AS count_hadir"),
+                DB::raw("COUNT(CASE WHEN absensi_siswas.status = 'terlambat' THEN absensi_siswas.id END) AS count_terlambat"),
+                DB::raw("COUNT(CASE WHEN absensi_siswas.status = 'ijin' THEN absensi_siswas.id END) AS count_ijin"),
+                DB::raw("COUNT(CASE WHEN absensi_siswas.status = 'alpha' THEN absensi_siswas.id END) AS count_alpha"),
+                DB::raw("COUNT(CASE WHEN absensi_siswas.status = 'sakit' THEN absensi_siswas.id END) AS count_sakit"),
+                DB::raw("COUNT(absensi_siswas.id) AS count_all")
             )
             ->groupBy('b.id', 'b.nama', 'b.nisn')
             ->get();

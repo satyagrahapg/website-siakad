@@ -209,7 +209,7 @@
 
     <!-- Create Kelas Modal -->
     <div class="modal fade" id="createKelasModal" tabindex="-1" aria-labelledby="createKelasModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form action="{{ route('kelas.store') }}" method="POST">
                     @csrf
@@ -231,22 +231,21 @@
                             <input type="text" name="rombongan_belajar" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <label for="id_guru" class="form-label">Wali Kelas</label>
-                            <select name="id_guru" class="form-select" required>
-                                <option value="" selected disabled hidden>Pilih Wali Kelas</option>
-                                @foreach($walikelas as $guru)
-                                <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
+                            <label for="id_semester" class="form-label">Semester</label>
+                            <select name="id_semester" id="semester_kelas" class="form-select" required>
+                                <option value="" selected disabled hidden>Pilih Semester</option>
+                                @foreach($semesters as $semester)
+                                    <option value="{{ $semester->id }}">{{ $semester->semester . " | " . $semester->tahun_ajaran . ($semester->status == 1 ? " | Aktif" : "") }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="id_semester" class="form-label">Semester</label>
-                            <select name="id_semester" class="form-select" required>
-                                <option value="" selected disabled hidden>Pilih Semester</option>
-                                @foreach($semesters as $semester)
-                                <option value="{{ $semester->id }}">{{ $semester->semester . " | " . $semester->tahun_ajaran . ($semester->status == 1 ? " | Aktif" : "") }}
-                                </option>
-                                @endforeach
+                            <label for="id_guru" class="form-label">Wali Kelas</label>
+                            <select name="id_guru" id="guru_walikelas" class="form-select" required disabled>
+                                <option value="" selected disabled hidden>Pilih Wali Kelas</option>
+                                {{-- @foreach($walikelas as $guru)
+                                    <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
+                                @endforeach --}}
                             </select>
                         </div>
                     </div>
@@ -390,6 +389,38 @@
                 button.disabled = !isEditMode;
             });
         });       
+    });
+</script>
+
+<script>
+    function loadWalikelas() {
+        const semesterId = $('#semester_kelas').val();
+
+        $('#guru_walikelas').empty().append('<option value="" selected hidden disabled>Pilih Wali Kelas</option>').prop('disabled', true);
+        
+        if (semesterId) {
+            $.ajax({
+                url: '{{ route("kelas.getWaliKelas") }}',
+                type: 'GET',
+                data: {
+                    semesterId: semesterId,
+                },
+                success: function (data) {
+                    $('#guru_walikelas').prop('disabled', false);
+                    if (data.length > 0) {
+                        data.forEach(walikelas => {
+                            $('#guru_walikelas').append(`<option value="${walikelas.id}">${walikelas.nama}</option>`);
+                        });
+                    } else {
+                        $('#guru_walikelas').append('<option value="" disabled>Tidak ada data</option>');
+                    }
+                }
+            });
+        }
+    }
+
+    $('#semester_kelas').on('change', function () {
+        loadWalikelas();
     });
 </script>
 @endpush

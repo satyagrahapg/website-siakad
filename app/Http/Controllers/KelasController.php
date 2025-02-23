@@ -84,6 +84,26 @@ class KelasController extends Controller
         return view('kelas.index', compact('listKelas', 'kelas', 'semesters', 'siswa', 'walikelas', 'semesterId', 'gurus', 'filterKelas'));
     }
 
+    public function ajaxGetWaliKelas(Request $request)
+    {
+        $response = [];
+
+        $semesterId = $request->input('semesterId');
+        $response = Guru::whereHas('user.roles', function ($query) {
+                $query->where('name', 'Wali Kelas');
+            })
+            ->leftJoin('kelas as k', function ($join) use ($semesterId) {
+                $join->on('k.id_guru', '=', 'gurus.id')
+                     ->where('k.id_semester', '=', $semesterId);
+            })
+            ->whereNull('k.id_guru')
+            ->orderBy('gurus.nama', 'asc')
+            ->select('gurus.id', 'gurus.nama')
+            ->groupBy('gurus.id')
+            ->get();
+
+        return response()->json($response);
+    }
 
     public function hapusKelas($kelasId)
     {
@@ -109,6 +129,7 @@ class KelasController extends Controller
         $selectedAngkatan = $request->input('angkatan');
 
         $angkatan = Siswa::select('angkatan')
+            ->orderBy('angkatan', 'asc')
             ->distinct()
             ->pluck('angkatan');
 

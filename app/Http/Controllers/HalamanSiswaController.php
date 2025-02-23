@@ -8,6 +8,7 @@ use App\Models\PenilaianSiswa;
 use App\Models\Mapel;
 use App\Models\Siswa;
 use App\Models\Kelas;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,6 +17,8 @@ class HalamanSiswaController extends Controller
     public function absensi(Request $request)
     {
         $semesterId = $request->session()->get('semester_id');
+
+        $semester = Semester::find($semesterId, ['start', 'end']);
         
         $user = Auth::user(); 
         $kelas = Kelas::join('kelas_siswa as ks', 'ks.kelas_id', '=', 'kelas.id')
@@ -41,6 +44,7 @@ class HalamanSiswaController extends Controller
             ->where('k.id_semester', $semesterId)
             ->where('s.id_user', $user->id)
             ->where('k.kelas', '!=', 'Ekskul')
+            ->whereBetween('absensi_siswas.date', [$semester->start, $semester->end])
             ->select('absensi_siswas.*')
             ->orderBy('absensi_siswas.date', 'desc')
             ->get();
@@ -51,6 +55,7 @@ class HalamanSiswaController extends Controller
             ->where('k.id_semester', $semesterId)
             ->where('s.id_user', $user->id)
             ->where('k.kelas', '!=', 'Ekskul')
+            ->whereBetween('absensi_siswas.date', [$semester->start, $semester->end])
             ->selectRaw('absensi_siswas.status, COUNT(absensi_siswas.status) as count')
             ->groupBy('absensi_siswas.status')
             ->get();
