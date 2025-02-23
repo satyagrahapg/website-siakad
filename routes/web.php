@@ -13,7 +13,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\TendikController;
 use App\Http\Controllers\SemesterSelectionController;
-use App\Http\Controllers\SillabusController;
+use App\Http\Controllers\SilabusController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\WaliKelasController;
 use App\Http\Controllers\HalamanSiswaController;
@@ -86,11 +86,11 @@ Route::middleware(['auth', 'check_role'])->group(function () {
     });
 
     Route::middleware('role:Guru|Wali Kelas')->group(function () {
-        Route::prefix('cp')->controller(SillabusController::class)->group(function () {
+        Route::prefix('cp')->controller(SilabusController::class)->group(function () {
             Route::get('{mapelId}', 'index')->name('silabus.index');
         });
 
-        Route::prefix('tp')->controller(SillabusController::class)->group(function () {
+        Route::prefix('tp')->controller(SilabusController::class)->group(function () {
             Route::get('{mapelId}/cp/{cpId}', 'bukaTP')->name('bukaTP');
         });
 

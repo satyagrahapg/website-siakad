@@ -26,7 +26,12 @@ class SiswaController extends Controller
     //MENGIMPOR DATA PESERTA DIDIK DARI EXCEL
     public function import(Request $request) {
         $request->validate([
-            'file' => 'required|max:2048'
+            'file' => 'required|file|max:10240|mimes:xlsx'
+        ], [
+            'file.required' => 'File wajib diunggah.',
+            'file.file'     => 'Pastikan yang diunggah adalah file.',
+            'file.max'      => 'Ukuran file tidak boleh lebih dari 10 MB.',
+            'file.mimes'    => 'Format file harus XLSX.'
         ]);
         Excel::import(new SiswaImport, $request->file('file'));
         

@@ -122,84 +122,100 @@
 @endsection
 
 @push('script')
-    
-@if(session('success'))
-<!-- success alert -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        Swal.fire({
-            title: "Berhasil!",
-            text: "{{ session('success') }}",
-            icon: "success",
-            timer: 1500, // Waktu dalam milidetik (3000 = 3 detik)
-            showConfirmButton: false
-        });
-    });
-</script>
-@endif
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> --}}
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
-@if($errors->hasAny(['username','password','email']))
+    @if(session('success'))
     <!-- success alert -->
     <script>
-        Swal.fire({
-            title: "Gagal! Mohon periksa kembali data yang digunakan",
-            text: "Mohon periksa kembali data yang digunakan",
-            icon: "error",
-            timer: 5000, // Waktu dalam milidetik (3000 = 3 detik)
-            showConfirmButton: false
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}",
+                icon: "success",
+                timer: 1500, // Waktu dalam milidetik (3000 = 3 detik)
+                showConfirmButton: false
+            });
         });
     </script>
-@endif
-<script>
-    $(document).ready(function() {
-        // Cek apakah DataTable sudah diinisialisasi
-        if ($.fn.DataTable.isDataTable('#example')) {
-            $('#example').DataTable().destroy(); // Hancurkan DataTable yang ada
-        }
-
-        // Inisialisasi DataTable dengan opsi
-        $('#example').DataTable({
-            language: {
-                url: "{{ asset('style/js/bahasa.json') }}" // Ganti dengan path ke file bahasa Anda
-            }
-        });
-
-        // Enable Edit and Delete buttons when toggle is checked
-            $('#flexSwitchCheckDefault').on('change', function() {
-                const isEditMode = this.checked;
-
-                // Enable or disable all controlled buttons
-                document.querySelectorAll('.controlled').forEach(button => {
-                    button.disabled = !isEditMode;
+    @endif
+    @if ($errors->any())
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    let errorMessages = '';
+                    @foreach ($errors->all() as $error)
+                        errorMessages += '{{ $error }} ';
+                    @endforeach
+                    
+                    Swal.fire({
+                        title: "Error!",
+                        html: errorMessages, // Menggunakan properti html untuk menampilkan list
+                        icon: "error",
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
                 });
-            });
-    });
-</script>
-<script>
-    document.querySelectorAll('.deleteAlert').forEach(function(button, index) {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
+            </script>
+        @endif
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> --}}
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+    @if($errors->hasAny(['username','password','email']))
+        <!-- success alert -->
+        <script>
             Swal.fire({
-                title: "Apakah Anda Yakin?",
-                text: "Data Akan Dihapus Permanen dari Basis Data!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Ya, Hapus!",
-                cancelButtonText: "Batal"
-            }).then((result) => {
-                // Jika konfirmasi "Ya, Hapus!" diklik
-                if (result.isConfirmed) {
-                    // Mengirim formulir untuk menghapus data
-                    event.target.closest('form').submit();
+                title: "Gagal! Mohon periksa kembali data yang digunakan",
+                text: "Mohon periksa kembali data yang digunakan",
+                icon: "error",
+                timer: 5000, // Waktu dalam milidetik (3000 = 3 detik)
+                showConfirmButton: false
+            });
+        </script>
+    @endif
+    <script>
+        $(document).ready(function() {
+            // Cek apakah DataTable sudah diinisialisasi
+            if ($.fn.DataTable.isDataTable('#example')) {
+                $('#example').DataTable().destroy(); // Hancurkan DataTable yang ada
+            }
+
+            // Inisialisasi DataTable dengan opsi
+            $('#example').DataTable({
+                language: {
+                    url: "{{ asset('style/js/bahasa.json') }}" // Ganti dengan path ke file bahasa Anda
                 }
             });
-        });
-    });
-</script>
 
+            // Enable Edit and Delete buttons when toggle is checked
+                $('#flexSwitchCheckDefault').on('change', function() {
+                    const isEditMode = this.checked;
+
+                    // Enable or disable all controlled buttons
+                    document.querySelectorAll('.controlled').forEach(button => {
+                        button.disabled = !isEditMode;
+                    });
+                });
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.deleteAlert').forEach(function(button, index) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: "Apakah Anda Yakin?",
+                    text: "Data Akan Dihapus Permanen dari Basis Data!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, Hapus!",
+                    cancelButtonText: "Batal"
+                }).then((result) => {
+                    // Jika konfirmasi "Ya, Hapus!" diklik
+                    if (result.isConfirmed) {
+                        // Mengirim formulir untuk menghapus data
+                        event.target.closest('form').submit();
+                    }
+                });
+            });
+        });
+    </script>
 @endpush

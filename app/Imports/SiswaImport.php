@@ -27,7 +27,7 @@ class SiswaImport implements ToModel, WithValidation, WithHeadingRow, WithUpsert
             'nama' => 'required',
             'nisn' => [
                 'required',
-                'unique:gurus,nip',
+                'unique:siswas,nisn',
                 'regex:/^(?:\d{10})$/'
             ],
             'tanggal_lahir' => 'nullable',

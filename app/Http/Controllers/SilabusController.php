@@ -7,7 +7,7 @@ use App\Models\CP;
 use App\Models\TP;
 use App\Models\Mapel;
 
-class SillabusController extends Controller
+class SilabusController extends Controller
 {
     // Ini fungsi" untuk CRUD CP
 

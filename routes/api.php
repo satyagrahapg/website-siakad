@@ -13,7 +13,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\TendikController;
 use App\Http\Controllers\SemesterSelectionController;
-use App\Http\Controllers\SillabusController;
+use App\Http\Controllers\SilabusController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\WaliKelasController;
 use App\Http\Controllers\HalamanSiswaController;
@@ -123,13 +123,13 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::get('data-calendar-guru', 'getDataCalendarGuru')->name('jadwalmapel.get-calendar-guru');
         });
 
-        Route::prefix('cp')->controller(SillabusController::class)->group(function () {
+        Route::prefix('cp')->controller(SilabusController::class)->group(function () {
             Route::post('{mapelId}/store', 'storeCP')->name('silabus.storeCP');
             Route::post('{mapelId}/update/{cpId}', 'updateCP')->name('silabus.updateCP');
             Route::delete('{mapelId}/delete/{cpId}', 'deleteCP')->name('silabus.deleteCP');
         });
 
-        Route::prefix('tp')->controller(SillabusController::class)->group(function () {
+        Route::prefix('tp')->controller(SilabusController::class)->group(function () {
             Route::post('{mapelId}/cp/{cpId}/store','storeTP')->name('silabus.storeTP');
             Route::post('{mapelId}/cp/{cpId}/{tpId}/update', 'updateTP')->name('silabus.updateTP');
             Route::delete('{mapelId}/cp/{cpId}/{tpId}/delete', 'deleteTP')->name('silabus.deleteTP');
