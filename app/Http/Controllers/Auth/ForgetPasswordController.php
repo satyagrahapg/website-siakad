@@ -13,7 +13,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
-class ForgotPasswordController extends Controller
+class ForgetPasswordController extends Controller
 {
     /**
      * Write code on Method
@@ -22,7 +22,7 @@ class ForgotPasswordController extends Controller
      */
     public function showForgetPasswordForm(): View
     {
-        return view('auth.forgetPassword');
+        return view('auth.forget-password');
     }
 
     /**
@@ -44,7 +44,7 @@ class ForgotPasswordController extends Controller
             'created_at' => Carbon::now()
         ]);
 
-        Mail::send('email.forgetPassword', ['token' => $token], function($message) use($request) {
+        Mail::send('email.forget-password', ['token' => $token], function($message) use($request) {
             $message->to("$request->email");
             $message->subject('Reset Password');
         });            
@@ -59,7 +59,7 @@ class ForgotPasswordController extends Controller
      */
     public function showResetPasswordForm($token): View
     { 
-        return view('auth.forgetPasswordLink', ['token' => $token]);
+        return view('auth.forget-password-link', ['token' => $token]);
     }
 
     /**

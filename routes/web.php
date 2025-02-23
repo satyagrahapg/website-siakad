@@ -18,7 +18,7 @@ use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\WaliKelasController;
 use App\Http\Controllers\HalamanSiswaController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ForgetPasswordController;
 
 app()->router->group(['prefix' => 'api'], function () {
     require base_path('routes/api.php');
@@ -32,7 +32,7 @@ Route::middleware('guest')->group(function () {
     });
 
     //Routes Forget PW
-    Route::controller(ForgotPasswordController::class)->group(function() {
+    Route::controller(ForgetPasswordController::class)->group(function() {
         Route::get('forget-password', 'showForgetPasswordForm')->name('forget.password.get');       
         Route::get('reset-password/{token}', 'showResetPasswordForm')->name('reset.password.get');    
     });
