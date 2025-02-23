@@ -90,7 +90,7 @@ class HalamanSiswaController extends Controller
             ->distinct()
             ->get();
         
-        return view('siswapage.bukunilai', compact('mapels', 'semesterId'));
+        return view('siswapage.buku-nilai', compact('mapels', 'semesterId'));
     }
     
     // Helper method to fetch mapels the user is enrolled in

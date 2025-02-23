@@ -64,7 +64,7 @@
                 <th>Guru</th>
                 <th>Rombel</th>
                 <th>Semester</th>
-                <th>Aksi</th>
+                <th width="140px;">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -88,17 +88,15 @@
 
                     <!-- Button to open Assign Kelas Modal -->
                     @if ($mapel->kelas != 'Ekskul' && !$mapel->parent)
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#assignKelasModal-{{ $mapel->id }}">
-                        Pilih Rombel
-                    </button>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#assignKelasModal-{{ $mapel->id }}" style="width: 50px;"><i class="fa-solid fa-chalkboard-user"></i></button>
                     @endif
 
                     <!-- Delete Mata Pelajaran Button -->
                     <form action="{{ route('mapel.delete', $mapel->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger deleteAlert"><i class="fa-solid fa-trash"></i></button>
-                    </form>
+                        <button type="submit" class="btn btn-danger deleteAlert" style="width: 50px;"><i class="fa-solid fa-trash"></i></button>
+                    </form>                    
 
                     <!-- Modal for Assign Kelas -->
                     <div class="modal fade assignKelasModal" id="assignKelasModal-{{ $mapel->id }}" tabindex="-1" aria-labelledby="assignKelasModalLabel" aria-hidden="true">

@@ -20,7 +20,7 @@ class MapelController extends Controller
         $kelas = Kelas::all();
 
         // Initialize the query for mapels and apply filters if present
-        $query = Mapel::with('guru', 'semester'); // Eager load related data
+        $query = Mapel::with('guru', 'semester')->where('mapels.kelas', '!=', 'Ekskul'); // Eager load related data
 
         if ($request->filled('semester_id')) {
             $query->where('semester_id', $request->input('semester_id'));
@@ -50,15 +50,15 @@ class MapelController extends Controller
                             ->get();
 
         // Generate the rombel data by grouping and combining rombongan_belajar for each mapel ID
-        $rombel = DB::table('mapels')
-                    ->join('mapel_kelas', 'mapel_kelas.mapel_id', '=', 'mapels.id')
-                    ->join('kelas', 'mapel_kelas.kelas_id', '=', 'kelas.id')
-                    ->select('mapels.id', 'kelas.rombongan_belajar')
-                    ->get()
-                    ->groupBy('id')
-                    ->map(function ($items) {
-                        return $items->pluck('rombongan_belajar')->implode(', ');
-                    });
+        $rombel = Mapel::join('mapel_kelas', 'mapel_kelas.mapel_id', '=', 'mapels.id')
+            ->join('kelas', 'mapel_kelas.kelas_id', '=', 'kelas.id')
+            ->where('mapels.kelas', '!=', 'Ekskul')
+            ->select('mapels.id', 'kelas.rombongan_belajar')
+            ->get()
+            ->groupBy('id')
+            ->map(function ($items) {
+                return $items->pluck('rombongan_belajar')->implode(', ');
+            });
 
         // Pass data to the view
         return view('mapel.index', compact('kelasOptions', 'kelas', 'semesters', 'gurus', 'mapels', 'rombel', 'listMapel'));

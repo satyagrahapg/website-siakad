@@ -287,7 +287,7 @@ class PenilaianController extends Controller
             ->where('mapel_kelas.id', $mapelKelasId)
             ->first();
 
-        return view('penilaian.bukuNilai', compact('datas', 'kelas', 'mapel'));
+        return view('penilaian.buku-nilai', compact('datas', 'kelas', 'mapel'));
     }
 
     public function penilaianEkskul(Request $request, $kelasId, $mapelId)

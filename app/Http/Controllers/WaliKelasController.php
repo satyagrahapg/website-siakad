@@ -325,7 +325,7 @@ class WaliKelasController extends Controller
             }
         }
 
-        return view('walikelas.legerNilai', ['data' => $transposed , 'subjects' => $subjects, 'semesterId' => $semesterId]);
+        return view('walikelas.leger-nilai', ['data' => $transposed , 'subjects' => $subjects, 'semesterId' => $semesterId]);
     }    
 
     public function generateRapotPDF(Request $request)
@@ -429,7 +429,7 @@ class WaliKelasController extends Controller
             $semesterData = Semester::find($semesterId);
 
             // Pass the data to the view for PDF generation
-            $pdf = PDF::loadView('walikelas.rapot_sts', [
+            $pdf = PDF::loadView('walikelas.rapot-sts', [
                 'ttd' => $ttd,
                 'nisn' => $siswaData->nisn,
                 'semester' => $semesterData->semester,
@@ -560,7 +560,7 @@ class WaliKelasController extends Controller
             // dd($komentarRapot);
 
             // Pass the data to the view for PDF generation
-            $pdf = PDF::loadView('walikelas.rapot_sas', [
+            $pdf = PDF::loadView('walikelas.rapot-sas', [
                 'ttd' => $ttd,
                 'nisn' => $siswaData->nisn,
                 'semester' => $semesterData->semester,
@@ -678,6 +678,6 @@ class WaliKelasController extends Controller
             ->groupBy('b.id', 'b.nama', 'b.nisn')
             ->get();
     
-        return view('walikelas.bukuAbsen', compact('students'));
+        return view('walikelas.buku-absen', compact('students'));
     }
 }
