@@ -73,13 +73,13 @@
         <div class="col-2">
             <label for="kelas">Kelas:</label>
             <select id="kelas" name="kelas" class="form-select" disabled>
-                <option value="">Pilih Kelas</option>
+                <option value="" selected disabled hidden>Pilih Kelas</option>
             </select>
         </div>
         <div class="col-2">
             <label for="rombel">Rombongan Belajar:</label>
             <select id="rombel" name="rombel" class="form-select" disabled>
-                <option value="">Pilih Rombel</option>
+                <option value="" selected disabled hidden>Pilih Rombel</option>
             </select>
         </div>
         <div class="col">
@@ -91,13 +91,13 @@
         <div class="col-6">
             <label for="ma_pel">Mata Pelajaran:</label>
             <select id="ma_pel" name="ma_pel" class="form-select" disabled>
-                <option value="">Pilih Mata Pelajaran</option>
+                <option value="" selected disabled hidden>Pilih Mata Pelajaran</option>
             </select>
         </div>
         <div class="col-3">
             <label for="jampel">Jam Pelajaran:</label>
             <select id="jampel" name="jampel" class="form-select" disabled>
-                <option value="">Pilih Jam Pelajaran</option>
+                <option value="" selected disabled hidden>Pilih Jam Pelajaran</option>
             </select>
         </div>
         <div class="col">

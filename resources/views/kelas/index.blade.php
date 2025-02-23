@@ -20,7 +20,7 @@
             <div class="col-md-4">
                 <label for="semester_id">Semester:</label>
                 <select name="semester_id" id="semester_id" class="form-control">
-                    <option value="">Pilih Semester</option>
+                    <option value="" selected disabled hidden>Pilih Semester</option>
                     @foreach($semesters as $semester)
                     <option value="{{ $semester->id }}" {{ request('semester_id') == $semester->id ? 'selected' : '' }}>
                         {{ $semester->semester }} | {{ $semester->tahun_ajaran }} {{ $semester->status == 1 ? "(Aktif)" : "" }}
@@ -33,7 +33,7 @@
             <div class="col-md-4">
                 <label for="kelas">Kelas:</label>
                 <select name="kelas" id="kelas" class="form-control">
-                    <option value="">Pilih Kelas</option>
+                    <option value="" selected disabled hidden>Pilih Kelas</option>
                     @foreach($listKelas as $class)
                     <option value="{{ $class->kelas }}" {{ request('kelas') == $class->kelas ? 'selected' : '' }}>
                         {{ $class->kelas }}
@@ -116,7 +116,7 @@
                                         <div class="mb-3">
                                             <label for="id_guru" class="form-label">Wali Kelas</label>
                                             <select name="id_guru" class="form-select" required>
-                                                <option value="">Pilih Wali Kelas</option>
+                                                <option value="" selected disabled hidden>Pilih Wali Kelas</option>
                                                 @foreach($walikelas as $guru)
                                                 <option value="{{ $guru->id }}" {{ $guru->id == $k->id_guru ? 'selected' : '' }}>
                                                     {{ $guru->nama }}
@@ -127,7 +127,7 @@
                                         <div class="mb-3">
                                             <label for="id_semester" class="form-label">Semester</label>
                                             <select name="id_semester" class="form-select" required>
-                                                <option value="">Pilih Semester</option>
+                                                <option value="" selected disabled hidden>Pilih Semester</option>
                                                 @foreach($semesters as $semester)
                                                 <option value="{{ $semester->id }}" {{ $semester->id == $k->id_semester ? 'selected' : '' }}>
                                                     {{ $semester->semester . " | " . $semester->tahun_ajaran . ($semester->status == 1 ? " | Aktif" : "") }}
@@ -166,7 +166,7 @@
                                         <div class="mb-3">
                                             <label for="id_guru" class="form-label">Pendamping</label>
                                             <select name="id_guru" class="form-select" required>
-                                                <option value="">Pilih Pelatih</option>
+                                                <option value="" selected disabled hidden>Pilih Pelatih</option>
                                                 @foreach($gurus as $guru)
                                                 <option value="{{ $guru->id }}" {{ $guru->id == $k->id_guru ? 'selected' : '' }}>
                                                     {{ $guru->nama }}
@@ -177,7 +177,7 @@
                                         <div class="mb-3">
                                             <label for="id_semester" class="form-label">Semester</label>
                                             <select name="id_semester" class="form-select" required>
-                                                <option value="">Pilih Semester</option>
+                                                <option value="" selected disabled hidden>Pilih Semester</option>
                                                 @foreach($semesters as $semester)
                                                 <option value="{{ $semester->id }}" {{ $semester->id == $k->id_semester ? 'selected' : '' }}>
                                                     {{ $semester->semester . " | " . $semester->tahun_ajaran . ($semester->status == 1 ? " | Aktif" : "") }}
@@ -233,7 +233,7 @@
                         <div class="mb-3">
                             <label for="id_guru" class="form-label">Wali Kelas</label>
                             <select name="id_guru" class="form-select" required>
-                                <option value="">Pilih Wali Kelas</option>
+                                <option value="" selected disabled hidden>Pilih Wali Kelas</option>
                                 @foreach($walikelas as $guru)
                                 <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
                                 @endforeach
@@ -242,7 +242,7 @@
                         <div class="mb-3">
                             <label for="id_semester" class="form-label">Semester</label>
                             <select name="id_semester" class="form-select" required>
-                                <option value="">Pilih Semester</option>
+                                <option value="" selected disabled hidden>Pilih Semester</option>
                                 @foreach($semesters as $semester)
                                 <option value="{{ $semester->id }}">{{ $semester->semester . " | " . $semester->tahun_ajaran . ($semester->status == 1 ? " | Aktif" : "") }}
                                 </option>
@@ -277,7 +277,7 @@
                         <div class="mb-3">
                             <label for="id_guru" class="form-label">Pendamping</label>
                             <select name="id_guru" class="form-select" required>
-                                <option value="">Pilih Pendamping Ekstrakulikuler</option>
+                                <option value="" selected disabled hidden>Pilih Pendamping Ekstrakulikuler</option>
                                 @foreach($gurus as $guru)
                                 <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
                                 @endforeach
@@ -286,7 +286,7 @@
                         <div class="mb-3">
                             <label for="id_semester" class="form-label">Semester</label>
                             <select name="id_semester" class="form-select" required>
-                                <option value="">Pilih Semester</option>
+                                <option value="" selected disabled hidden>Pilih Semester</option>
                                 @foreach($semesters as $semester)
                                 <option value="{{ $semester->id }}">{{ $semester->semester . " | " . $semester->tahun_ajaran . ($semester->status == 1 ? " | Aktif" : "") }}
                                 </option>

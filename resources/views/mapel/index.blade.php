@@ -114,6 +114,7 @@
                                         <div class="mb-3">
                                             <label for="kelas_id" class="form-label">Pilih Rombel</label>
                                             <select name="kelas_id[]" id="kelas_id" class="form-select select-kelas" required multiple>
+                                                <option value="" selected disabled hidden>Pilih Rombel</option>
                                                 @foreach ($kelasOptions->where('id_semester', $mapel->semester_id)->whereIn('kelas',explode(',',$mapel->kelas)) as $k)
                                                 <option value="{{ $k->id }}" @selected(in_array($k->id,$mapel->kelas()->pluck('kelas_id')->toArray())) >{{ $k->rombongan_belajar }}</option>
                                                 @endforeach
@@ -184,7 +185,7 @@
                             <select name="guru_id" id="guru_id" class="form-select @error('guru_id')
                                 is-invalid
                             @enderror" >
-                                <option value="">Pilih Guru</option>
+                                <option value="" selected disabled hidden>Pilih Guru</option>
                                 @foreach ($gurus as $guru)
                                 <option value="{{ $guru->id }}" @selected(old('guru_id') == $guru->id)>{{ $guru->nama }}</option>
                                 @endforeach
@@ -200,7 +201,7 @@
                             <select name="semester_id" id="selectSemester" class="form-select @error('semester_id')
                                 is-invalid
                             @enderror" required>
-                                <option value="">Pilih Semester</option>
+                                <option value="" selected disabled hidden>Pilih Semester</option>
                                 @foreach ($semesters as $semester)
                                 <option value="{{ $semester->id }}" @selected(old('semester_id') == $semester->id)>{{ $semester->semester . " | " . $semester->tahun_ajaran . ($semester->status == 1 ? " | Aktif" : "") }}</option>
                                 @endforeach
@@ -209,7 +210,7 @@
                         <div class="mb-3" id="parent">
                             <label for="parent_id" class="form-label">Pilih Mata Pelajaran parent</label>
                             <select name="parent_id" id="parent_id" class="form-select">
-                                <option value="">Mohon Pilih Semester terlebih dahulu</option>
+                                <option value="" selected disabled hidden>Mohon Pilih Semester terlebih dahulu</option>
                             </select>
                         </div>
                     </div>
@@ -342,7 +343,7 @@
                 },
                 success: function (response) {
                     $('#parent_id').empty();
-                    $('#parent_id').append(`<option value="">Pilih Mata pelajaran</option>`);
+                    $('#parent_id').append(`<option value="" selected disabled hidden>Pilih Mata pelajaran</option>`);
                     Object.entries(response.data).forEach(([name, id]) => {
                         $('#parent_id').append(`<option value="${id}">${name}</option>`);
                     });

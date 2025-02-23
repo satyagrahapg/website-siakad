@@ -102,7 +102,7 @@
                             <div class="mb-3">
                                 <label for="id_siswa" class="form-label">Pilih Siswa</label>
                                 <select name="id_siswa" class="form-select" required>
-                                    <option value="">Pilih Siswa</option>
+                                    <option value="" selected disabled hidden>Pilih Siswa</option>
                                     @foreach ($siswas as $siswa)
                                         <option value="{{ $siswa->id }}">{{ $siswa->nama }}</option>
                                     @endforeach
@@ -135,7 +135,7 @@
                                 <label for="angkatan">Pilih Angkatan:</label>
                                 <select name="angkatan" id="angkatan"
                                     class="form-select @error('angkatan') is-invalid @enderror">
-                                    <option value="">-- Select Angkatan --</option>
+                                    <option value="" selected disabled hidden>-- Select Angkatan --</option>
                                     @foreach ($angkatan as $year)
                                         <option value="{{ $year }}" @selected(old('angkatan') == $year)>
                                             {{ $year }}
@@ -224,7 +224,7 @@
                                 <label for="semester">Pilih Semester:</label>
                                 <select name="semester" id="semester"
                                     class="form-select @error('semester') is-invalid @enderror" id="selectsemester" required>
-                                    <option value="">-- Select semester --</option>
+                                    <option value="" selected disabled hidden>-- Select semester --</option>
                                     @foreach ($semesters as $semester)
                                         <option value="{{ $semester->id }}" @selected(old('semester') == $year)>
                                             {{ $semester->semester . ' | ' . $semester->tahun_ajaran }}
@@ -236,7 +236,7 @@
                                 <label for="kelas">Pilih Kelas:</label>
                                 <select name="kelas" id="kelas"
                                     class="form-select @error('kelas') is-invalid @enderror" id="selectKelas" required>
-                                    <option value="">Mohon pilih semester terlebih dahulu</option>
+                                    <option value="" selected disabled hidden>Mohon pilih semester terlebih dahulu</option>
                                 </select>
                                 @error('kelas')
                                     <p class="invalid-feedback">{{ $message }}</p>

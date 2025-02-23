@@ -57,7 +57,7 @@
                         <div class="mb-3">
                             <label for="id_siswa" class="form-label">Pilih Peserta Didik</label>
                             <select name="id_siswa" class="form-select selectpicker" data-live-search="true" required>
-                                <option value="">Pilih Peserta Didik</option>
+                                <option value="" selected disabled hidden>Pilih Peserta Didik</option>
                                 @foreach($siswas as $siswa)
                                 <option value="{{ $siswa->id }}">{{ $siswa->nama }}</option>
                                 @endforeach
