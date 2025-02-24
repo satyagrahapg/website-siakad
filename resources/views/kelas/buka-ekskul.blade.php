@@ -16,6 +16,10 @@
     <!-- Add Student Modal Trigger -->
     <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addEkskulModal-{{ $kelas->id }}">Tambah</button>
 
+    <!--Import & Export Student Modal Trigger -->
+        <button class="btn btn-info mb-3" data-bs-toggle="modal"
+            data-bs-target="#importStudentModal-{{ $kelas->id }}" style="width: 5rem">Impor</button>
+
     <table id="example" class="table table-striped" style="width:100%">
         <thead>
             <tr>
@@ -71,6 +75,55 @@
             </div>
         </div>
     </div>
+
+    {{-- Import Student Modal --}}
+        <div class="modal fade" id="importStudentModal-{{ $kelas->id }}" tabindex="-1"
+            aria-labelledby="addStudentModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form
+                        action="{{ route('kelas.importFromEkskul', ['ekskulId' => $kelas->id, 'angkatan' => request('angkatan')]) }}"
+                        method="POST" style="display:inline;">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addStudentModalLabel">Impor Data Siswa</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-info" role="alert">
+                                Gunakan Fitur ini untuk mengimpor data siswa dari semester/kelas lain
+                            </div>
+                            <div class="mb-3">
+                                <label for="semester">Pilih Semester:</label>
+                                <select name="semester" id="semester"
+                                    class="form-select @error('semester') is-invalid @enderror" id="selectsemester" required>
+                                    <option value="" selected disabled hidden>-- Select semester --</option>
+                                    @foreach ($semesters as $semester)
+                                        <option value="{{ $semester->id }}" @selected(old('semester') == $semester->id)>
+                                            {{ $semester->semester . ' | ' . $semester->tahun_ajaran }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="kelas">Pilih Kelas:</label>
+                                <select name="kelas" id="kelas"
+                                    class="form-select @error('kelas') is-invalid @enderror" id="selectKelas" required>
+                                    <option value="" selected disabled hidden>Mohon pilih semester terlebih dahulu</option>
+                                </select>
+                                @error('kelas')
+                                    <p class="invalid-feedback">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Impor Siswa</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 </div>
 @endsection
 
@@ -145,6 +198,30 @@
                     event.target.closest('form').submit();
                 }
             });
+        });
+    });
+</script>
+<script>
+    const selectSemester = document.getElementById('semester');
+    semester.addEventListener('change', function() {
+        console.log(semester.value)
+        $.ajax({
+            url: "{{ route('kelas.getEkskul') }}",
+            type: 'GET',
+            data: {
+                semesterId: selectSemester.value
+            },
+            success: function(response) {
+                console.log(response);
+                const selectKelas = document.getElementById('kelas');
+                selectKelas.innerHTML = '<option value="">-- Select Ekskul --</option>';
+                response.forEach(function(kelas) {
+                    const option = document.createElement('option');
+                    option.value = kelas.id;
+                    option.textContent = kelas.rombongan_belajar;
+                    selectKelas.appendChild(option);
+                });
+            }
         });
     });
 </script>

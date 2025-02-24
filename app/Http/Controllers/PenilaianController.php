@@ -163,11 +163,26 @@ class PenilaianController extends Controller
         $request->validate([
             'tipe' => 'required|string|max:255',
             'judul' => 'required|string|max:255',
-            'tanggal' => 'required',
+            'tanggal' => ['required', function ($attribute, $value, $fail) use ($request) {
+                $semester = Semester::find($request->session()->get('semester_id'));
+    
+                if (!$semester) {
+                    $fail('Semester tidak ditemukan.');
+                    return;
+                }
+    
+                if ($value < $semester->start || $value > $semester->end) {
+                    $fail('Tanggal tidak valid untuk semester yang dipilih! Pilih tanggal antara ' 
+                        . $semester->start . ' dan ' . $semester->end 
+                        . ' untuk ' . $semester->semester . ' ' . $semester->tahun_ajaran . '.');
+                }
+            }
+        ],
             'kktp' => 'required|integer',
             'keterangan' => 'nullable|string|max:255',
             'tp_ids' => 'required',
         ]);
+        
         // Find the Penilaian record by its ID
         $penilaian = Penilaian::findOrFail($penilaianId);
 
@@ -261,7 +276,6 @@ class PenilaianController extends Controller
         // $mapelKelas = MapelKelas::find($mapelKelasId);
         $datas = PenilaianSiswa::join('penilaians as b', 'b.id', '=', 'penilaian_siswa.penilaian_id')
             ->join('siswas as c', 'c.id', '=', 'penilaian_siswa.siswa_id')
-            
             // ->join('mapel_kelas as f', 'f.mapel_id', '=', 'b.mapel_kelas_id')
             // ->where('f.kelas_id', $mapelKelas->kelas_id)
             ->where('b.mapel_kelas_id', $mapelKelasId)
@@ -271,7 +285,13 @@ class PenilaianController extends Controller
                 DB::raw("AVG(CASE WHEN b.tipe = 'Tugas' THEN penilaian_siswa.nilai_akhir END) as avg_tugas"),
                 DB::raw("AVG(CASE WHEN b.tipe = 'UH' THEN penilaian_siswa.nilai_akhir END) as avg_uh"),
                 DB::raw("AVG(CASE WHEN b.tipe = 'SAS' THEN penilaian_siswa.nilai_akhir END) as avg_sas"),
-                DB::raw("AVG(CASE WHEN b.tipe = 'STS' THEN penilaian_siswa.nilai_akhir END) as avg_sts")
+                DB::raw("AVG(CASE WHEN b.tipe = 'STS' THEN penilaian_siswa.nilai_akhir END) as avg_sts"),
+                DB::raw("(
+                    AVG(CASE WHEN b.tipe = 'Tugas' THEN penilaian_siswa.nilai_akhir END) +
+                    AVG(CASE WHEN b.tipe = 'UH' THEN penilaian_siswa.nilai_akhir END) +
+                    AVG(CASE WHEN b.tipe = 'SAS' THEN penilaian_siswa.nilai_akhir END) +
+                    AVG(CASE WHEN b.tipe = 'STS' THEN penilaian_siswa.nilai_akhir END)
+                ) / 4 as nilai_akhir")
             )
             ->groupBy('c.nama')
             ->groupBy('c.nisn')

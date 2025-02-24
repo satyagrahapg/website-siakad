@@ -114,7 +114,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="kktp{{ $penilaian->id }}" class="form-label">KKTP</label>
-                                    <input type="text" class="form-control" id="kktp{{ $penilaian->id }}" name="kktp" value="{{ $penilaian->kktp }}" required>
+                                    <input type="number" class="form-control" id="kktp{{ $penilaian->id }}" name="kktp" value="{{ $penilaian->kktp }}" pattern="[0-9]+" title="KKTP harus berupa angka dengan rentang 0 sampai 100." min="0" max="100" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="keterangan{{ $penilaian->id }}" class="form-label">Keterangan</label>
@@ -175,7 +175,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="kktp" class="form-label">KKTP</label>
-                            <input type="text" class="form-control" id="kktp" name="kktp" value="{{ old('kktp') }}" required>
+                            <input type="number" class="form-control" id="kktp" name="kktp" value="{{ old('kktp') }}" pattern="[0-9]+" title="KKTP harus berupa angka dengan rentang 0 sampai 100." min="0" max="100" required>
                         </div>
                         <div class="mb-3">
                             <label for="keterangan" class="form-label">Keterangan</label>

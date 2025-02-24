@@ -87,6 +87,8 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::post('{kelasId}/auto-assign', 'autoAddStudents')->name('kelas.autoAdd');
             Route::post('{kelasId}/import-from-kelas', 'importSiswaFromKelas')->name('kelas.importFromKelas');
             Route::get('getKelasBySemester', 'getKelas')->name('kelas.getKelas');
+            Route::post('{ekskulId}/import-from-ekskul', 'importSiswaFromEkskul')->name('kelas.importFromEkskul');
+            Route::get('getEkskulBySemester', 'getEkskul')->name('kelas.getEkskul');
             Route::get('getWaliKelas', 'ajaxGetWaliKelas')->name('kelas.getWaliKelas');
         });
 

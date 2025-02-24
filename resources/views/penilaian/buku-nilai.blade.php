@@ -46,6 +46,7 @@
                 <th class="text-start">UH</th>
                 <th class="text-start">STS</th>
                 <th class="text-start">SAS</th>
+                <th class="text-start">Nilai Akhir</th>
             </tr>
         </thead>
         <tbody>
@@ -58,6 +59,7 @@
                 <td class="text-start">{{ number_format($data->avg_uh, 2) ?? '-' }}</td>
                 <td class="text-start">{{ number_format($data->avg_sts, 2) ?? '-' }}</td>
                 <td class="text-start">{{ number_format($data->avg_sas, 2) ?? '-' }}</td>
+                <td class="text-start">{{ number_format($data->nilai_akhir, 2) ?? '-' }}</td>
             </tr>
             @endforeach
         </tbody>

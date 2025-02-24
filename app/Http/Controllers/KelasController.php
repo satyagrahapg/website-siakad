@@ -173,17 +173,19 @@ class KelasController extends Controller
             return in_array($siswa->id, $assignedEkskulSiswaIds);
         });
 
+        // Get all kelas data
+        $semesters = Semester::all();
+
         if ($kelas->kelas === 'Ekskul') {
             // Pass the data to the view
             return view('kelas.buka-ekskul', [
                 'kelas' => $kelas,
                 'siswas' => $availableEkskulSiswa,
-                'daftar_siswa' => $kelas->siswas
+                'daftar_siswa' => $kelas->siswas,
+                'semesters' => $semesters,
+                'angkatan' => $angkatan,
             ]);
         } else {
-            // Get all kelas data
-            $semesters = Semester::all();
-
             // Pass the data to the view
             return view('kelas.buka', [
                 'kelas' => $kelas,
@@ -393,6 +395,30 @@ class KelasController extends Controller
         })->get();
 
         $kelasId->siswas()->syncWithoutDetaching($siswas->pluck('id')->toArray());
+
+        return redirect()->back()->with('success', 'Data siswa berhasil diimport');
+    }
+
+    public function getEkskul(Request $request)
+    {
+        $semesterId = $request->input('semesterId');
+        $kelas = Kelas::where('id_semester', $semesterId)->where('kelas','Ekskul')->get();
+
+        return response()->json($kelas);
+    }
+
+    public function importSiswaFromEkskul(Request $request, Kelas $ekskulId)
+    {
+        $request->validate([
+            'semester' => 'required|exists:semesters,id',
+            'kelas' => 'required|exists:kelas,id',
+        ]);
+
+        $siswas = Siswa::whereHas('kelases', function ($query) use($request) {
+            $query->where('kelas_id', $request->kelas);
+        })->get();
+
+        $ekskulId->siswas()->syncWithoutDetaching($siswas->pluck('id')->toArray());
 
         return redirect()->back()->with('success', 'Data siswa berhasil diimport');
     }
