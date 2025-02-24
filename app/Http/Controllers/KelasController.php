@@ -268,11 +268,6 @@ class KelasController extends Controller
         // Find the class
         $kelas = Kelas::findOrFail($kelasId);
 
-        // Check if the class already has 30 students
-        if ($kelas->siswas()->count() >= 30) {
-            return redirect()->back()->with('error', 'Kelas sudah penuh');
-        }
-
         // Attach the student to the class using the pivot table
         $kelas->siswas()->syncWithoutDetaching($request->id_siswa);
 
@@ -421,5 +416,21 @@ class KelasController extends Controller
         $ekskulId->siswas()->syncWithoutDetaching($siswas->pluck('id')->toArray());
 
         return redirect()->back()->with('success', 'Data siswa berhasil diimport');
+    }
+
+    public function getSiswaByAngkatan(Kelas $kelas, Request $request) {
+        // Get the semester ID of the current class
+        $semesterId = $kelas->id_semester;
+
+        $availableSiswa = Siswa::where('angkatan', $request->angkatan)
+            ->whereNotIn('id', function ($query) use ($semesterId) {
+                $query->select('kelas_siswa.siswa_id')
+                    ->from('kelas_siswa')
+                    ->join('kelas', 'kelas_siswa.kelas_id', '=', 'kelas.id')
+                    ->where('kelas.id_semester', $semesterId);
+            })
+            ->get();
+
+        return response()->json($availableSiswa);
     }
 }

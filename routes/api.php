@@ -90,6 +90,7 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::post('{ekskulId}/import-from-ekskul', 'importSiswaFromEkskul')->name('kelas.importFromEkskul');
             Route::get('getEkskulBySemester', 'getEkskul')->name('kelas.getEkskul');
             Route::get('getWaliKelas', 'ajaxGetWaliKelas')->name('kelas.getWaliKelas');
+            Route::get('{kelas}/getSiswaByAngkatan', 'getSiswaByAngkatan')->name('kelas.getSiswaByAngkatan');
         });
 
         Route::prefix('mapel')->controller(MapelController::class)->group(function () {

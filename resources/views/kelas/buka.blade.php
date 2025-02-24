@@ -39,8 +39,8 @@
             data-bs-target="#addStudentModal-{{ $kelas->id }}">Tambah</button>
 
         <!--Import & Export Student Modal Trigger -->
-        <button class="btn btn-info mb-3" data-bs-toggle="modal"
-            data-bs-target="#importStudentModal-{{ $kelas->id }}" style="width: 5rem">Impor</button>
+        <button class="btn btn-info mb-3" data-bs-toggle="modal" data-bs-target="#importStudentModal-{{ $kelas->id }}"
+            style="width: 5rem">Impor</button>
 
         <a target="_blank" href="{{ route('kelas.export', ['kelasId' => $kelas->id]) }}" class="btn btn-secondary mb-3 px-3"
             style="width: 5rem">Ekspor</a>
@@ -78,7 +78,8 @@
                                 onsubmit="return confirm('Are you sure you want to delete this student from this class?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger deleteAlert"><i class="fa-solid fa-trash"></i></button>
+                                <button type="submit" class="btn btn-danger deleteAlert"><i
+                                        class="fa-solid fa-trash"></i></button>
                             </form>
                         </td>
                     </tr>
@@ -100,9 +101,20 @@
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
+                                <label for="angkatan" class="form-label">Pilih Angkatan</label>
+                                <select name="angkatan" id="selectAngkatan" class="form-select" required>
+                                    <option value="" selected disabled hidden>Pilih Angkatan</option>
+                                    @foreach ($angkatan as $year)
+                                        <option value="{{ $year }}" @selected(old('angkatan') == $year)>
+                                            {{ $year }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
                                 <label for="id_siswa" class="form-label">Pilih Siswa</label>
-                                <select name="id_siswa" class="form-select" required>
-                                    <option value="" selected disabled hidden>Pilih Siswa</option>
+                                <select name="id_siswa" class="form-select" id="siswas" required>
+                                    <option value="" selected disabled hidden>Pilih Angkatan Terlebih Dahulu</option>
                                     @foreach ($siswas as $siswa)
                                         <option value="{{ $siswa->id }}">{{ $siswa->nama }}</option>
                                     @endforeach
@@ -223,7 +235,8 @@
                             <div class="mb-3">
                                 <label for="semester">Pilih Semester:</label>
                                 <select name="semester" id="semester"
-                                    class="form-select @error('semester') is-invalid @enderror" id="selectsemester" required>
+                                    class="form-select @error('semester') is-invalid @enderror" id="selectsemester"
+                                    required>
                                     <option value="" selected disabled hidden>-- Select semester --</option>
                                     @foreach ($semesters as $semester)
                                         <option value="{{ $semester->id }}" @selected(old('semester') == $year)>
@@ -236,7 +249,8 @@
                                 <label for="kelas">Pilih Kelas:</label>
                                 <select name="kelas" id="kelas"
                                     class="form-select @error('kelas') is-invalid @enderror" id="selectKelas" required>
-                                    <option value="" selected disabled hidden>Mohon pilih semester terlebih dahulu</option>
+                                    <option value="" selected disabled hidden>Mohon pilih semester terlebih dahulu
+                                    </option>
                                 </select>
                                 @error('kelas')
                                     <p class="invalid-feedback">{{ $message }}</p>
@@ -422,6 +436,30 @@
                         option.value = kelas.id;
                         option.textContent = kelas.rombongan_belajar;
                         selectKelas.appendChild(option);
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        const selectAngkatan = document.getElementById('selectAngkatan');
+        selectAngkatan.addEventListener('change', function() {
+            console.log(selectAngkatan.value)
+            $.ajax({
+                url: "{{ route('kelas.getSiswaByAngkatan', ['kelas' => $kelas->id]) }}",
+                type: 'GET',
+                data: {
+                    angkatan: selectAngkatan.value
+                },
+                success: function(response) {
+                    console.log(response);
+                    const selectSiswas = document.getElementById('siswas');
+                    selectSiswas.innerHTML = '<option value="">-- Select Siswa --</option>';
+                    response.forEach(function(siswa) {
+                        const option = document.createElement('option');
+                        option.value = siswa.id;
+                        option.textContent = siswa.nama;
+                        selectSiswas.appendChild(option);
                     });
                 }
             });
