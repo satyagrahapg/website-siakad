@@ -26,7 +26,7 @@
                         class="btn-close"
                         data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('guru.import') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('pendidik.import') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="m-3">
                         <input type="file" name="file" class="form-control" accept=".xlsx" required>
@@ -42,7 +42,7 @@
 
     <!-- import button -->
     <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#excelModal" style="width: 6rem">Impor</button>
-    <a target="_blank" href="{{ route('guru.export') }}" class="btn btn-secondary mb-3 px-3" style="width: 6rem">Ekspor</a>
+    <a target="_blank" href="{{ route('pendidik.export') }}" class="btn btn-secondary mb-3 px-3" style="width: 6rem">Ekspor</a>
     <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createGuruModal" style="width: 6rem">Tambah</button>
     
     {{-- toggle to enable "Edit" and "Delete" buttons --}} 
@@ -67,7 +67,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($gurus as $guru)
+            @foreach($pendidiks as $guru)
                 <tr>
                     <td class="text-start">{{ $loop->iteration }}</td>
                     <td>{{ $guru->nama }}</td>
@@ -83,7 +83,7 @@
                         <!-- Edit Class Modal Trigger -->   
                         <button class="btn btn-warning controlled" data-bs-toggle="modal" data-bs-target="#editGuruModal-{{ $guru->id }}"><i class="fa-solid fa-edit"></i></button>
                         @role('Super Admin')
-                            <form action="{{ route('guru.destroy', $guru->id) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('pendidik.destroy', $guru->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger deleteAlert controlled"><i class="fa-solid fa-trash"></i></button>
@@ -95,7 +95,7 @@
                         @if(empty($guru->id_user))
                         <!-- Button to open the generate user modal -->
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generateUserModal-{{ $guru->id }}" style="min-width: 42px;"><i class="fa-solid fa-plus"></i></button>
-                        @include('guru.generate')
+                        @include('pendidik.generate')
                         @else
                             @role("Super Admin")
                                 {{-- <span>User ID: {{ $guru->id_user }}</span> --}}
@@ -103,15 +103,15 @@
                             @else
                                 {{-- <span>Sudah Ada</span> --}}
                                 <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editRoleModal-{{ $guru->id }}" style="min-width: 42px;"><i class="fa-solid fa-edit"></i></button>
-                                @include('guru.role')
+                                @include('pendidik.role')
                             @endrole
                         @endif
                     </td>
                 </tr>
-                @include('guru.update')
-                @include('guru.view')
+                @include('pendidik.update')
+                @include('pendidik.view')
             @endforeach
-            @include('guru.create')
+            @include('pendidik.create')
         </tbody>
     </table>    
 </div>

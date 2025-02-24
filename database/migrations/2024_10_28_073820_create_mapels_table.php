@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama');
             $table->integer('parent')->nullable();
             $table->string('kelas');
-            $table->foreignId('guru_id')->nullable()->constrained('gurus')->onDelete('cascade');
+            $table->foreignId('guru_id')->nullable()->constrained('pendidiks')->onDelete('cascade');
             $table->foreignId('semester_id')->constrained('semesters')->onDelete('cascade');
             $table->timestamps();
         });

@@ -167,7 +167,7 @@
                                             <label for="id_guru" class="form-label">Pendamping</label>
                                             <select name="id_guru" class="form-select" required>
                                                 <option value="" selected disabled hidden>Pilih Pelatih</option>
-                                                @foreach($gurus as $guru)
+                                                @foreach($pendidiks as $guru)
                                                 <option value="{{ $guru->id }}" {{ $guru->id == $k->id_guru ? 'selected' : '' }}>
                                                     {{ $guru->nama }}
                                                 </option>
@@ -277,7 +277,7 @@
                             <label for="id_guru" class="form-label">Pendamping</label>
                             <select name="id_guru" class="form-select" required>
                                 <option value="" selected disabled hidden>Pilih Pendamping Ekstrakulikuler</option>
-                                @foreach($gurus as $guru)
+                                @foreach($pendidiks as $guru)
                                 <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
                                 @endforeach
                             </select>

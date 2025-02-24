@@ -61,7 +61,7 @@
                                     <a href="{{route('tendik.index')}}" class="sidebar-link">Tenaga Kependidikan</a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="{{route('guru.index')}}" class="sidebar-link">Pendidik</a>
+                                    <a href="{{route('pendidik.index')}}" class="sidebar-link">Pendidik</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="{{route('siswa.index')}}" class="sidebar-link">Peserta Didik</a>
@@ -105,7 +105,7 @@
                                     <a href="{{route('tendik.index')}}" class="sidebar-link">Tenaga Kependidikan</a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="{{route('guru.index')}}" class="sidebar-link">Pendidik</a>
+                                    <a href="{{route('pendidik.index')}}" class="sidebar-link">Pendidik</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="{{route('siswa.index')}}" class="sidebar-link">Peserta Didik</a>

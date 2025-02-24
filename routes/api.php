@@ -7,7 +7,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KalenderAkademikController;
 use App\Http\Controllers\JadwalMapelController;
-use App\Http\Controllers\GuruController;
+use App\Http\Controllers\PendidikController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
@@ -55,14 +55,14 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::delete('delete/{siswaId}', 'delete')->name('siswa.delete');
         });
 
-        Route::prefix('guru')->controller(GuruController::class)->group(function() {
-            Route::post('import', 'import')->name('guru.import');
-            Route::get('export', 'export')->name('guru.export');                
-            Route::post('create', 'create')->name('guru.create');                              
-            Route::put('{id}/update', 'update')->name('guru.update');           
-            Route::delete('{id}', 'destroy')->name('guru.destroy');              
-            Route::post('{guruId}/generate-user', 'generateUser')->name('guru.generateUser'); 
-            Route::post('{guruId}/edit-role', 'editRole')->name('guru.editRole'); 
+        Route::prefix('pendidik')->controller(PendidikController::class)->group(function() {
+            Route::post('import', 'import')->name('pendidik.import');
+            Route::get('export', 'export')->name('pendidik.export');                
+            Route::post('create', 'create')->name('pendidik.create');                              
+            Route::put('{id}/update', 'update')->name('pendidik.update');           
+            Route::delete('{id}', 'destroy')->name('pendidik.destroy');              
+            Route::post('{guruId}/generate-user', 'generateUser')->name('pendidik.generateUser'); 
+            Route::post('{guruId}/edit-role', 'editRole')->name('pendidik.editRole'); 
         });
 
         Route::prefix('staffs')->controller(TendikController::class)->group(function() {

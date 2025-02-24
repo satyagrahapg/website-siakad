@@ -183,7 +183,7 @@
                                 is-invalid
                             @enderror" >
                                 <option value="" selected disabled hidden>Pilih Guru</option>
-                                @foreach ($gurus as $guru)
+                                @foreach ($pendidiks as $guru)
                                 <option value="{{ $guru->id }}" @selected(old('guru_id') == $guru->id)>{{ $guru->nama }}</option>
                                 @endforeach
                             </select>

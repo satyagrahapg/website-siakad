@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\JamPelajaran;
 use App\Models\JamPelajaranMapelKelas;
 use Illuminate\Http\Request;
-use App\Models\JadwalMapel;
 use App\Models\Kelas;
 use App\Models\MapelKelas;
 use App\Models\Semester;
@@ -51,8 +50,8 @@ class JadwalMapelController extends Controller
                     ->whereNull('m.guru_id')
                     ->where('mapel_kelas.kelas_id', $kelasId)->get();
                 $responseWithoutParent = MapelKelas::join('mapels as m', 'm.id', '=', 'mapel_kelas.mapel_id')
-                    ->join('gurus as g', 'g.id', '=', 'm.guru_id')
-                    ->select('mapel_kelas.id as id', 'm.nama as nama_mapel', 'g.nama as nama_guru')
+                    ->join('pendidiks as pdk', 'pdk.id', '=', 'm.guru_id')
+                    ->select('mapel_kelas.id as id', 'm.nama as nama_mapel', 'pdk.nama as nama_guru')
                     ->orderBy('m.nama', 'asc')
                     ->whereNull('m.parent')
                     ->where('mapel_kelas.kelas_id', $kelasId)->get();
@@ -209,8 +208,8 @@ class JadwalMapelController extends Controller
             ->leftJoin('mapel_kelas as mk', 'mk.id', '=','jpmk.mapel_kelas_id')
             ->leftJoin('mapels as m', 'm.id', '=', 'mk.mapel_id')
             ->leftJoin('kelas as k', 'k.id', '=','mk.kelas_id')
-            ->leftJoin('gurus as g', 'g.id', '=', 'm.guru_id')
-            ->where('g.id_user', '=', auth()->user()->id)
+            ->leftJoin('pendidiks as pdk', 'pdk.id', '=', 'm.guru_id')
+            ->where('pdk.id_user', '=', auth()->user()->id)
             ->where('k.id_semester', '=', $semesterId)
             ->orWhereNotNull('jam_pelajaran.event')
             ->select('jam_pelajaran.*', 'm.nama as nama_mapel', 'jpmk.id as jpmk_id', 'k.rombongan_belajar as rombel')
@@ -220,8 +219,8 @@ class JadwalMapelController extends Controller
             ->leftJoin('mapel_kelas as mk', 'mk.id', '=','jpmk.mapel_kelas_id')
             ->leftJoin('mapels as m', 'm.parent', '=', 'mk.mapel_id')
             ->leftJoin('kelas as k', 'k.id', '=','mk.kelas_id')
-            ->leftJoin('gurus as g', 'g.id', '=', 'm.guru_id')
-            ->where('g.id_user', '=', auth()->user()->id)
+            ->leftJoin('pendidiks as pdk', 'pdk.id', '=', 'm.guru_id')
+            ->where('pdk.id_user', '=', auth()->user()->id)
             ->where('k.id_semester', '=', $semesterId)
             ->WhereNull('jam_pelajaran.event')
             ->select('jam_pelajaran.*', 'm.nama as nama_mapel', 'jpmk.id as jpmk_id', 'k.rombongan_belajar as rombel')

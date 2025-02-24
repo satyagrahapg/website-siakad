@@ -18,15 +18,15 @@ class SiswaImport implements ToModel, WithValidation, WithHeadingRow, WithUpsert
      */
 
     public function uniqueBy() {
-        return 'no_pendaftaran';
+        return 'nisn';
     }
 
     public function rules(): array
     {
         return [
-            'nama' => 'required',
+            'nama' => 'nullable',
             'nisn' => [
-                'required',
+                'nullable',
                 'unique:siswas,nisn',
                 'regex:/^(?:\d{10})$/'
             ],

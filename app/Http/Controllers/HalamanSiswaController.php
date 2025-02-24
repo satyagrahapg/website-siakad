@@ -23,12 +23,12 @@ class HalamanSiswaController extends Controller
         $user = Auth::user(); 
         $kelas = Kelas::join('kelas_siswa as ks', 'ks.kelas_id', '=', 'kelas.id')
             ->join('siswas as s', 's.id', '=', 'ks.siswa_id')
-            ->join('gurus as g', 'g.id', '=', 'kelas.id_guru')
+            ->join('pendidiks as pdk', 'pdk.id', '=', 'kelas.id_guru')
             ->where('s.id_user', $user->id)
             ->where('kelas.id_semester', $semesterId)
             ->where('kelas.kelas', '!=', 'Ekskul')
             ->orderBy('kelas.id_semester')
-            ->select('kelas.rombongan_belajar', 'g.nama', 'g.gelar')
+            ->select('kelas.rombongan_belajar', 'pdk.nama', 'pdk.gelar')
             ->first();
 
         $dataKelas = [];

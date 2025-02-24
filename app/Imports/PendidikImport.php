@@ -2,19 +2,19 @@
 
 namespace App\Imports;
 
-use App\Models\Guru;
+use App\Models\Pendidik;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithSkipDuplicates;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class GuruImport implements ToModel, WithValidation, WithHeadingRow, WithUpserts, WithSkipDuplicates 
+class PendidikImport implements ToModel, WithValidation, WithHeadingRow, WithUpserts, WithSkipDuplicates 
 {
     /**
      * @param array $row
      *
-     * @return Guru|null
+     * @return Pendidik|null
      */
 
     public function uniqueBy() {
@@ -24,10 +24,10 @@ class GuruImport implements ToModel, WithValidation, WithHeadingRow, WithUpserts
     public function rules(): array
     {
         return [
-            'nama' => 'required',
+            'nama' => 'nullable',
             'nip' => [
-                'required',
-                'unique:gurus,nip',
+                'nullable',
+                'unique:pendidiks,nip',
                 'regex:/^(?:\d{11}|\d{18})$/'
             ],
             'gelar' => 'nullable',
@@ -50,7 +50,7 @@ class GuruImport implements ToModel, WithValidation, WithHeadingRow, WithUpserts
             return null;
         }
 
-        return new Guru([
+        return new Pendidik([
             'nip' => $row['nip'] ?? null,
             'nama' => $row['nama'] ?? null,
             'gelar' => $row['gelar'] ?? null,

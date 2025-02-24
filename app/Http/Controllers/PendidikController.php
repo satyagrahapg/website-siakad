@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\GuruExport;
-use App\Models\Guru;
+use App\Exports\PendidikExport;
+use App\Models\Pendidik;
 use Illuminate\Http\Request;
-use App\Imports\GuruImport;
+use App\Imports\PendidikImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Mail; 
 
-class GuruController extends Controller 
+class PendidikController extends Controller 
 {
     public function index(){
-        $gurus = Guru::with('user')
+        $pendidiks = Pendidik::with('user')
             ->orderBy('nama', 'asc')
             ->get();
 
-        return view('guru.index', compact('gurus'));
+        return view('pendidik.index', compact('pendidiks'));
     }
 
     public function import(Request $request) {
@@ -31,20 +31,20 @@ class GuruController extends Controller
             'file.max'      => 'Ukuran file tidak boleh lebih dari 10 MB.',
             'file.mimes'    => 'Format file harus XLSX.'
         ]);
-        Excel::import(new GuruImport, $request->file('file'));
+        Excel::import(new PendidikImport, $request->file('file'));
 
-        return redirect()->route('guru.index')->with('success', 'File berhasil diimport!');
+        return redirect()->route('pendidik.index')->with('success', 'File berhasil diimport!');
     }
 
     public function export() {
-        return Excel::download(new GuruExport, 'guru.xlsx');
+        return Excel::download(new PendidikExport, 'pendidik.xlsx');
     }
 
     public function create(Request $request)
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'nip' => 'nullable|string|max:50|unique:gurus,nip',
+            'nip' => 'nullable|string|max:50|unique:pendidiks,nip',
             'tempat_lahir' => 'nullable|string|max:255',
             'tanggal_lahir' => 'nullable|date',
             'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',
@@ -60,17 +60,17 @@ class GuruController extends Controller
         unset($data['gelar_depan']); // Hapus gelar_depan
         unset($data['gelar_belakang']); // Hapus gelar_belakang
 
-        Guru::create($data);
-        return redirect()->route('guru.index')->with('success', 'Data berhasil ditambahkan!');
+        Pendidik::create($data);
+        return redirect()->route('pendidik.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
     {
-        $guru = Guru::findOrFail($id);
+        $guru = Pendidik::findOrFail($id);
 
         $request->validate([
             'nama' => 'required|string|max:255',
-            'nip' => 'nullable|string|max:50|unique:gurus,nip,'.$id,
+            'nip' => 'nullable|string|max:50|unique:pendidiks,nip,'.$id,
             'tempat_lahir' => 'nullable|string|max:255',
             'tanggal_lahir' => 'nullable|date',
             'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',
@@ -88,18 +88,18 @@ class GuruController extends Controller
         unset($data['gelar_belakang']); // Hapus gelar_belakang
 
         $guru->update($data);
-        return redirect()->route('guru.index')->with('success', 'Data berhasil diperbarui!');
+        return redirect()->route('pendidik.index')->with('success', 'Data berhasil diperbarui!');
     }
 
     public function destroy($id) {
-        $guru = Guru::findOrFail($id);
+        $guru = Pendidik::findOrFail($id);
         $guru->delete();
-        return redirect()->route('guru.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('pendidik.index')->with('success', 'Data berhasil dihapus!');
     }
 
     public function generateUser(Request $request, $guruId)
     {   
-        $guru = Guru::findOrFail($guruId);
+        $guru = Pendidik::findOrFail($guruId);
         
         $request->validate([
             'username' => 'required|string|unique:users,username',
@@ -123,12 +123,12 @@ class GuruController extends Controller
         $user->syncRoles($request->roles);
         $guru->id_user = $user->id;
         $guru->save();
-        return redirect()->route('guru.index')->with('success', 'Berhasil membuat akun pendidik baru.');
+        return redirect()->route('pendidik.index')->with('success', 'Berhasil membuat akun pendidik baru.');
     }
 
     public function editRole(Request $request, $guruId)
     {   
-        $guru = Guru::findOrFail($guruId);
+        $guru = Pendidik::findOrFail($guruId);
         
         $request->validate([
             'roles' => 'required'
@@ -137,6 +137,6 @@ class GuruController extends Controller
         $user = User::findOrFail($guru->id_user);
 
         $user->syncRoles($request->roles);
-        return redirect()->route('guru.index')->with('success', 'Berhasil mengedit role.');
+        return redirect()->route('pendidik.index')->with('success', 'Berhasil mengedit role.');
     }
 }

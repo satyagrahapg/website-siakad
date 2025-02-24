@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('guru.update', $guru->id) }}" method="POST" class="m-0">
+                <form action="{{ route('pendidik.update', $guru->id) }}" method="POST" class="m-0">
                     @csrf
                     @method('PUT') <!-- Use PUT here to match REST conventions for updates -->
                     <div class="form-group mb-3">

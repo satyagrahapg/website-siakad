@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tendik;
-use App\Models\Guru;
+use App\Models\Pendidik;
 use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class UserController extends Controller
         $user = auth()->user();
 
         if ($user->hasRole('Guru') || $user->hasRole('Wali Kelas')) {
-            $data = Guru::where('id_user', $user->id)->first();
+            $data = Pendidik::where('id_user', $user->id)->first();
         } else if ($user->hasRole('Admin') || $user->hasRole('Super Admin')) {
             $data = Tendik::where('id_user', $user->id)->first();
         } else if ($user->hasRole('Siswa')) {

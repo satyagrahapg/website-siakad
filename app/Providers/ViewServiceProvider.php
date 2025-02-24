@@ -36,8 +36,8 @@ class ViewServiceProvider extends ServiceProvider
             // If the user is a 'Guru', fetch the mapel data for the selected semester
             if ($user && $user->hasRole(['Guru', 'Wali Kelas'])) {
                 $listMataPelajaran = Mapel::select('mapels.id', 'mapels.nama', 'mapels.kelas')
-                    ->join('gurus', 'gurus.id', '=', 'mapels.guru_id')
-                    ->join('users', 'users.id', '=', 'gurus.id_user')
+                    ->join('pendidiks', 'pendidiks.id', '=', 'mapels.guru_id')
+                    ->join('users', 'users.id', '=', 'pendidiks.id_user')
                     ->join('mapel_kelas', 'mapel_kelas.mapel_id', '=', 'mapels.id')
                     ->join('semesters', 'semesters.id', '=', 'mapels.semester_id')
                     ->where('mapels.kelas', '!=', 'Ekskul')
@@ -47,8 +47,8 @@ class ViewServiceProvider extends ServiceProvider
                     ->get();
 
                 // $queryMapelWithParent = Mapel::select('mapels.id', 'mapels.nama', 'mapels.kelas')
-                //     ->join('gurus', 'gurus.id', '=', 'mapels.guru_id')
-                //     ->join('users', 'users.id', '=', 'gurus.id_user')
+                //     ->join('pendidiks', 'pendidiks.id', '=', 'mapels.guru_id')
+                //     ->join('users', 'users.id', '=', 'pendidiks.id_user')
                 //     ->join('mapel_kelas', 'mapel_kelas.mapel_id', '=', 'mapels.parent')
                 //     ->join('semesters', 'semesters.id', '=', 'mapels.semester_id')
                 //     ->where('mapels.kelas', '!=', 'Ekskul')
@@ -60,8 +60,8 @@ class ViewServiceProvider extends ServiceProvider
                 // $listMataPelajaran = $listMataPelajaran->push($queryMapelWithParent)->flatten();
 
                 $listRombel = Mapel::select('mapel_kelas.id as mapel_kelas_id', 'mapels.id as mapel_id', 'kelas.id as kelas_id', 'mapels.nama', 'kelas.rombongan_belajar')
-                    ->join('gurus', 'gurus.id', '=', 'mapels.guru_id')
-                    ->join('users', 'users.id', '=', 'gurus.id_user')
+                    ->join('pendidiks', 'pendidiks.id', '=', 'mapels.guru_id')
+                    ->join('users', 'users.id', '=', 'pendidiks.id_user')
                     ->join('mapel_kelas', 'mapel_kelas.mapel_id', '=', 'mapels.id')
                     ->join('kelas', 'kelas.id', '=', 'mapel_kelas.kelas_id')
                     ->join('semesters', 'semesters.id', '=', 'mapels.semester_id')
@@ -71,8 +71,8 @@ class ViewServiceProvider extends ServiceProvider
                     ->get();
 
                 // $queryRombelWithParent = Mapel::select('mapel_kelas.id as mapel_kelas_id', 'mapels.id as mapel_id', 'kelas.id as kelas_id', 'mapels.nama', 'kelas.rombongan_belajar')
-                //     ->join('gurus', 'gurus.id', '=', 'mapels.guru_id')
-                //     ->join('users', 'users.id', '=', 'gurus.id_user')
+                //     ->join('pendidiks', 'pendidiks.id', '=', 'mapels.guru_id')
+                //     ->join('users', 'users.id', '=', 'pendidiks.id_user')
                 //     ->join('mapel_kelas', 'mapel_kelas.mapel_id', '=', 'mapels.parent')
                 //     ->join('kelas', 'kelas.id', '=', 'mapel_kelas.kelas_id')
                 //     ->join('semesters', 'semesters.id', '=', 'mapels.semester_id')
@@ -85,8 +85,8 @@ class ViewServiceProvider extends ServiceProvider
 
                 // Query for Ekskul mapels
                 $listEkskul = Mapel::select('mapels.id as mapel_id', 'mapels.nama', 'mapels.kelas', 'kelas.id as kelas_id')
-                    ->join('gurus', 'gurus.id', '=', 'mapels.guru_id')
-                    ->join('users', 'users.id', '=', 'gurus.id_user')
+                    ->join('pendidiks', 'pendidiks.id', '=', 'mapels.guru_id')
+                    ->join('users', 'users.id', '=', 'pendidiks.id_user')
                     ->join('mapel_kelas', 'mapel_kelas.mapel_id', '=', 'mapels.id')
                     ->join('kelas', 'kelas.id', '=', 'mapel_kelas.kelas_id')
                     ->join('semesters', 'semesters.id', '=', 'mapels.semester_id')
@@ -99,8 +99,8 @@ class ViewServiceProvider extends ServiceProvider
                     
                 
                 $kelasSemester = Kelas::select('kelas.id', 'kelas.rombongan_belajar')
-                    ->join('gurus', 'gurus.id', '=', 'kelas.id_guru')
-                    ->join('users', 'users.id', '=', 'gurus.id_user')
+                    ->join('pendidiks', 'pendidiks.id', '=', 'kelas.id_guru')
+                    ->join('users', 'users.id', '=', 'pendidiks.id_user')
                     ->join('semesters', 'semesters.id', '=', 'kelas.id_semester')
                     ->where('users.id', $user->id)
                     ->where('semesters.id', $semesterId)
@@ -124,8 +124,8 @@ class ViewServiceProvider extends ServiceProvider
             $semesterId = session('semester_id') ?? request()->input('semester_id');
         
             $kelasSemester = Kelas::select('kelas.id', 'kelas.rombongan_belajar')
-                ->join('gurus', 'gurus.id', '=', 'kelas.id_guru')
-                ->join('users', 'users.id', '=', 'gurus.id_user')
+                ->join('pendidiks', 'pendidiks.id', '=', 'kelas.id_guru')
+                ->join('users', 'users.id', '=', 'pendidiks.id_user')
                 ->join('semesters', 'semesters.id', '=', 'kelas.id_semester')
                 ->where('users.id', $user->id)
                 ->where('semesters.id', $semesterId)

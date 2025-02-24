@@ -67,7 +67,7 @@ class TendikController extends Controller
 
         $request->validate([
             'nama' => 'required|string|max:255',
-            'nip' => 'nullable|string|max:50|unique:gurus,nip,'.$id,
+            'nip' => 'nullable|string|max:50|unique:pendidiks,nip,'.$id,
             'tempat_lahir' => 'nullable|string|max:255',
             'tanggal_lahir' => 'nullable|date',
             'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',

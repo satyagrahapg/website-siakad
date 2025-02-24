@@ -18,7 +18,7 @@ class Kelas extends Model
 
     public function guru()
     {
-        return $this->belongsTo(Guru::class, 'id_guru');
+        return $this->belongsTo(Pendidik::class, 'id_guru');
     }
 
     public function semester()

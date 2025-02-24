@@ -14,7 +14,7 @@ class TendikImport implements ToModel, WithValidation, WithHeadingRow, WithUpser
     /**
      * @param array $row
      *
-     * @return Admin|null
+     * @return Tendik|null
      */
 
     public function uniqueBy() {
@@ -24,9 +24,9 @@ class TendikImport implements ToModel, WithValidation, WithHeadingRow, WithUpser
     public function rules(): array
     {
         return [
-            'nama' => 'required',
+            'nama' => 'nullable',
             'nip' => [
-                'required',
+                'nullable',
                 'unique:tendiks,nip',
                 'regex:/^(?:\d{11}|\d{18})$/'
             ],
@@ -50,8 +50,8 @@ class TendikImport implements ToModel, WithValidation, WithHeadingRow, WithUpser
         }
 
         return new Tendik([
-            'nip' => $row['nip'] ?? null,
             'nama' => $row['nama'] ?? null,
+            'nip' => $row['nip'] ?? null,
             'tempat_lahir' => $row['tempat_lahir'] ?? null,
             'tanggal_lahir' => $row['tanggal_lahir'] ?? null,
             'jenis_kelamin' => $row['jenis_kelamin'] ?? null,
@@ -68,7 +68,7 @@ class TendikImport implements ToModel, WithValidation, WithHeadingRow, WithUpser
     {
         return [
             'nip.unique' => 'NIP atau Kode Pegawai telah terdaftar.',
-            'nip.regex' => 'NIP atau Kode Pegawai harus terdiri dari tepat 11 atau 18 digit.'
+            'nip.regex' => 'NIP atau Kode Pegawai harus terdiri dari 11 atau 18 digit.'
         ];
     }
 }

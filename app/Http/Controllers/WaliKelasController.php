@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Siswa;
-use App\Models\Guru;
+use App\Models\Pendidik;
 use App\Models\Semester;
 use App\Models\Kelas;
 use App\Models\PenilaianSiswa;
@@ -27,8 +27,8 @@ class WaliKelasController extends Controller
         $pesertadidiks = Siswa::join('kelas_siswa', 'kelas_siswa.siswa_id', '=', 'siswas.id')
         ->join('kelas', 'kelas.id', '=', 'kelas_siswa.kelas_id')
         ->join('semesters', 'semesters.id', '=', 'kelas.id_semester')
-        ->join('gurus', 'gurus.id', '=', 'kelas.id_guru')
-        ->join('users', 'users.id', '=', 'gurus.id_user')
+        ->join('pendidiks', 'pendidiks.id', '=', 'kelas.id_guru')
+        ->join('users', 'users.id', '=', 'pendidiks.id_user')
         ->where('users.id', $user->id)
         ->where('semesters.id', $semesterId)
         ->where('kelas.kelas', '!=', 'Ekskul')
@@ -47,8 +47,8 @@ class WaliKelasController extends Controller
         $pesertadidiks = Siswa::join('kelas_siswa', 'kelas_siswa.siswa_id', '=', 'siswas.id')
             ->join('kelas', 'kelas.id', '=', 'kelas_siswa.kelas_id')
             ->join('semesters', 'semesters.id', '=', 'kelas.id_semester')
-            ->join('gurus', 'gurus.id', '=', 'kelas.id_guru')
-            ->join('users', 'users.id', '=', 'gurus.id_user')
+            ->join('pendidiks', 'pendidiks.id', '=', 'kelas.id_guru')
+            ->join('users', 'users.id', '=', 'pendidiks.id_user')
             ->where('users.id', $user->id)
             ->where('semesters.id', $semesterId)
             ->where('kelas.kelas', '!=', 'Ekskul')
@@ -106,8 +106,8 @@ class WaliKelasController extends Controller
         $pesertadidiks = Siswa::join('kelas_siswa', 'kelas_siswa.siswa_id', '=', 'siswas.id')
             ->join('kelas', 'kelas.id', '=', 'kelas_siswa.kelas_id')
             ->join('semesters', 'semesters.id', '=', 'kelas.id_semester')
-            ->join('gurus', 'gurus.id', '=', 'kelas.id_guru')
-            ->join('users', 'users.id', '=', 'gurus.id_user')
+            ->join('pendidiks', 'pendidiks.id', '=', 'kelas.id_guru')
+            ->join('users', 'users.id', '=', 'pendidiks.id_user')
             ->where('users.id', $user->id)
             ->where('semesters.id', $request->semester_id)
             ->where('kelas.kelas', '!=', 'Ekskul')
@@ -210,11 +210,11 @@ class WaliKelasController extends Controller
                 ->join('c_p_s as e', 'e.id', '=', 'd.cp_id')
                 ->join('mapel_kelas as f', 'f.mapel_id', '=', 'e.mapel_id')
                 ->join('mapels as z', 'z.id', '=', 'f.mapel_id')
-                ->join('kelas as g', 'g.id', '=', 'f.kelas_id')
-                ->join('gurus as h', 'h.id', '=', 'g.id_guru')
+                ->join('kelas as pdk', 'pdk.id', '=', 'f.kelas_id')
+                ->join('pendidiks as h', 'h.id', '=', 'pdk.id_guru')
                 ->join('users as i', 'i.id', '=', 'h.id_user')
                 ->where('i.id', $user->id)
-                ->where('g.id', $kelasId)
+                ->where('pdk.id', $kelasId)
                 ->where('z.id', $mapelId) // Filter hanya untuk mapel saat ini
                 ->where('z.semester_id', request()->session()->get('semester_id'))
                 ->select(
@@ -222,7 +222,7 @@ class WaliKelasController extends Controller
                     'c.nama as siswa_name',
                     'c.nisn as nisn',
                     'c.agama',
-                    'g.rombongan_belajar as kelas',
+                    'pdk.rombongan_belajar as kelas',
                     'z.nama as mapel_name',
                     'z.parent',
                     DB::raw("AVG(CASE WHEN b.tipe = 'Tugas' THEN penilaian_siswa.nilai_akhir END) AS avg_tugas"),
@@ -233,7 +233,7 @@ class WaliKelasController extends Controller
                     DB::raw("MAX(b.tanggal) AS last_tanggal"),
                     DB::raw("COUNT(*) as count")
                 )
-                ->groupBy('c.id', 'c.nama', 'z.nama', 'g.rombongan_belajar', 'c.nisn', 'c.agama', 'z.parent')
+                ->groupBy('c.id', 'c.nama', 'z.nama', 'pdk.rombongan_belajar', 'c.nisn', 'c.agama', 'z.parent')
                 ->orderBy('siswa_name', 'asc');
                 // ->orderBy('mapel_name', 'asc');
 
@@ -420,7 +420,7 @@ class WaliKelasController extends Controller
                 ->get();
 
             $ttd = [];
-            $guru = Guru::join('users', 'users.id', '=', 'gurus.id_user')
+            $guru = Pendidik::join('users', 'users.id', '=', 'pendidiks.id_user')
                 ->where('users.id', $user->id)
                 ->first();
             $ttd["walikelas"] = trim($guru->gelar_depan." ".$guru->nama."".$guru->gelar_belakang);
@@ -545,12 +545,12 @@ class WaliKelasController extends Controller
             ->get();
 
             $ttd = [];
-            $guru = Guru::join('users', 'users.id', '=', 'gurus.id_user')
+            $guru = Pendidik::join('users', 'users.id', '=', 'pendidiks.id_user')
                 ->where('users.id', $user->id)
                 ->first();
             $ttd["walikelas"] = trim($guru->gelar_depan." ".$guru->nama."".$guru->gelar_belakang);
             $ttd["nip_walikelas"] = $guru->nip;
-            $kepsek = Guru::where('jabatan', 'Kepala Sekolah')
+            $kepsek = Pendidik::where('jabatan', 'Kepala Sekolah')
                 ->first();
             $ttd["kepsek"] = trim($kepsek->gelar_depan." ".$kepsek->nama."".$kepsek->gelar_belakang);
             $ttd["nip_kepsek"] = $kepsek->nip;
@@ -591,8 +591,8 @@ class WaliKelasController extends Controller
         $siswaOptions = Siswa::join('kelas_siswa', 'kelas_siswa.siswa_id', '=', 'siswas.id')
             ->join('kelas', 'kelas.id', '=', 'kelas_siswa.kelas_id')
             ->join('semesters', 'semesters.id', '=', 'kelas.id_semester')
-            ->join('gurus', 'gurus.id', '=', 'kelas.id_guru')
-            ->join('users', 'users.id', '=', 'gurus.id_user')
+            ->join('pendidiks', 'pendidiks.id', '=', 'kelas.id_guru')
+            ->join('users', 'users.id', '=', 'pendidiks.id_user')
             ->where('users.id', $user->id)
             ->where('semesters.id', $semesterId)
             ->where('kelas.kelas', '!=', 'Ekskul')
@@ -661,9 +661,9 @@ class WaliKelasController extends Controller
         $students = AbsensiSiswa::join('siswas as b', 'b.id', '=', 'absensi_siswas.id_siswa')
             ->join('kelas_siswa as c', 'c.siswa_id', '=', 'b.id')
             ->join('kelas as d', 'd.id', '=', 'c.kelas_id')
-            ->join('gurus as f', 'f.id', '=', 'd.id_guru')
-            ->join('users as g', 'g.id', '=', 'f.id_user')
-            ->where('g.id', $user->id)
+            ->join('pendidiks as f', 'f.id', '=', 'd.id_guru')
+            ->join('users as pdk', 'pdk.id', '=', 'f.id_user')
+            ->where('pdk.id', $user->id)
             ->where('d.id_semester', $semesterId)
             ->where('d.kelas', '!=', 'Ekskul')
             ->whereBetween('absensi_siswas.date', [$semester->start, $semester->end])

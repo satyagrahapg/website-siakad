@@ -56,9 +56,9 @@ class PenilaianController extends Controller
         $kelas = Kelas::findOrFail($mapelKelas->kelas_id);
 
         $mapel = Mapel::findOrFail($mapelKelas->mapel_id);
-        // if (!$mapel->guru_id) $mapel = Mapel::join('gurus as g', 'g.id', '=', 'mapels.guru_id')
+        // if (!$mapel->guru_id) $mapel = Mapel::join('pendidiks as pdk', 'pdk.id', '=', 'mapels.guru_id')
         //     ->where('mapels.parent', '=', $mapelKelas->mapel_id)
-        //     ->where('g.id_user', '=', auth()->user()->id)
+        //     ->where('pdk.id_user', '=', auth()->user()->id)
         //     ->select('mapels.*')
         //     ->first();
             

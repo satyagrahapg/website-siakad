@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Guru;
+use App\Models\Pendidik;
 use App\Models\Semester;
 use App\Models\Mapel;
 use App\Models\Kelas;
@@ -16,7 +16,7 @@ class MapelController extends Controller
         // Retrieve all mapels for the dropdown list
         $listMapel = Mapel::select('nama')->distinct()->get();
         $semesters = Semester::all();
-        $gurus = Guru::all();
+        $pendidiks = Pendidik::all();
         $kelas = Kelas::all();
 
         // Initialize the query for mapels and apply filters if present
@@ -61,7 +61,7 @@ class MapelController extends Controller
             });
 
         // Pass data to the view
-        return view('mapel.index', compact('kelasOptions', 'kelas', 'semesters', 'gurus', 'mapels', 'rombel', 'listMapel'));
+        return view('mapel.index', compact('kelasOptions', 'kelas', 'semesters', 'pendidiks', 'mapels', 'rombel', 'listMapel'));
     }
 
     public function store(Request $request)
@@ -71,7 +71,7 @@ class MapelController extends Controller
             'nama' => 'required|string|max:255', // Ensure 'nama' is a required string with a maximum length
             'kelas' => 'required',
             'kelas.*' => 'required|in:7,8,9', // Ensure 'kelas' is an array with values 7, 8, or 9
-            'guru_id' => 'required_unless:parent_id,null|exists:gurus,id', // Ensure 'guru_id' exists in the gurus table
+            'guru_id' => 'required_unless:parent_id,null|exists:pendidiks,id', // Ensure 'guru_id' exists in the pendidiks table
             'semester_id' => 'required|exists:semesters,id', // Ensure 'semester_id' exists in the semesters table,
             'parent_id' => 'nullable|prohibited_if:guru_id,null|exists:mapels,id'
         ]);

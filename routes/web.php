@@ -7,7 +7,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KalenderAkademikController;
 use App\Http\Controllers\JadwalMapelController;
-use App\Http\Controllers\GuruController;
+use App\Http\Controllers\PendidikController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
@@ -57,8 +57,8 @@ Route::middleware(['auth', 'check_role'])->group(function () {
             Route::get('/', 'index')->name('siswa.index');
         });
 
-        Route::prefix('guru')->controller(GuruController::class)->group(function() {
-            Route::get('/', 'index')->name('guru.index');
+        Route::prefix('pendidik')->controller(PendidikController::class)->group(function() {
+            Route::get('/', 'index')->name('pendidik.index');
         });
 
         Route::prefix('staffs')->controller(TendikController::class)->group(function() {

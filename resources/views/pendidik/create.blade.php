@@ -5,7 +5,7 @@
                 <h5 class="modal-title" id="createGuruModalLabel">Tambah Pendidik</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('guru.create') }}" method="POST">
+            <form action="{{ route('pendidik.create') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <!-- Form fields for Guru data -->
