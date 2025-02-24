@@ -140,44 +140,44 @@ class KelasController extends Controller
         $semesterId = $kelas->id_semester;
 
         // Get the rombongan belajar for ekskul siswa assignment
-        // $rombonganBelajar = $kelas->rombongan_belajar;
+        $rombonganBelajar = $kelas->rombongan_belajar;
 
         // Retrieve all students
-        // $allSiswa = Siswa::select('*')
-        //     // ->where('angkatan', $selectedAngkatan)
-        //     ->get();
+        $allSiswa = Siswa::select('*')
+            // ->where('angkatan', $selectedAngkatan)
+            ->get();
 
-        // $allSiswaEkskul = Siswa::select('*')
-        //     ->get();
+        $allSiswaEkskul = Siswa::select('*')
+            ->get();
 
         // Filter out students who are already in a class for this semester
-        // $assignedSiswaIds = DB::table('kelas_siswa')
-        //     ->join('kelas', 'kelas_siswa.kelas_id', '=', 'kelas.id')
-        //     ->where('kelas.id_semester', $semesterId)
-        //     ->pluck('kelas_siswa.siswa_id')
-        //     ->toArray();
+        $assignedSiswaIds = DB::table('kelas_siswa')
+            ->join('kelas', 'kelas_siswa.kelas_id', '=', 'kelas.id')
+            ->where('kelas.id_semester', $semesterId)
+            ->pluck('kelas_siswa.siswa_id')
+            ->toArray();
 
         // Get only students not already assigned in this semester
-        // $availableSiswa = $allSiswa->reject(function ($siswa) use ($assignedSiswaIds) {
-        //     return in_array($siswa->id, $assignedSiswaIds);
-        // });
+        $availableSiswa = $allSiswa->reject(function ($siswa) use ($assignedSiswaIds) {
+            return in_array($siswa->id, $assignedSiswaIds);
+        });
 
-        // $assignedEkskulSiswaIds = DB::table('kelas_siswa')
-        //     ->join('kelas', 'kelas_siswa.kelas_id', '=', 'kelas.id')
-        //     ->where('kelas.id_semester', $semesterId)
-        //     ->where('kelas.rombongan_belajar', $rombonganBelajar)
-        //     ->pluck('kelas_siswa.siswa_id')
-        //     ->toArray();
+        $assignedEkskulSiswaIds = DB::table('kelas_siswa')
+            ->join('kelas', 'kelas_siswa.kelas_id', '=', 'kelas.id')
+            ->where('kelas.id_semester', $semesterId)
+            ->where('kelas.rombongan_belajar', $rombonganBelajar)
+            ->pluck('kelas_siswa.siswa_id')
+            ->toArray();
 
-        // $availableEkskulSiswa = $allSiswaEkskul->reject(function ($siswa) use ($assignedEkskulSiswaIds) {
-        //     return in_array($siswa->id, $assignedEkskulSiswaIds);
-        // });
+        $availableEkskulSiswa = $allSiswaEkskul->reject(function ($siswa) use ($assignedEkskulSiswaIds) {
+            return in_array($siswa->id, $assignedEkskulSiswaIds);
+        });
 
         if ($kelas->kelas === 'Ekskul') {
             // Pass the data to the view
             return view('kelas.buka-ekskul', [
                 'kelas' => $kelas,
-                // 'siswas' => $availableEkskulSiswa,
+                'siswas' => $availableEkskulSiswa,
                 'daftar_siswa' => $kelas->siswas
             ]);
         } else {
@@ -187,10 +187,10 @@ class KelasController extends Controller
             // Pass the data to the view
             return view('kelas.buka', [
                 'kelas' => $kelas,
-                // 'siswas' => $availableSiswa,
+                'siswas' => $availableSiswa,
                 'daftar_siswa' => $kelas->siswas,
-                // 'angkatan' => $angkatan,
-                // 'semesters' => $semesters
+                'angkatan' => $angkatan,
+                'semesters' => $semesters
             ]);
         }
     }
