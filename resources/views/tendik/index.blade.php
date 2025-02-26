@@ -181,7 +181,7 @@
             // Iterasi melalui setiap modal
             $('.modal').each(function () {
                 const modal = $(this);
-                const selectElements = modal.find('.role-multiple');
+                const selectElements = modal.find('.role-multiple'); //Memberikan select2 ke elemen yang class role multiple
 
                 selectElements.each(function () {
                     const selectElement = $(this); // Referensi elemen <select> saat ini
