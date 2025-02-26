@@ -159,7 +159,7 @@
             <tr>
                 <td class="text-center">{{$loop->iteration}}</td>
                 <td>{{ $subject }}</td>
-                <td class="text-center">{{ round($grade, 0, PHP_ROUND_HALF_DOWN) }}</td>
+                <td class="text-center">{{ round($grade, 0, PHP_ROUND_HALF_UP) }}</td>
                 <td>
                     Ananda {{$studentName}} telah menguasai
                     @if (!empty($komentarRapot[$subject]))

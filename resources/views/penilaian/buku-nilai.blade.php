@@ -55,11 +55,11 @@
                 <td class="text-start">{{ $loop->iteration }}</td>
                 <td>{{ $data->nama }}</td>
                 <td class="text-start">{{ $data->nisn }}</td>
-                <td class="text-start">{{ number_format($data->avg_tugas, 2) ?? '-' }}</td>
-                <td class="text-start">{{ number_format($data->avg_uh, 2) ?? '-' }}</td>
-                <td class="text-start">{{ number_format($data->avg_sts, 2) ?? '-' }}</td>
-                <td class="text-start">{{ number_format($data->avg_sas, 2) ?? '-' }}</td>
-                <td class="text-start">{{ number_format($data->nilai_akhir, 2) ?? '-' }}</td>
+                <td class="text-start">{{ number_format($data->avg_tugas, 0) ?? '-' }}</td>
+                <td class="text-start">{{ number_format($data->avg_uh, 0) ?? '-' }}</td>
+                <td class="text-start">{{ number_format($data->avg_sts, 0) ?? '-' }}</td>
+                <td class="text-start">{{ number_format($data->avg_sas, 0) ?? '-' }}</td>
+                <td class="text-start">{{ number_format($data->nilai_akhir, 0) ?? '-' }}</td>
             </tr>
             @endforeach
         </tbody>
